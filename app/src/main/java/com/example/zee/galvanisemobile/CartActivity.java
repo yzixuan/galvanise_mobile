@@ -43,7 +43,8 @@ public class CartActivity extends AppCompatActivity {
         }
 
         if (id == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            onBackPressed();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
