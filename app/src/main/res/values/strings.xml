@@ -2,5 +2,6 @@
     <string name="app_name">Galvanise Mobile</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="action_cart">Cart</string>
     <string name="action_settings">Settings</string>
 </resources>
