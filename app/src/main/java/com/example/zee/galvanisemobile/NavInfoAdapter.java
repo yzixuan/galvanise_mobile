@@ -1,12 +1,14 @@
 package com.example.zee.galvanisemobile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.List;
 public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
+    private Context context;
     List<NavInfo> data = Collections.emptyList();
 
     public NavInfoAdapter(Context context, List<NavInfo> data) {
         inflater = LayoutInflater.from(context);
+        this.context = context;
         this.data = data;
     }
 
@@ -43,7 +47,7 @@ public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHo
         return data.size();
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         TextView title;
         ImageView icon;
@@ -52,7 +56,24 @@ public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHo
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.nav_list_text);
             icon = (ImageView) itemView.findViewById(R.id.nav_list_icon);
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+
+            Intent intent;
+
+            switch (getLayoutPosition()) {
+                case 0: // cafe menu
+                    v.getContext().startActivity(new Intent(v.getContext(), MainActivity.class));
+                    break;
+                case 1: // your cart
+                    v.getContext().startActivity(new Intent(v.getContext(), CartActivity.class));
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
