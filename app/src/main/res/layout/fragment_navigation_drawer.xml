@@ -3,12 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212121"
+    android:background="#eee"
     tools:context="com.example.zee.galvanisemobile.NavigationDrawerFragment">
 
-    <ImageView
-        android:layout_width="280dp"
-        android:layout_height="140dp"
-        android:src="@drawable/ic_cafe"/>
+    <LinearLayout
+        android:id="@+id/container_drawer_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#eee">
+
+        <ImageView
+            android:layout_width="280dp"
+            android:layout_height="140dp"
+            android:src="@drawable/ic_cafe2"
+            android:layout_marginBottom="16dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/drawer_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
 </RelativeLayout>
