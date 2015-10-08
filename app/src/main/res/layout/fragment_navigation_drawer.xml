@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EEE"
+    android:background="#212121"
     tools:context="com.example.zee.galvanisemobile.NavigationDrawerFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"/>
+    <ImageView
+        android:layout_width="280dp"
+        android:layout_height="140dp"
+        android:src="@drawable/ic_cafe"/>
 
 </RelativeLayout>
