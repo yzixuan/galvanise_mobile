@@ -1,0 +1,47 @@
+package com.example.zee.galvanisemobile;
+
+
+import android.os.Bundle;
+import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class MenuFragment extends Fragment {
+
+    private RecyclerView mRecyclerView;
+    private MenuItemAdapter mAdapter;
+
+    public MenuFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View layout = inflater.inflate(R.layout.fragment_menu, container, false);
+        mRecyclerView = (RecyclerView) layout.findViewById(R.id.menu_list);
+        mRecyclerView.setHasFixedSize(true);
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        mAdapter = new MenuItemAdapter();
+        mRecyclerView.setAdapter(mAdapter);
+        return layout;
+    }
+
+
+}
