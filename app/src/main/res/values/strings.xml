@@ -10,5 +10,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="title_activity_item_detail">ItemDetailActivity</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="sample_description">Matcha, a traditional Japanese tea, has many health benefits. It also provides an enjoyable drinking experience. Whether you like the traditional whisked matcha, or matcha blended into a flurry of ice and milk, it is a flavorful beverage choice.</string>
 
 </resources>

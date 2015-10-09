@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.zee.galvanisemobile.ItemDetailActivity">
+
+    <item
+        android:id="@+id/action_cart"
+        android:title="@string/action_cart"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_category_shopping"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:orderInCategory="200"
+        app:showAsAction="never" />
+
+</menu>

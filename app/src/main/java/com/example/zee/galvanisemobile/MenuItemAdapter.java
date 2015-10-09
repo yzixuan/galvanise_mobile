@@ -105,6 +105,15 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
             imgThumbnail = (ImageView)itemView.findViewById(R.id.img_thumbnail);
             tvbeverage = (TextView)itemView.findViewById(R.id.tv_menu_item_name);
             promoPrice = (TextView)itemView.findViewById(R.id.tv_menu_item_price);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MenuItem food = (MenuItem)v.getTag();
+                    Intent intent = new Intent(v.getContext(), ItemDetailActivity.class);
+                    intent.putExtra("foodObject", food);
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
