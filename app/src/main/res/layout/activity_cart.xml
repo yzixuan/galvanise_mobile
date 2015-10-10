@@ -7,10 +7,12 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <TextView
+    <fragment
+        android:id="@+id/fragment_menu"
         android:layout_below="@+id/app_bar"
-        android:text="@string/hello_world"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:name="com.example.zee.galvanisemobile.CartFragment"
+        tools:layout="@layout/fragment_cart" />
 
 </RelativeLayout>
