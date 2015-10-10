@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class ItemDetailActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private com.example.zee.galvanisemobile.MenuItem food;
 
     ImageView imageView;
     TextView foodNameText;
@@ -36,7 +37,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent i = getIntent();
-        com.example.zee.galvanisemobile.MenuItem food = i.getParcelableExtra("foodObject");
+        food = i.getParcelableExtra("foodObject");
         foodNameText = (TextView)findViewById(R.id.foodNameText);
         priceLabel = (TextView)findViewById(R.id.priceText);
         imageView = (ImageView)findViewById(R.id.image);
@@ -57,22 +58,34 @@ public class ItemDetailActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_add_to_cart);
                 dialog.setTitle("Select Quantity");
 
-                Button button = (Button) dialog.findViewById(R.id.confirm_add);
-                button.setOnClickListener(new View.OnClickListener() {
+                Button confirmAdd = (Button) dialog.findViewById(R.id.confirm_add);
+                Button cancel = (Button) dialog.findViewById(R.id.cancel);
+
+                confirmAdd.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
                         quantity = (EditText)dialog.findViewById(R.id.quantity);
-                        Toast.makeText(ItemDetailActivity.this, quantity.getText().toString(), Toast.LENGTH_SHORT).show();
+
+                        // create order item and add to shopping cart
+                        OrderItem orderItem = new OrderItem(food, Integer.parseInt(quantity.getText().toString()));
+                        ShoppingCart.addOrderItem(orderItem);
+
+                        Toast.makeText(ItemDetailActivity.this, "Successfully added to cart.", Toast.LENGTH_SHORT).show();
 
                         dialog.dismiss();
 
                     }
                 });
 
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+
+                        dialog.dismiss();
+
+                    }
+                });
 
                 dialog.show();
-
-
             }
         });
 
@@ -111,7 +124,4 @@ public class ItemDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClick_quantity(View view) {
-        Toast.makeText(this, quantity.getText().toString(), Toast.LENGTH_SHORT).show();
-    }
 }
