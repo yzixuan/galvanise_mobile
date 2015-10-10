@@ -7,12 +7,22 @@ import android.os.Parcelable;
  * Created by zee on 8/10/15.
  */
 public class MenuItem implements Parcelable{
+
+    private int id;
     private String mName;
     private double mPromoPrice;
     private int mThumbnail;
 
     public MenuItem(){
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,6 +50,7 @@ public class MenuItem implements Parcelable{
     }
 
     protected MenuItem(Parcel in) {
+        id = in.readInt();
         mName = in.readString();
         mPromoPrice = in.readDouble();
         mThumbnail = in.readInt();
@@ -52,6 +63,7 @@ public class MenuItem implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(mName);
         dest.writeDouble(mPromoPrice);
         dest.writeInt(mThumbnail);

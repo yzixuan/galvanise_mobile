@@ -23,48 +23,56 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.ViewHo
         super();
         mItems = new ArrayList<>();
         MenuItem beverage = new MenuItem();
+        beverage.setId(1);
         beverage.setName("Matcha Iced Tea");
         beverage.setPromoPrice(3.50);
         beverage.setThumbnail(R.drawable.matcha);
         mItems.add(beverage);
 
         beverage = new MenuItem();
+        beverage.setId(2);
         beverage.setName("Earl Grey Cream");
         beverage.setPromoPrice(4.50);
         beverage.setThumbnail(R.drawable.icecream);
         mItems.add(beverage);
 
         beverage = new MenuItem();
+        beverage.setId(3);
         beverage.setName("Coconut Chia Tea");
         beverage.setPromoPrice(3.50);
         beverage.setThumbnail(R.drawable.coconut);
         mItems.add(beverage);
 
         beverage = new MenuItem();
+        beverage.setId(4);
         beverage.setName("Butternut Rum");
         beverage.setPromoPrice(8.50);
         beverage.setThumbnail(R.drawable.butternut);
         mItems.add(beverage);
 
         beverage = new MenuItem();
+        beverage.setId(5);
         beverage.setName("Melon Mojito");
         beverage.setPromoPrice(3.50);
         beverage.setThumbnail(R.drawable.mojito);
         mItems.add(beverage);
 
         beverage = new MenuItem();
+        beverage.setId(6);
         beverage.setName("Georgia Peach");
         beverage.setPromoPrice(7.50);
         beverage.setThumbnail(R.drawable.georgiapeach);
         mItems.add(beverage);
 
         beverage = new MenuItem();
+        beverage.setId(7);
         beverage.setName("Thai Red Tea");
         beverage.setPromoPrice(3.50);
         beverage.setThumbnail(R.drawable.thaipearl);
         mItems.add(beverage);
 
         beverage = new MenuItem();
+        beverage.setId(8);
         beverage.setName("Honey Latte");
         beverage.setPromoPrice(3.50);
         beverage.setThumbnail(R.drawable.creamy);

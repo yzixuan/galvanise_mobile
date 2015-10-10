@@ -6,7 +6,7 @@
         android:id="@+id/action_cart"
         android:title="@string/action_cart"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_category_shopping"
+        android:icon="@drawable/ic_category_shopping_white"
         app:showAsAction="always" />
 
     <item

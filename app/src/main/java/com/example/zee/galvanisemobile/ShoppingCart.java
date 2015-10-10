@@ -34,9 +34,24 @@ public class ShoppingCart implements Serializable {
         ShoppingCart.orderItems = orderItems;
     }
 
-    public static void addOrderItem(OrderItem orderItem) {
-        ShoppingCart.orderItems.add(orderItem);
-        updateCartInfo();
+    public static void addOrderItem(OrderItem toBeAdded) {
+
+        boolean added = false;
+
+        Iterator<OrderItem> orderIterator = orderItems.iterator();
+        while (orderIterator.hasNext()) {
+            OrderItem currOrder = orderIterator.next();
+            if (currOrder.getMenuItem().getId() == toBeAdded.getMenuItem().getId()) {
+                currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
+                added = true;
+            }
+        }
+
+        if (!added) {
+            ShoppingCart.orderItems.add(toBeAdded);
+        }
+
+        updateCartTotal();
     }
 
     public static void clear() {
@@ -44,7 +59,7 @@ public class ShoppingCart implements Serializable {
         ShoppingCart.totalPrice = 0;
     }
 
-    private static void updateCartInfo() {
+    private static void updateCartTotal() {
 
         int tempQuantity = 0;
         double tempPrice = 0;

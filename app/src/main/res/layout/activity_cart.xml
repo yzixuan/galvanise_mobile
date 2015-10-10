@@ -1,18 +1,27 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.zee.galvanisemobile.CartActivity">
 
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/asphaltColor"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/empty_cart"
+        android:padding="20dp"
+        android:id="@+id/cart_quantity" />
+
     <fragment
         android:id="@+id/fragment_menu"
-        android:layout_below="@+id/app_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:name="com.example.zee.galvanisemobile.CartFragment"
         tools:layout="@layout/fragment_cart" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class CartActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
+    private TextView cartQuantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,10 +19,13 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         toolbar = (Toolbar)findViewById(R.id.app_bar);
+        cartQuantity = (TextView)findViewById(R.id.cart_quantity);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
     }
 
     @Override
