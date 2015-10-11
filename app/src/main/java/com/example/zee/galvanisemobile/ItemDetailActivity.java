@@ -58,13 +58,34 @@ public class ItemDetailActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.dialog_add_to_cart);
                 dialog.setTitle("Select Quantity");
 
+                Button plusButton = (Button) dialog.findViewById(R.id.plus_button);
+                Button minusButton = (Button) dialog.findViewById(R.id.minus_button);
+
                 Button confirmAdd = (Button) dialog.findViewById(R.id.confirm_add);
                 Button cancel = (Button) dialog.findViewById(R.id.cancel);
 
+                quantity = (EditText)dialog.findViewById(R.id.quantity);
+
+                plusButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int currValue = Integer.parseInt(quantity.getText().toString());
+                        quantity.setText(String.valueOf(currValue+1), TextView.BufferType.EDITABLE);
+                    }
+                });
+
+                minusButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int currValue = Integer.parseInt(quantity.getText().toString());
+                        if (currValue != 1) {
+                            quantity.setText(String.valueOf(currValue-1), TextView.BufferType.EDITABLE);
+                        }
+                    }
+                });
+
                 confirmAdd.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-
-                        quantity = (EditText)dialog.findViewById(R.id.quantity);
 
                         // create order item and add to shopping cart
                         OrderItem orderItem = new OrderItem(food, Integer.parseInt(quantity.getText().toString()));
@@ -73,7 +94,6 @@ public class ItemDetailActivity extends AppCompatActivity {
                         Toast.makeText(ItemDetailActivity.this, "Successfully added to cart.", Toast.LENGTH_SHORT).show();
 
                         dialog.dismiss();
-
                     }
                 });
 
@@ -81,7 +101,6 @@ public class ItemDetailActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         dialog.dismiss();
-
                     }
                 });
 
