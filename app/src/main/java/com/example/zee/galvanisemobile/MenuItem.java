@@ -6,12 +6,13 @@ import android.os.Parcelable;
 /**
  * Created by zee on 8/10/15.
  */
-public class MenuItem implements Parcelable{
+public class MenuItem implements Parcelable {
 
     private int id;
-    private String mName;
-    private double mPromoPrice;
-    private int mThumbnail;
+    private int category_id;
+    private String itemName;
+    private double promoPrice;
+    private int thumbnail;
 
     public MenuItem(){
 
@@ -25,35 +26,44 @@ public class MenuItem implements Parcelable{
         this.id = id;
     }
 
-    public String getName() {
-        return mName;
+    public int getCategory_id() {
+        return category_id;
     }
 
-    public void setName(String name) {
-        this.mName = name;
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String name) {
+        this.itemName = name;
     }
 
     public double getPromoPrice() {
-        return mPromoPrice;
+        return promoPrice;
     }
 
     public void setPromoPrice(double promoPrice) {
-        this.mPromoPrice = promoPrice;
+        this.promoPrice = promoPrice;
     }
 
     public int getThumbnail() {
-        return mThumbnail;
+        return thumbnail;
     }
 
     public void setThumbnail(int thumbnail) {
-        this.mThumbnail = thumbnail;
+        this.thumbnail = thumbnail;
     }
 
     protected MenuItem(Parcel in) {
         id = in.readInt();
-        mName = in.readString();
-        mPromoPrice = in.readDouble();
-        mThumbnail = in.readInt();
+        category_id = in.readInt();
+        itemName = in.readString();
+        promoPrice = in.readDouble();
+        thumbnail = in.readInt();
     }
 
     @Override
@@ -64,9 +74,10 @@ public class MenuItem implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeString(mName);
-        dest.writeDouble(mPromoPrice);
-        dest.writeInt(mThumbnail);
+        dest.writeInt(category_id);
+        dest.writeString(itemName);
+        dest.writeDouble(promoPrice);
+        dest.writeInt(thumbnail);
     }
 
     @SuppressWarnings("unused")

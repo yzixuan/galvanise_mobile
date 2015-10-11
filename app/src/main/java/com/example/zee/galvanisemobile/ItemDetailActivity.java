@@ -43,7 +43,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.image);
         addCartButton = (Button)findViewById(R.id.add_to_cart);
 
-        foodNameText.setText(food.getName());
+        foodNameText.setText(food.getItemName());
         priceLabel.setText("$" + String.format("%.2f", food.getPromoPrice()));
 
         imageView.setImageResource(food.getThumbnail());

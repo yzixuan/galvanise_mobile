@@ -16,11 +16,11 @@ import java.util.List;
  */
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.ViewHolder> {
 
-    List<OrderItem> mItems;
+    List<OrderItem> menuitems;
 
     public OrderItemAdapter() {
         super();
-        mItems = ShoppingCart.getOrderItems();
+        menuitems = ShoppingCart.getOrderItems();
     }
 
     @Override
@@ -33,25 +33,25 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        MenuItem menuItem = mItems.get(i).getMenuItem();
-        viewHolder.tvbeverage.setText(menuItem.getName());
+        MenuItem menuItem = menuitems.get(i).getMenuItem();
+        viewHolder.itemName.setText(menuItem.getItemName());
         viewHolder.imgThumbnail.setImageResource(menuItem.getThumbnail());
         viewHolder.promoPrice.setText("$" + String.format("%.2f", menuItem.getPromoPrice()));
-        viewHolder.quantityAdded.setText("Quantity added: " + mItems.get(i).getQuantity());
-        viewHolder.orderSubtotal.setText("Item Subtotal: $" + String.format("%.2f", mItems.get(i).getQuantity()* menuItem.getPromoPrice()));
-        viewHolder.itemView.setTag(mItems.get(i));
+        viewHolder.quantityAdded.setText("Quantity added: " + menuitems.get(i).getQuantity());
+        viewHolder.orderSubtotal.setText("Item Subtotal: $" + String.format("%.2f", menuitems.get(i).getQuantity()* menuItem.getPromoPrice()));
+        viewHolder.itemView.setTag(menuitems.get(i));
     }
 
     @Override
     public int getItemCount() {
 
-        return mItems.size();
+        return menuitems.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imgThumbnail;
-        public TextView tvbeverage;
+        public TextView itemName;
         public TextView promoPrice;
         public TextView quantityAdded;
         public TextView orderSubtotal;
@@ -59,7 +59,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         public ViewHolder(View itemView) {
             super(itemView);
             imgThumbnail = (ImageView)itemView.findViewById(R.id.img_thumbnail);
-            tvbeverage = (TextView)itemView.findViewById(R.id.tv_menu_item_name);
+            itemName = (TextView)itemView.findViewById(R.id.tv_menu_item_name);
             promoPrice = (TextView)itemView.findViewById(R.id.tv_menu_item_price);
             quantityAdded = (TextView)itemView.findViewById(R.id.tv_order_quantity);
             orderSubtotal = (TextView)itemView.findViewById(R.id.tv_order_subtotal);
