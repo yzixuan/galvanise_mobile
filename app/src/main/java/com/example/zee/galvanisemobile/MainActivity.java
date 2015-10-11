@@ -1,5 +1,6 @@
 package com.example.zee.galvanisemobile;
 
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -12,6 +13,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
@@ -34,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout), toolbar);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
         beaconManager = new BeaconManager(getApplicationContext());
 
@@ -52,8 +58,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
                 showNotification(
-                        "Beacon in Range",
-                        "Check-in with your app");
+                        "Welcome to Galvanise Cafe",
+                        "Check-in to get 20% off your bill");
+                handleBeaconDialog();
             }
 
             @Override
@@ -63,6 +70,20 @@ public class MainActivity extends AppCompatActivity {
                         "Visit us again for more promotions next time.");*/
             }
         });
+    }
+
+    @Override
+    public void onNewIntent(Intent intent){
+        Bundle extras = intent.getExtras();
+        if(extras != null){
+            if(extras.containsKey("NotificationMessage"))
+            {
+                //String msg = extras.getString("NotificationMessage");
+                handleBeaconDialog();
+            }
+        }
+
+
     }
 
     @Override
@@ -96,9 +117,10 @@ public class MainActivity extends AppCompatActivity {
 
         Intent notifyIntent = new Intent(this, MainActivity.class);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notifyIntent.putExtra("NotificationMessage", "world");
 
         PendingIntent pendingIntent = PendingIntent.getActivities(this, 0,
-                new Intent[] { notifyIntent }, PendingIntent.FLAG_UPDATE_CURRENT);
+                new Intent[] { notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new Notification.Builder(this)
                 .setSmallIcon(android.R.drawable.btn_star_big_on)
@@ -113,5 +135,21 @@ public class MainActivity extends AppCompatActivity {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(1, notification);
+    }
+
+    public void handleBeaconDialog() {
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_beacon_promo);
+        dialog.setTitle("Welcome to Galvanise!");
+
+        Button okButton = (Button) dialog.findViewById(R.id.button_ok);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShoppingCart.setDiscount(0.2);
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

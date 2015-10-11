@@ -16,6 +16,7 @@ public class CartActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView cartQuantity;
     private TextView totalPayable;
+    private TextView discountedPayable;
     private Button checkoutButton;
 
     @Override
@@ -26,6 +27,7 @@ public class CartActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         cartQuantity = (TextView)findViewById(R.id.cart_quantity);
         totalPayable = (TextView)findViewById(R.id.total_payable);
+        discountedPayable = (TextView)findViewById(R.id.discounted_payable);
         checkoutButton = (Button)findViewById(R.id.checkout);
         setSupportActionBar(toolbar);
 
@@ -62,22 +64,30 @@ public class CartActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setCheckoutVisibility (double cartPayable) {
-
-        if (cartPayable <= 0) {
+    public void setCheckoutVisibility () {
+        // empty cart
+        if (ShoppingCart.getTotalPrice() <= 0) {
+            discountedPayable.setVisibility(View.GONE);
             checkoutButton.setVisibility(View.GONE);
         }
         else {
+            // cart is not empty
+            // check if discount is applicable
+            if (ShoppingCart.getDiscount() > 0) {
+                discountedPayable.setVisibility(View.VISIBLE);
+                discountedPayable.setText("Total Payable (after 20% discount): SGD $" + String.format("%.2f", ShoppingCart.getDiscountedPrice()));
+            }
+            // make checkout button visible
             checkoutButton.setVisibility(View.VISIBLE);
-            checkoutButton.setText("Checkout and Pay (SGD $" + String.format("%.2f", cartPayable) + ")");
+            checkoutButton.setText("Checkout and Pay (SGD $" + String.format("%.2f", ShoppingCart.getDiscountedPrice()) + ")");
         }
 
     }
 
     public void refreshCartInfo() {
         cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
-        totalPayable.setText("Total Payable: SGD $" + String.format("%.2f", ShoppingCart.getTotalPrice()));
-        setCheckoutVisibility(ShoppingCart.getTotalPrice());
+        totalPayable.setText("Cart Subtotal: SGD $" + String.format("%.2f", ShoppingCart.getTotalPrice()));
+        setCheckoutVisibility();
     }
 
     public void onClick_checkout(View view) {

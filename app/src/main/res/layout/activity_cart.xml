@@ -25,14 +25,15 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/asphaltColor"
                 android:text="@string/empty_cart"
-                android:paddingTop="20dp"
                 android:id="@+id/cart_quantity" />
 
             <TextView
@@ -40,9 +41,14 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/asphaltColor"
                 android:text="@string/empty_payable"
-                android:paddingBottom="20dp"
-                android:layout_marginBottom="4dp"
                 android:id="@+id/total_payable" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No Discount Applicable"
+                android:textColor="@color/asphaltColor"
+                android:id="@+id/discounted_payable" />
 
         </LinearLayout>
 

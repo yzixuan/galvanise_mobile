@@ -9,6 +9,8 @@ public class ShoppingCart implements Serializable {
     private static ArrayList<OrderItem> orderItems = new ArrayList<>();
     private static int numOfItems = 0;
     private static double totalPrice = 0;
+    private static double discount = 0;
+    private static double discountedPrice = totalPrice;
 
     public static int getNumOfItems() {
         return numOfItems;
@@ -24,6 +26,24 @@ public class ShoppingCart implements Serializable {
 
     public static void setTotalPrice(double totalPrice) {
         ShoppingCart.totalPrice = totalPrice;
+    }
+
+    public static double getDiscount() {
+        return discount;
+    }
+
+    public static void setDiscount(double discount) {
+        ShoppingCart.discount = discount;
+        setDiscountedPrice();
+    }
+
+    public static double getDiscountedPrice() {
+        return discountedPrice;
+    }
+
+    // this is a private method
+    private static void setDiscountedPrice() {
+        discountedPrice = totalPrice * (1 - discount);
     }
 
     public static ArrayList<OrderItem> getOrderItems() {
@@ -73,9 +93,9 @@ public class ShoppingCart implements Serializable {
             tempPrice += currOrder.getMenuItem().getPromoPrice() * currOrder.getQuantity();
         }
 
-        ShoppingCart.numOfItems = tempQuantity;
-        ShoppingCart.totalPrice = tempPrice;
-
+        numOfItems = tempQuantity;
+        totalPrice = tempPrice;
+        setDiscountedPrice();
     }
 
     public static void removeItem(OrderItem orderItem) {
