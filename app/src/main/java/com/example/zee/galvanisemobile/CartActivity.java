@@ -32,9 +32,7 @@ public class CartActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
-        totalPayable.setText("Total Payable: SGD $" + String.format("%.2f", ShoppingCart.getTotalPrice()));
-        setCheckoutVisibility(ShoppingCart.getTotalPrice());
+        refreshCartInfo();
     }
 
     @Override
@@ -74,6 +72,12 @@ public class CartActivity extends AppCompatActivity {
             checkoutButton.setText("Checkout and Pay (SGD $" + String.format("%.2f", cartPayable) + ")");
         }
 
+    }
+
+    public void refreshCartInfo() {
+        cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
+        totalPayable.setText("Total Payable: SGD $" + String.format("%.2f", ShoppingCart.getTotalPrice()));
+        setCheckoutVisibility(ShoppingCart.getTotalPrice());
     }
 
     public void onClick_checkout(View view) {

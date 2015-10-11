@@ -37,7 +37,7 @@ public class CartFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new OrderItemAdapter();
+        mAdapter = new OrderItemAdapter(getActivity());
         mRecyclerView.setAdapter(mAdapter);
         return layout;
     }

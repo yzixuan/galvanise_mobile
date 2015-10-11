@@ -1,5 +1,6 @@
 package com.example.zee.galvanisemobile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,16 +19,18 @@ import java.util.List;
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.ViewHolder> {
 
     List<OrderItem> menuitems;
+    private LayoutInflater inflater;
+    private Context context;
 
-    public OrderItemAdapter() {
-        super();
+    public OrderItemAdapter(Context context) {
+        inflater = LayoutInflater.from(context);
+        this.context = context;
         menuitems = ShoppingCart.getOrderItems();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.cart_card_item, viewGroup, false);
+        View v = inflater.inflate(R.layout.cart_card_item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
@@ -49,7 +52,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         return menuitems.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public void delete(int position) {
+        OrderItem removed = menuitems.remove(position);
+        ShoppingCart.removeItem(removed);
+        ((CartActivity)context).refreshCartInfo();
+        notifyItemRemoved(position);
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         public ImageView imgThumbnail;
         public TextView itemName;
@@ -58,20 +68,21 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         public TextView orderSubtotal;
         public ImageView removeItem;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView){
             super(itemView);
             imgThumbnail = (ImageView)itemView.findViewById(R.id.img_thumbnail);
             itemName = (TextView)itemView.findViewById(R.id.tv_menu_item_name);
             promoPrice = (TextView)itemView.findViewById(R.id.tv_menu_item_price);
             quantityAdded = (TextView)itemView.findViewById(R.id.tv_order_quantity);
             orderSubtotal = (TextView)itemView.findViewById(R.id.tv_order_subtotal);
+
             removeItem = (ImageView)itemView.findViewById(R.id.remove_icon);
-            removeItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "to be implemented", Toast.LENGTH_SHORT).show();
-                }
-            });
+            removeItem.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+           delete(getLayoutPosition());
         }
     }
 

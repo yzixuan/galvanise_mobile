@@ -77,4 +77,9 @@ public class ShoppingCart implements Serializable {
         ShoppingCart.totalPrice = tempPrice;
 
     }
+
+    public static void removeItem(OrderItem orderItem) {
+        orderItems.remove(orderItem);
+        updateCartTotal();
+    }
 }
