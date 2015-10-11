@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         public TextView promoPrice;
         public TextView quantityAdded;
         public TextView orderSubtotal;
+        public ImageView removeItem;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -63,6 +65,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
             promoPrice = (TextView)itemView.findViewById(R.id.tv_menu_item_price);
             quantityAdded = (TextView)itemView.findViewById(R.id.tv_order_quantity);
             orderSubtotal = (TextView)itemView.findViewById(R.id.tv_order_subtotal);
+            removeItem = (ImageView)itemView.findViewById(R.id.remove_icon);
+            removeItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "to be implemented", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 

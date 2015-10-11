@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CartActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView cartQuantity;
     private TextView totalPayable;
+    private Button checkoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,7 @@ public class CartActivity extends AppCompatActivity {
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         cartQuantity = (TextView)findViewById(R.id.cart_quantity);
         totalPayable = (TextView)findViewById(R.id.total_payable);
+        checkoutButton = (Button)findViewById(R.id.checkout);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -29,6 +34,7 @@ public class CartActivity extends AppCompatActivity {
 
         cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
         totalPayable.setText("Total Payable: SGD $" + String.format("%.2f", ShoppingCart.getTotalPrice()));
+        setCheckoutVisibility(ShoppingCart.getTotalPrice());
     }
 
     @Override
@@ -56,5 +62,21 @@ public class CartActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setCheckoutVisibility (double cartPayable) {
+
+        if (cartPayable <= 0) {
+            checkoutButton.setVisibility(View.GONE);
+        }
+        else {
+            checkoutButton.setVisibility(View.VISIBLE);
+            checkoutButton.setText("Checkout and Pay (SGD $" + String.format("%.2f", cartPayable) + ")");
+        }
+
+    }
+
+    public void onClick_checkout(View view) {
+        Toast.makeText(this, "to be implemented", Toast.LENGTH_SHORT).show();
     }
 }

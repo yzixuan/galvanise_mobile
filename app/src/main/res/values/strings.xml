@@ -14,7 +14,7 @@
     <string name="add_to_cart">Add to Cart</string>
     <string name="sample_description">Matcha, a traditional Japanese tea, has many health benefits. It also provides an enjoyable drinking experience. Whether you like the traditional whisked matcha, or matcha blended into a flurry of ice and milk, it is a flavorful beverage choice.</string>
     <string name="empty_cart">Total No. of Items in Cart: 0</string>
-    <string name="checkout_items">Checkout Items</string>
+    <string name="checkout_items">Pay and Checkout</string>
     <string name="empty_payable">Total Payable: SGD $0.00</string>
 
 </resources>
