@@ -12,6 +12,7 @@ public class CartActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView cartQuantity;
+    private TextView totalPayable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,12 +21,14 @@ public class CartActivity extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         cartQuantity = (TextView)findViewById(R.id.cart_quantity);
+        totalPayable = (TextView)findViewById(R.id.total_payable);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
+        totalPayable.setText("Total Payable: SGD $" + String.format("%.2f", ShoppingCart.getTotalPrice()));
     }
 
     @Override
