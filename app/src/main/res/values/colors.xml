@@ -2,8 +2,9 @@
 <resources>
     <color name="primaryColor">#3F51B5</color>
     <color name="primaryColorDark">#303F9F</color>
-    <color name="accentColor">#F44336</color>
+    <color name="accentColor">#00BCD4</color>
     <color name="Translucent">#00000000</color>
     <color name="greyColor">#a2b0b1</color>
     <color name="asphaltColor">#34495e</color>
+    <color name="amber">#FFC107</color>
 </resources>

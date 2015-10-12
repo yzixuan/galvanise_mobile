@@ -8,6 +8,7 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
+    <!-- Shopping Cart Info !-->
     <LinearLayout
         android:orientation="horizontal"
         android:background="#fff"
@@ -47,13 +48,17 @@
 
     </LinearLayout>
 
+    <!-- Discount Info !-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="No Discount Applicable"
-        android:textColor="@color/asphaltColor"
+        android:textColor="#000"
+        android:background="@color/amber"
         android:id="@+id/discounted_payable" />
 
+    <!-- Recycler View (List of Order Items) !-->
     <fragment
         android:id="@+id/fragment_menu"
         android:layout_width="wrap_content"
@@ -62,6 +67,7 @@
         android:name="com.example.zee.galvanisemobile.CartFragment"
         tools:layout="@layout/fragment_cart" />
 
+    <!-- Checkout Button !-->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

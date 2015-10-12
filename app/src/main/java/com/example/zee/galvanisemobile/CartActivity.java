@@ -75,7 +75,7 @@ public class CartActivity extends AppCompatActivity {
             // check if discount is applicable
             if (ShoppingCart.getDiscount() > 0) {
                 discountedPayable.setVisibility(View.VISIBLE);
-                discountedPayable.setText("Total Payable (after 20% discount): SGD $" + String.format("%.2f", ShoppingCart.getDiscountedPrice()));
+                discountedPayable.setText("Total Payable (after " + Math.round(ShoppingCart.getDiscount() * 100) + "% discount): SGD $" + String.format("%.2f", ShoppingCart.getDiscountedPrice()));
             }
             // make checkout button visible
             checkoutButton.setVisibility(View.VISIBLE);
