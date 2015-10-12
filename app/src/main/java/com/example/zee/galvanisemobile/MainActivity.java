@@ -42,34 +42,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
-        beaconManager = new BeaconManager(getApplicationContext());
-
-        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
-            @Override
-            public void onServiceReady() {
-                beaconManager.startMonitoring(new Region(
-                        "monitored region",
-                        UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
-                        31629, 43111));
-            }
-        });
-
-        beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
-            @Override
-            public void onEnteredRegion(Region region, List<Beacon> list) {
-                showNotification(
-                        "Welcome to Galvanise Cafe",
-                        "Check-in to get 20% off your bill");
-                handleBeaconDialog();
-            }
-
-            @Override
-            public void onExitedRegion(Region region) {
-                /*showNotification(
-                        "See ya next time!",
-                        "Visit us again for more promotions next time.");*/
-            }
-        });
+        setUpBeaconManager();
     }
 
     @Override
@@ -78,8 +51,12 @@ public class MainActivity extends AppCompatActivity {
         if(extras != null){
             if(extras.containsKey("NotificationMessage"))
             {
-                //String msg = extras.getString("NotificationMessage");
-                handleBeaconDialog();
+                if (ShoppingCart.getDiscount() > 0) {
+                    Toast.makeText(this, "A " + Math.round(ShoppingCart.getDiscount() * 100) + "% discount has been included", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    handleBeaconDialog();
+                }
             }
         }
 
@@ -113,6 +90,35 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void setUpBeaconManager() {
+        beaconManager = new BeaconManager(getApplicationContext());
+
+        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
+            @Override
+            public void onServiceReady() {
+                beaconManager.startMonitoring(new Region(
+                        "monitored region",
+                        UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
+                        31629, 43111));
+            }
+        });
+
+        beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
+            @Override
+            public void onEnteredRegion(Region region, List<Beacon> list) {
+                showNotification(
+                        "Welcome to Galvanise Cafe",
+                        "Check-in to get 20% off your bill");
+                handleBeaconDialog();
+            }
+
+            @Override
+            public void onExitedRegion(Region region) {
+
+            }
+        });
+    }
+
     public void showNotification(String title, String message) {
 
         Intent notifyIntent = new Intent(this, MainActivity.class);
@@ -138,18 +144,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleBeaconDialog() {
-        final Dialog dialog = new Dialog(MainActivity.this);
-        dialog.setContentView(R.layout.dialog_beacon_promo);
-        dialog.setTitle("Welcome to Galvanise!");
 
-        Button okButton = (Button) dialog.findViewById(R.id.button_ok);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShoppingCart.setDiscount(0.2);
-                dialog.dismiss();
-            }
-        });
-        dialog.show();
+        if (ShoppingCart.getDiscount() <= 0) {
+            final Dialog dialog = new Dialog(MainActivity.this);
+            dialog.setContentView(R.layout.dialog_beacon_promo);
+            dialog.setTitle("Welcome to Galvanise!");
+
+            Button okButton = (Button) dialog.findViewById(R.id.button_ok);
+            okButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ShoppingCart.setDiscount(0.2);
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        }
     }
 }

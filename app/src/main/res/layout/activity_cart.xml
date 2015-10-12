@@ -43,16 +43,16 @@
                 android:text="@string/empty_payable"
                 android:id="@+id/total_payable" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="No Discount Applicable"
-                android:textColor="@color/asphaltColor"
-                android:id="@+id/discounted_payable" />
-
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Discount Applicable"
+        android:textColor="@color/asphaltColor"
+        android:id="@+id/discounted_payable" />
 
     <fragment
         android:id="@+id/fragment_menu"
