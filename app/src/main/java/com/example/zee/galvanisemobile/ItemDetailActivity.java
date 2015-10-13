@@ -91,7 +91,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         OrderItem orderItem = new OrderItem(food, Integer.parseInt(quantity.getText().toString()));
                         ShoppingCart.addOrderItem(orderItem);
 
-                        Toast.makeText(ItemDetailActivity.this, "Successfully added to cart.", Toast.LENGTH_SHORT).show();
+                        sendPersistentBroadcastMessage();
 
                         dialog.dismiss();
                     }
@@ -141,6 +141,12 @@ public class ItemDetailActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void sendPersistentBroadcastMessage() {
+        Intent myIntent = new Intent("GalvaniseBroadcast");
+        myIntent.putExtra("AddtoCart", true);
+        sendBroadcast(myIntent);
     }
 
 }
