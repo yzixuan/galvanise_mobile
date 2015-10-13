@@ -1,5 +1,6 @@
 package com.example.zee.galvanisemobile;
 
+import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -52,8 +53,8 @@ public class CartActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_share) {
+            startShareActivity("Galvanise Cafe", getResources().getString(R.string.social_share_text));
         }
 
         if (id == android.R.id.home) {
@@ -93,4 +94,18 @@ public class CartActivity extends AppCompatActivity {
     public void onClick_checkout(View view) {
         Toast.makeText(this, "to be implemented", Toast.LENGTH_SHORT).show();
     }
+
+    private void startShareActivity(String subject, String text) {
+        try {
+            Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+            startActivity(intent);
+        }
+        catch(android.content.ActivityNotFoundException e) {
+            // can't start activity
+        }
+    }
+
 }

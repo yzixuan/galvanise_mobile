@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_share) {
+            startShareActivity("Galvanise Cafe", getResources().getString(R.string.social_share_text));
         }
 
         if (id == R.id.action_cart) {
@@ -159,6 +159,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             dialog.show();
+        }
+    }
+
+    private void startShareActivity(String subject, String text) {
+        try {
+            Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+            startActivity(intent);
+        }
+        catch(android.content.ActivityNotFoundException e) {
+            // can't start activity
         }
     }
 }

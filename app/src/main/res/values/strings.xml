@@ -6,7 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_cart">Your Cart</string>
 
-<!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
@@ -16,5 +15,7 @@
     <string name="empty_cart">Total No. of Items in Cart: 0</string>
     <string name="checkout_items">Pay and Checkout</string>
     <string name="empty_payable">Total Payable: SGD $0.00</string>
+
+    <string name="social_share_text">Get 20% discount off your total bill when you check in using MyGalvanise mobile app! More info about our cafe can be found at http://galvanize.space/</string>
 
 </resources>
