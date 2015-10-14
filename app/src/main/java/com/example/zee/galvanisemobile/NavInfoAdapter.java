@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -70,6 +69,9 @@ public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHo
                     break;
                 case 1: // your cart
                     v.getContext().startActivity(new Intent(v.getContext(), CartActivity.class));
+                    break;
+                case 5: // about us
+                    v.getContext().startActivity(new Intent(v.getContext(), AboutActivity.class));
                     break;
                 default:
                     break;
