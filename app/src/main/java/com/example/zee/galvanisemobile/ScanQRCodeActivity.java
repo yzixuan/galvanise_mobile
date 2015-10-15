@@ -21,9 +21,6 @@ import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.Size;
 
-import android.widget.TextView;
-import android.graphics.ImageFormat;
-
 /* Import ZBar Class files */
 import net.sourceforge.zbar.ImageScanner;
 import net.sourceforge.zbar.Image;
@@ -43,7 +40,6 @@ public class ScanQRCodeActivity extends AppCompatActivity {
     private CameraPreview mPreview;
     private Handler autoFocusHandler;
 
-    TextView scanText;
     Button scanButton;
 
     ImageScanner scanner;
@@ -80,7 +76,6 @@ public class ScanQRCodeActivity extends AppCompatActivity {
         FrameLayout preview = (FrameLayout)findViewById(R.id.cameraPreview);
         preview.addView(mPreview);
 
-        scanText = (TextView)findViewById(R.id.scanText);
         scanButton = (Button)findViewById(R.id.ScanButton);
 
         scanButton.setOnClickListener(new OnClickListener() {
@@ -172,7 +167,6 @@ public class ScanQRCodeActivity extends AppCompatActivity {
 
                 SymbolSet syms = scanner.getResults();
                 for (Symbol sym : syms) {
-                    //scanText.setText("Table Number: " + sym.getData());
                     showAlertDialog(sym.getData());
                     scanButton.setText("Scan Again");
                     barcodeScanned = true;

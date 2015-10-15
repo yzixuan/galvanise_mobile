@@ -16,13 +16,6 @@
         android:layout_weight="1"
         />
 
-    <TextView
-        android:id="@+id/scanText"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </TextView>
-
     <Button
         android:id="@+id/ScanButton"
         android:text="Scanning..."
