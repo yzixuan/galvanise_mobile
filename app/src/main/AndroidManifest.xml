@@ -51,7 +51,7 @@
         </activity>
         <activity
             android:name=".ScanQRCodeActivity"
-            android:label="" >
+            android:label="Scan Table Number" >
         </activity>
     </application>
 

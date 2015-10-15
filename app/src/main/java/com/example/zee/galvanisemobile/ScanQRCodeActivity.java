@@ -35,7 +35,7 @@ import android.os.Handler;
 
 public class ScanQRCodeActivity extends AppCompatActivity {
 
-
+    private Toolbar toolbar;
     private Camera mCamera;
     private CameraPreview mPreview;
     private Handler autoFocusHandler;
@@ -59,6 +59,12 @@ public class ScanQRCodeActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        /* Set up Toolbar */
+        toolbar = (Toolbar)findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         autoFocusHandler = new Handler();
         mCamera = getCameraInstance();
 
@@ -72,14 +78,13 @@ public class ScanQRCodeActivity extends AppCompatActivity {
         preview.addView(mPreview);
 
         scanText = (TextView)findViewById(R.id.scanText);
-
         scanButton = (Button)findViewById(R.id.ScanButton);
 
         scanButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (barcodeScanned) {
                     barcodeScanned = false;
-                    scanText.setText("Scanning...");
+                    scanButton.setText("Scanning...");
                     mCamera.setPreviewCallback(previewCb);
                     mCamera.startPreview();
                     previewing = true;
@@ -164,7 +169,8 @@ public class ScanQRCodeActivity extends AppCompatActivity {
 
                 SymbolSet syms = scanner.getResults();
                 for (Symbol sym : syms) {
-                    scanText.setText("barcode result " + sym.getData());
+                    scanText.setText("Table Number: " + sym.getData());
+                    scanButton.setText("Scan Again");
                     barcodeScanned = true;
                 }
             }
