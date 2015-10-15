@@ -49,13 +49,9 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
         // Downloading data from below url
         final String url = "http://galvanize.space/catalogs.json";
         new AsyncHttpTask().execute(url);
-
-
 
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_menu, container, false);
@@ -120,8 +116,9 @@ public class MenuFragment extends Fragment {
             for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
                 MenuItem item = new MenuItem();
-//                item.setTitle(post.optString("title"));
-//                item.setThumbnail(post.optString("thumbnail"));
+                item.setItemName(post.optString("name"));
+                item.setThumbnail(post.optString("image"));
+                item.setPromoPrice(post.optString("price"));
 
                 feedsList.add(item);
             }
