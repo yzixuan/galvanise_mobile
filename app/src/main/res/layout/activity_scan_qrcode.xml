@@ -1,23 +1,29 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    tools:context="com.example.zee.galvanisemobile.ScanQRCodeActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/app_bar" />
-
-    <!-- Checkout Button !-->
-    <Button
+    <FrameLayout
+        android:id="@+id/cameraPreview"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+
+    <TextView
+        android:id="@+id/scanText"
+        android:text="Scanning..."
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </TextView>
+
+    <Button
+        android:id="@+id/ScanButton"
+        android:text="Scan"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:text="@string/scan_qr_code"
-        android:background="@color/primaryColor"
-        android:onClick="onClick_scanQR"
-        android:id="@+id/checkout" />
-
+        />
 </LinearLayout>
