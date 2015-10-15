@@ -92,7 +92,8 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void onClick_checkout(View view) {
-        Toast.makeText(this, "to be implemented", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ScanQRCodeActivity.class);
+        startActivity(intent);
     }
 
     private void startShareActivity(String subject, String text) {
