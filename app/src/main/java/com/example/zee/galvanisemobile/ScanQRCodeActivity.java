@@ -1,5 +1,7 @@
 package com.example.zee.galvanisemobile;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import net.sourceforge.zbar.SymbolSet;
 import net.sourceforge.zbar.Config;
 
 import android.os.Handler;
+import android.content.DialogInterface;
 
 @SuppressWarnings("deprecation")
 
@@ -169,7 +172,8 @@ public class ScanQRCodeActivity extends AppCompatActivity {
 
                 SymbolSet syms = scanner.getResults();
                 for (Symbol sym : syms) {
-                    scanText.setText("Table Number: " + sym.getData());
+                    //scanText.setText("Table Number: " + sym.getData());
+                    showAlertDialog(sym.getData());
                     scanButton.setText("Scan Again");
                     barcodeScanned = true;
                 }
@@ -183,4 +187,17 @@ public class ScanQRCodeActivity extends AppCompatActivity {
             autoFocusHandler.postDelayed(doAutoFocus, 1000);
         }
     };
+
+    private void showAlertDialog(String message) {
+
+        new AlertDialog.Builder(this)
+                .setTitle("Table Number Detected")
+                .setCancelable(false)
+                .setMessage("Your table number is " + message + ".\nPlease proceed to make payment via PayPal now.")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
+    }
 }
