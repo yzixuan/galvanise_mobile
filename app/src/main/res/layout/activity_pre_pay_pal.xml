@@ -1,0 +1,33 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.zee.galvanisemobile.PrePayPalActivity">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <TextView
+        android:text="Your Table Number is"
+        android:gravity="center"
+        android:padding="20dp"
+        android:textColor="#fff"
+        android:background="@color/accentColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tableNumber"
+        android:textSize="50dp"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:paddingBottom="20dp"
+        android:background="@color/accentColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>

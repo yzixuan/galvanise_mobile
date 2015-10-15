@@ -2,6 +2,7 @@ package com.example.zee.galvanisemobile;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,6 +56,8 @@ public class ScanQRCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_scan_qrcode);
+        // to handle restarting of QR Code Scanner
+        getIntent().setAction("Already created");
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -90,6 +93,24 @@ public class ScanQRCodeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // restart whole activity in OnResume(). This is to prevent the QR Code Scanner from crashing
+    // when the activity resumes or returns from other activities.
+    @Override
+    protected void onResume() {
+        String action = getIntent().getAction();
+        // Prevent endless loop by adding a unique action, don't restart if action is present
+        if(action == null || !action.equals("Already created")) {
+            Intent intent = new Intent(this, ScanQRCodeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        // Remove the unique action so the next time onResume is called it will restart
+        else
+            getIntent().setAction(null);
+
+        super.onResume();
     }
 
     @Override
@@ -167,7 +188,7 @@ public class ScanQRCodeActivity extends AppCompatActivity {
 
                 SymbolSet syms = scanner.getResults();
                 for (Symbol sym : syms) {
-                    showAlertDialog(sym.getData());
+                    handleScannedInput(sym.getData());
                     scanButton.setText("Scan Again");
                     barcodeScanned = true;
                 }
@@ -182,16 +203,23 @@ public class ScanQRCodeActivity extends AppCompatActivity {
         }
     };
 
-    private void showAlertDialog(String message) {
+    private void handleScannedInput(String qrCode) {
 
-        new AlertDialog.Builder(this)
-                .setTitle("Table Number Detected")
-                .setCancelable(false)
-                .setMessage("Your table number is " + message + ".\nPlease proceed to make payment via PayPal now.")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
+        if (qrCode.matches("[-+]?\\d*\\.?\\d+")) {
+            Intent intent = new Intent(this, PrePayPalActivity.class);
+            intent.putExtra("tableQRCode", qrCode);
+            startActivity(intent);
+        } else {
 
-                    }
-                }).show();
+            new AlertDialog.Builder(this)
+                    .setTitle("Invalid Table Number")
+                    .setCancelable(false)
+                    .setMessage("Sorry, are you sure you're seated inside Galvanise Cafe? please try scanning your table number's QR Code again.")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).show();
+        }
     }
 }
