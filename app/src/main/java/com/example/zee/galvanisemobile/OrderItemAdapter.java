@@ -1,16 +1,15 @@
 package com.example.zee.galvanisemobile;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.androidquery.AQuery;
+
 import java.util.List;
 
 /**
@@ -21,6 +20,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     List<OrderItem> menuitems;
     private LayoutInflater inflater;
     private Context context;
+
+    AQuery androidAQuery = new AQuery(context);
 
     public OrderItemAdapter(Context context) {
         inflater = LayoutInflater.from(context);
@@ -39,7 +40,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         MenuItem menuItem = menuitems.get(i).getMenuItem();
         viewHolder.itemName.setText(menuItem.getItemName());
-        viewHolder.imgThumbnail.setImageResource(menuItem.getThumbnail());
+        androidAQuery.id(viewHolder.imgThumbnail).image(menuItem.getThumbnail(), true, true);
         viewHolder.promoPrice.setText("$" + String.format("%.2f", menuItem.getPromoPrice()));
         viewHolder.quantityAdded.setText("Quantity added: " + menuitems.get(i).getQuantity());
         viewHolder.orderSubtotal.setText("Item Subtotal: $" + String.format("%.2f", menuitems.get(i).getQuantity()* menuItem.getPromoPrice()));

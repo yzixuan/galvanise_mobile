@@ -60,7 +60,7 @@ public class MenuFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new MenuItemAdapter();
+        mAdapter = new MenuItemAdapter(getActivity().getApplicationContext(), feedsList);
         mRecyclerView.setAdapter(mAdapter);
         return layout;
     }
@@ -99,7 +99,7 @@ public class MenuFragment extends Fragment {
         protected void onPostExecute(Integer result) {
 
             if (result == 1) {
-                mAdapter = new MenuItemAdapter();
+                mAdapter = new MenuItemAdapter(getActivity().getApplicationContext(), feedsList);
                 mRecyclerView.setAdapter(mAdapter);
             } else {
                 Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
@@ -110,6 +110,7 @@ public class MenuFragment extends Fragment {
     private void parseResult(String result) {
         try {
             JSONObject response = new JSONObject(result);
+
             JSONArray posts = response.optJSONArray("items");
             feedsList = new ArrayList<>();
 
@@ -118,7 +119,8 @@ public class MenuFragment extends Fragment {
                 MenuItem item = new MenuItem();
                 item.setItemName(post.optString("name"));
                 item.setThumbnail(post.optString("image"));
-                item.setPromoPrice(post.optString("price"));
+                item.setPromoPrice(post.optInt("price"));
+                item.setItemDesc(post.optString("description"));
 
                 feedsList.add(item);
             }

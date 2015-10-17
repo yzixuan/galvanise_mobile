@@ -2,8 +2,8 @@ package com.example.zee.galvanisemobile;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.androidquery.AQuery;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -24,6 +25,9 @@ public class ItemDetailActivity extends AppCompatActivity {
     TextView priceLabel;
     Button addCartButton;
     EditText quantity;
+    TextView descriptionText;
+
+    AQuery androidAQuery=new AQuery(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +45,17 @@ public class ItemDetailActivity extends AppCompatActivity {
         foodNameText = (TextView)findViewById(R.id.foodNameText);
         priceLabel = (TextView)findViewById(R.id.priceText);
         imageView = (ImageView)findViewById(R.id.image);
-        addCartButton = (Button)findViewById(R.id.add_to_cart);
+        descriptionText = (TextView)findViewById(R.id.descriptionText);
 
+        // setting image, name & price
+        androidAQuery.id(imageView).image(food.getThumbnail(), true, true);
         foodNameText.setText(food.getItemName());
         priceLabel.setText("$" + String.format("%.2f", food.getPromoPrice()));
+        descriptionText.setText(food.getItemDesc());
 
-        imageView.setImageResource(food.getThumbnail());
 
         // add button listener
+        addCartButton = (Button)findViewById(R.id.add_to_cart);
         addCartButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
