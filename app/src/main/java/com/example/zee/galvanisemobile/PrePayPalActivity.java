@@ -10,19 +10,12 @@ import android.widget.TextView;
 
 public class PrePayPalActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     private TextView tableNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_pay_pal);
-
-        /* Set up Toolbar */
-        toolbar = (Toolbar)findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         String tableNumberFromCode = intent.getStringExtra("tableQRCode");
