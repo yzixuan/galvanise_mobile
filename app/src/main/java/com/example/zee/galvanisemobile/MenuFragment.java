@@ -117,6 +117,7 @@ public class MenuFragment extends Fragment {
             for (int i = 0; i < posts.length(); i++) {
                 JSONObject post = posts.optJSONObject(i);
                 MenuItem item = new MenuItem();
+                item.setId(post.optInt("id"));
                 item.setItemName(post.optString("name"));
                 item.setThumbnail(post.optString("image"));
                 item.setPromoPrice(post.optInt("price"));

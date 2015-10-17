@@ -90,7 +90,7 @@ public class ShoppingCart implements Serializable {
             OrderItem currOrder = orderIterator.next();
 
             tempQuantity += currOrder.getQuantity();
-//            tempPrice += currOrder.getMenuItem().getPromoPrice() * currOrder.getQuantity();
+            tempPrice += currOrder.getMenuItem().getPromoPrice() * currOrder.getQuantity();
         }
 
         numOfItems = tempQuantity;

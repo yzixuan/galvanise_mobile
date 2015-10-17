@@ -18,5 +18,8 @@
     <string name="empty_payable">Total Payable: SGD $0.00</string>
 
     <string name="social_share_text">Get 20% discount off your total bill when you check in using MyGalvanise mobile app! More info about our cafe can be found at http://galvanize.space/</string>
+    <string name="title_activity_scan_qrcode">ScanQRCodeActivity</string>
+    <string name="scan_qr_code">Scan Table Number (QR Code)</string>
+    <string name="title_activity_pre_pay_pal">PrePayPalActivity</string>
 
 </resources>
