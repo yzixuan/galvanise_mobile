@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class PrePayPalActivity extends AppCompatActivity {
 
     private TextView tableNumber;
+    private TextView cartQuantity;
+    private TextView totalPayable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +24,11 @@ public class PrePayPalActivity extends AppCompatActivity {
         String tableNumberFromCode = intent.getStringExtra("tableQRCode");
         tableNumber = (TextView)findViewById(R.id.tableNumber);
         tableNumber.setText(tableNumberFromCode);
+
+        cartQuantity = (TextView)findViewById(R.id.cart_quantity);
+        totalPayable = (TextView)findViewById(R.id.total_payable);
+        cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
+        totalPayable.setText("Total Payable: SGD $" + String.format("%.2f", ShoppingCart.getDiscountedPrice()));
     }
 
     @Override
@@ -44,5 +52,9 @@ public class PrePayPalActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick_goPayPal(View view) {
+
     }
 }

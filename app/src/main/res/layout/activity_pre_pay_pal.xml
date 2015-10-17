@@ -52,7 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/asphaltColor"
-                android:text="Review Your Order" />
+                android:text="No. of Items: 0"
+                android:id="@+id/cart_quantity" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -73,6 +74,15 @@
         android:layout_weight="1"
         android:name="com.example.zee.galvanisemobile.CartFragment"
         tools:layout="@layout/fragment_cart" />
+
+    <!-- Checkout Button !-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Make E-Payment"
+        android:background="@color/primaryColor"
+        android:onClick="onClick_goPayPal"
+        android:id="@+id/goPayPal" />
 
 
 </LinearLayout>
