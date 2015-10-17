@@ -1,5 +1,7 @@
 package com.example.zee.galvanisemobile;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class CartActivity extends AppCompatActivity {
 
@@ -92,8 +97,42 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void onClick_checkout(View view) {
-        Intent intent = new Intent(this, ScanQRCodeActivity.class);
-        startActivity(intent);
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+        integrator.setPrompt("Scan the table number");
+        integrator.setCameraId(0);  // Use a specific camera of the device
+        integrator.setBeepEnabled(false);
+        integrator.initiateScan();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult barcodeResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (barcodeResult != null) {
+            handleTableNumberScanned(barcodeResult.getContents());
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void handleTableNumberScanned(String qrCode) {
+        if (qrCode.matches("[-+]?\\d*\\.?\\d+")) {
+            Intent intent = new Intent(this, PrePayPalActivity.class);
+            intent.putExtra("tableQRCode", qrCode);
+            startActivity(intent);
+        } else {
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Invalid Table Number")
+                    .setCancelable(false)
+                    .setMessage("Sorry, are you sure you're seated inside Galvanise Cafe? please try scanning your table number's QR Code again.")
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).show();
+        }
+
     }
 
     private void startShareActivity(String subject, String text) {
