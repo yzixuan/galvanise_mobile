@@ -62,7 +62,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/asphaltColor"
-                android:text="@string/receipt_sms" />
+                android:text="Your Receipt for Galvanise Cafe"
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="match_parent"

@@ -89,8 +89,8 @@ public class ShoppingCart implements Serializable {
     }
 
     public static void clear() {
-        ShoppingCart.orderItems.clear();
-        ShoppingCart.totalPrice = 0;
+        orderItems.clear();
+        updateCartTotal();
     }
 
     private static void updateCartTotal() {
