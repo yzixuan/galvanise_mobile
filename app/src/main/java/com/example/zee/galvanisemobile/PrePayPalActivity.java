@@ -97,31 +97,28 @@ public class PrePayPalActivity extends AppCompatActivity {
     }
 
     public void onClick_goPayPal(View view) {
-        PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
-
-        /*
-         * See getStuffToBuy(..) for examples of some available payment options.
-         */
-
+        PayPalPayment confirmedOrder = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
+        addAppProvidedShippingAddress(confirmedOrder);
+        enableShippingAddressRetrieval(confirmedOrder, true);
         Intent intent = new Intent(PrePayPalActivity.this, PaymentActivity.class);
 
         // send the same configuration for restart resiliency
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
 
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, confirmedOrder);
 
         startActivityForResult(intent, REQUEST_CODE_PAYMENT);
     }
 
     private PayPalPayment getThingToBuy(String paymentIntent) {
-        return new PayPalPayment(new BigDecimal("1.75"), "USD", "sample item",
+        return new PayPalPayment(new BigDecimal(ShoppingCart.getDiscountedPrice()), "SGD", "Galvanise Cafe Order",
                 paymentIntent);
     }
 
     private void addAppProvidedShippingAddress(PayPalPayment paypalPayment) {
         ShippingAddress shippingAddress =
-                new ShippingAddress().recipientName("Mom Parker").line1("52 North Main St.")
-                        .city("Austin").state("TX").postalCode("78729").countryCode("US");
+                new ShippingAddress().recipientName("Galvanise Cafe").line1("175 Bencoolen St, #01-53 Burlington Square")
+                        .city("Singapore").state("Singapore").postalCode("78729").countryCode("SG");
         paypalPayment.providedShippingAddress(shippingAddress);
     }
 
