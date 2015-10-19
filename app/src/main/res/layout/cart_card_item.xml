@@ -66,6 +66,15 @@
             android:layout_toRightOf="@+id/img_thumbnail">
         </View>
 
+        <TextView
+            android:id="@+id/change_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:layout_below="@+id/linea"
+            android:layout_alignLeft="@+id/tv_order_quantity"
+            android:text="CHANGE QUANTITY"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

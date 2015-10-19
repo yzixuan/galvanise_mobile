@@ -74,6 +74,20 @@ public class ShoppingCart implements Serializable {
         updateCartTotal();
     }
 
+    public static void changeOrderQuantity(OrderItem orderItem, int quantity) {
+
+        Iterator<OrderItem> orderIterator = orderItems.iterator();
+
+        while (orderIterator.hasNext()) {
+            OrderItem currOrder = orderIterator.next();
+            if (currOrder.getMenuItem().getId() == orderItem.getMenuItem().getId()) {
+                currOrder.setQuantity(quantity);
+            }
+        }
+
+        updateCartTotal();
+    }
+
     public static void clear() {
         ShoppingCart.orderItems.clear();
         ShoppingCart.totalPrice = 0;
