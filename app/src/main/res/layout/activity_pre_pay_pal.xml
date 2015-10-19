@@ -66,14 +66,14 @@
 
     </LinearLayout>
 
-    <!-- Recycler View (List of Order Items) !-->
+    <!-- Recycler View (List of Finalised Order Items) !-->
     <fragment
-        android:id="@+id/fragment_menu"
+        android:id="@+id/finalized_fragment_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:name="com.example.zee.galvanisemobile.CartFragment"
-        tools:layout="@layout/fragment_cart" />
+        android:name="com.example.zee.galvanisemobile.FinalisedCartFragment"
+        tools:layout="@layout/fragment_finalised_cart" />
 
     <!-- Checkout Button !-->
     <Button
@@ -83,6 +83,5 @@
         android:background="@color/primaryColor"
         android:onClick="onClick_goPayPal"
         android:id="@+id/goPayPal" />
-
 
 </LinearLayout>

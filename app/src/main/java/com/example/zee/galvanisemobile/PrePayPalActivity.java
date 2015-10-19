@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class PrePayPalActivity extends AppCompatActivity {
     private TextView tableNumber;
     private TextView cartQuantity;
     private TextView totalPayable;
+    private Button ePaymentButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +71,11 @@ public class PrePayPalActivity extends AppCompatActivity {
 
         cartQuantity = (TextView)findViewById(R.id.cart_quantity);
         totalPayable = (TextView)findViewById(R.id.total_payable);
-        cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
+        ePaymentButton = (Button)findViewById(R.id.goPayPal);
+
+        cartQuantity.setText("No. of Orders: " + ShoppingCart.getNumOfItems());
         totalPayable.setText("Total Payable: SGD $" + String.format("%.2f", ShoppingCart.getDiscountedPrice()));
+        ePaymentButton.setText("Make E-Payment ($" + String.format("%.2f", ShoppingCart.getDiscountedPrice()) + ")");
     }
 
     @Override
