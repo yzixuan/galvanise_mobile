@@ -22,5 +22,10 @@
     <string name="scan_qr_code">Scan Table Number (QR Code)</string>
     <string name="title_activity_pre_pay_pal">PrePayPalActivity</string>
     <string name="update">Update</string>
+    <string name="title_activity_successful_payment">SuccessfulPaymentActivity</string>
+    <string name="payment_successful">Pyament Successful</string>
+    <string name="thank_upon_payment">Thank you for making payment. \n We will bring your food to your table.</string>
+    <string name="receipt_sms">A Receipt SMS has been sent to your phone</string>
+    <string name="return_to_menu">Back to Menu</string>
 
 </resources>

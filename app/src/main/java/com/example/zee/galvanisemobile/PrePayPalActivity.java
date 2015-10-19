@@ -158,10 +158,8 @@ public class PrePayPalActivity extends AppCompatActivity {
                          * For sample mobile backend interactions, see
                          * https://github.com/paypal/rest-api-sdk-python/tree/master/samples/mobile_backend
                          */
-                        Toast.makeText(
-                                getApplicationContext(),
-                                "PaymentConfirmation info received from PayPal", Toast.LENGTH_LONG)
-                                .show();
+                        Intent intent = new Intent(this, SuccessfulPaymentActivity.class);
+                        startActivity(intent);
 
                     } catch (JSONException e) {
                         Log.e(TAG, "an extremely unlikely failure occurred: ", e);

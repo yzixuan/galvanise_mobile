@@ -1,0 +1,88 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.zee.galvanisemobile.SuccessfulPaymentActivity">
+
+    <TextView
+        android:text="@string/payment_successful"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:paddingBottom="20dp"
+        android:textColor="#fff"
+        android:background="@color/greenColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:id="@+id/remove_icon"
+        android:src="@drawable/tick"
+        android:background="@color/greenColor" />
+
+    <TextView
+        android:text="@string/thank_upon_payment"
+        android:gravity="center"
+        android:paddingBottom="30dp"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:textColor="#fff"
+        android:background="@color/greenColor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- Receipt Info !-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:padding="10dp"
+            android:id="@+id/nav_list_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_card_email"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/asphaltColor"
+                android:text="@string/receipt_sms" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/asphaltColor"
+                android:text="on Oct 19 2015, 18:40"
+                android:id="@+id/receipt_date_time" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Checkout Button !-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/return_to_menu"
+        android:background="@color/primaryColor"
+        android:onClick="onClick_goMain"
+        android:id="@+id/goPayPal" />
+
+
+</LinearLayout>

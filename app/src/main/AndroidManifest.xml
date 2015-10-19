@@ -6,9 +6,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
@@ -51,11 +51,12 @@
             android:name=".AboutActivity"
             android:label="@string/title_activity_about" >
         </activity>
-        <activity android:name=".ScanQRCodeActivity"
+        <activity
+            android:name=".ScanQRCodeActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true"
             android:theme="@style/zxing_CaptureTheme"
-            android:windowSoftInputMode="stateAlwaysHidden">
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".PrePayPalActivity"
@@ -64,24 +65,21 @@
 
         <service
             android:name="com.paypal.android.sdk.payments.PayPalService"
-            android:exported="false"/>
+            android:exported="false" />
 
-        <activity
-            android:name="com.paypal.android.sdk.payments.PaymentActivity"/>
-        <activity
-            android:name="com.paypal.android.sdk.payments.LoginActivity"/>
-        <activity
-            android:name="com.paypal.android.sdk.payments.PaymentMethodActivity"/>
-        <activity
-            android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity"/>
-        <activity
-            android:name="com.paypal.android.sdk.payments.PaymentCompletedActivity"/>
+        <activity android:name="com.paypal.android.sdk.payments.PaymentActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.LoginActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentMethodActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentConfirmActivity" />
+        <activity android:name="com.paypal.android.sdk.payments.PaymentCompletedActivity" />
         <activity
             android:name="io.card.payment.CardIOActivity"
-            android:configChanges="keyboardHidden|orientation"/>
+            android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="io.card.payment.DataEntryActivity" />
         <activity
-            android:name="io.card.payment.DataEntryActivity"/>
-
+            android:name=".SuccessfulPaymentActivity"
+            android:label="@string/title_activity_successful_payment" >
+        </activity>
     </application>
 
 </manifest>
