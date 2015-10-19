@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
+            android:paddingBottom="10dp"
             android:id="@+id/tv_order_subtotal"
             android:layout_below="@+id/tv_order_quantity"
             android:layout_alignLeft="@+id/tv_order_quantity" />
@@ -62,24 +63,28 @@
             android:layout_height="1dp"
             android:background="#ffd5d5d5"
             android:id="@+id/linea"
-            android:layout_above="@+id/remove_icon"
+            android:layout_below="@+id/tv_order_subtotal"
             android:layout_toRightOf="@+id/img_thumbnail">
         </View>
 
         <TextView
             android:id="@+id/change_quantity"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
             android:layout_below="@+id/linea"
-            android:layout_alignLeft="@+id/tv_order_quantity"
+            android:layout_toRightOf="@+id/img_thumbnail"
+            android:paddingLeft="10dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:textColor="#fff"
+            android:background="@color/greyColor"
             android:text="CHANGE QUANTITY"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/remove_icon"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             android:background="@color/material_blue_grey_800" />
