@@ -21,5 +21,6 @@
     <string name="title_activity_scan_qrcode">ScanQRCodeActivity</string>
     <string name="scan_qr_code">Scan Table Number (QR Code)</string>
     <string name="title_activity_pre_pay_pal">PrePayPalActivity</string>
+    <string name="update">Update</string>
 
 </resources>

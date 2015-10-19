@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    tools:context=".ItemDetailActivity">
+    tools:context=".CartActivity">
 
     <LinearLayout
         android:id="@+id/form_quantity"
@@ -12,40 +12,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:layout_marginLeft="30dp"
+                android:text="-"
+                android:id="@+id/minus_button" />
 
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center_horizontal"
+                android:text="1"
+                android:inputType="number"
+                android:ems="10"
+                android:id="@+id/quantity" />
 
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="30dp"
-                    android:text="-"
-                    android:id="@+id/minus_button" />
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="30dp"
+                android:text="+"
+                android:id="@+id/plus_button" />
 
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:gravity="center_horizontal"
-                    android:text="1"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/quantity" />
-
-                <Button
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_marginRight="30dp"
-                    android:text="+"
-                    android:id="@+id/plus_button" />
-
-            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -73,7 +73,7 @@
             android:layout_margin="20dp"
             android:background="@color/primaryColor"
             android:textColor="#fff"
-            android:text="@string/add_to_cart" />
+            android:text="@string/update" />
 
     </LinearLayout>
 

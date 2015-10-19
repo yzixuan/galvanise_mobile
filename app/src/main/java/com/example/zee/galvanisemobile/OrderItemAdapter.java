@@ -101,8 +101,8 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     // dialog pop-up to edit an item's quantity in the cart
     public void updateInDialog(View v) {
         final Dialog dialog = new Dialog(v.getContext());
-        dialog.setContentView(R.layout.dialog_add_to_cart);
-        dialog.setTitle("Select Quantity");
+        dialog.setContentView(R.layout.dialog_update_quantity);
+        dialog.setTitle("Change Quantity");
 
         Button plusButton = (Button) dialog.findViewById(R.id.plus_button);
         Button minusButton = (Button) dialog.findViewById(R.id.minus_button);
