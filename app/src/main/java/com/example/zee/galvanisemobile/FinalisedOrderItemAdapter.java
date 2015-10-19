@@ -41,9 +41,17 @@ public class FinalisedOrderItemAdapter extends RecyclerView.Adapter<FinalisedOrd
         MenuItem menuItem = menuitems.get(i).getMenuItem();
         viewHolder.itemName.setText(menuItem.getItemName());
         androidAQuery.id(viewHolder.imgThumbnail).image(menuItem.getThumbnail(), true, true);
-        viewHolder.promoPrice.setText("$" + String.format("%.2f", menuItem.getPromoPrice()) + " x " + menuitems.get(i).getQuantity());
-        viewHolder.orderSubtotal.setText("Item Subtotal: $" + String.format("%.2f", menuitems.get(i).getQuantity()* menuItem.getPromoPrice()));
+
+        String promoPrice = String.format("%.2f", menuItem.getPromoPrice());
+        String itemSubtotal = String.format("%.2f", menuitems.get(i).getQuantity() * menuItem.getPromoPrice());
+
+        viewHolder.promoPrice.setText("$" + promoPrice + " x " + menuitems.get(i).getQuantity() + " = SGD $" + itemSubtotal);
         viewHolder.itemView.setTag(menuitems.get(i));
+    }
+
+    public void updateList(List<OrderItem> orders) {
+        menuitems = orders;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -57,14 +65,12 @@ public class FinalisedOrderItemAdapter extends RecyclerView.Adapter<FinalisedOrd
         public ImageView imgThumbnail;
         public TextView itemName;
         public TextView promoPrice;
-        public TextView orderSubtotal;
 
         public ViewHolder(final View itemView){
             super(itemView);
             imgThumbnail = (ImageView)itemView.findViewById(R.id.img_thumbnail);
             itemName = (TextView)itemView.findViewById(R.id.tv_menu_item_name);
             promoPrice = (TextView)itemView.findViewById(R.id.tv_menu_item_price);
-            orderSubtotal = (TextView)itemView.findViewById(R.id.tv_order_subtotal);
         }
 
     }

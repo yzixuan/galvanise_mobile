@@ -64,6 +64,11 @@ public class PrePayPalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_pay_pal);
 
+        if (ShoppingCart.getTotalPrice() == 0) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+
         Intent intent = getIntent();
         String tableNumberFromCode = intent.getStringExtra("tableQRCode");
         tableNumber = (TextView)findViewById(R.id.tableNumber);
@@ -83,6 +88,17 @@ public class PrePayPalActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_pre_pay_pal, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+
+        if (ShoppingCart.getTotalPrice() == 0) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        super.onResume();
     }
 
     @Override

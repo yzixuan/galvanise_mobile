@@ -21,6 +21,8 @@ import java.util.Date;
 public class SuccessfulPaymentActivity extends AppCompatActivity {
 
     private TextView paymentDateTime;
+    private TextView cartSubtotal;
+    private TextView totalPayable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_successful_payment);
 
         setPaymentDateTime();
+        generateReceiptObject();
         //sendSMSReceipt();
         clearCart();
     }
@@ -52,6 +55,19 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void generateReceiptObject() {
+        Calendar calendar = Calendar.getInstance();
+        ReceiptItem receipt = new ReceiptItem(calendar.getTime());
+
+        cartSubtotal = (TextView)findViewById(R.id.cart_subtotal);
+        totalPayable = (TextView)findViewById(R.id.total_payable);
+        cartSubtotal.setText("Cart Subtotal: SGD $"+ String.format("%.2f", receipt.getSubTotal()));
+        totalPayable.setText("Total Paid (incl discounts): SGD $" + String.format("%.2f", receipt.getTotalPaid()));
+
+        FinalisedCartFragment fragment = (FinalisedCartFragment) getFragmentManager().findFragmentById(R.id.finalized_fragment_cart);
+        fragment.modifyAdapterContents(receipt);
     }
 
     private void setPaymentDateTime() {
