@@ -27,5 +27,6 @@
     <string name="thank_upon_payment">Thank you for making payment. \n We will bring your food to your table.</string>
     <string name="receipt_sms">A Receipt SMS has been sent to your phone</string>
     <string name="return_to_menu">Back to Menu</string>
+    <string name="title_activity_settings">SettingsActivity</string>
 
 </resources>
