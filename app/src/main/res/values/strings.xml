@@ -2,7 +2,7 @@
     <string name="app_name">Galvanise Cafe</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="action_cart">Cart</string>
+    <string name="action_cart">Order</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_cart">Your Order</string>
     <string name="title_activity_about">About Us</string>
@@ -13,7 +13,7 @@
     <string name="title_activity_item_detail">ItemDetailActivity</string>
     <string name="add_to_cart">Add to Order</string>
     <string name="sample_description">Matcha, a traditional Japanese tea, has many health benefits. It also provides an enjoyable drinking experience. Whether you like the traditional whisked matcha, or matcha blended into a flurry of ice and milk, it is a flavorful beverage choice.</string>
-    <string name="empty_cart">Total No. of Items in Cart: 0</string>
+    <string name="empty_cart">Total No. of Items in Order: 0</string>
     <string name="checkout_items">Pay and Checkout</string>
     <string name="empty_payable">Total Payable: SGD $0.00</string>
 

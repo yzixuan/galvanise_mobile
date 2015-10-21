@@ -127,6 +127,12 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
+    public void onClick_getQRCode(View view) {
+
+        Intent intent = new Intent(this, QrInstructionsActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
     private void startShareActivity(String subject, String text) {
 
         try {
