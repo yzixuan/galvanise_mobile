@@ -127,9 +127,10 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
-    public void onClick_getQRCode(View view) {
+    public void onClick_rescanQRCode(View view) {
 
         Intent intent = new Intent(this, QrInstructionsActivity.class);
+        intent.putExtra("rescanCode", true);
         startActivityForResult(intent, 1);
     }
 

@@ -18,6 +18,20 @@ public class QrInstructionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_instructions);
+
+        checkForRescan();
+    }
+
+    // if user is just re-scanning table number, skip instructions and go
+    // straight to using ZXing scanner
+    public void checkForRescan() {
+
+        Intent intent = getIntent();
+        boolean rescan = intent.getBooleanExtra("rescanCode", false);
+
+        if (rescan) {
+            openZXingScanner();
+        }
     }
 
     @Override
@@ -42,8 +56,14 @@ public class QrInstructionsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    // use ZXing Library to scan QR Code
+
     public void onClick_scanQRCode(View view) {
+
+        openZXingScanner();
+    }
+
+    // use ZXing Library to scan QR Code
+    public void openZXingScanner() {
 
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(ScanQRCodeActivity.class);
