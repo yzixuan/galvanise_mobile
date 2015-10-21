@@ -90,6 +90,10 @@
             android:name=".QrInstructionsActivity"
             android:label="@string/title_activity_qr_instructions" >
         </activity>
+        <activity
+            android:name=".ChatActivity"
+            android:label="@string/title_activity_chat" >
+        </activity>
     </application>
 
 </manifest>

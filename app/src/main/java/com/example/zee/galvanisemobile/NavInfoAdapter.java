@@ -76,6 +76,9 @@ public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHo
                 case 5: // about us
                     v.getContext().startActivity(new Intent(v.getContext(), AboutActivity.class));
                     break;
+                case 6: // about us
+                    v.getContext().startActivity(new Intent(v.getContext(), ChatActivity.class));
+                    break;
                 default:
                     break;
             }
