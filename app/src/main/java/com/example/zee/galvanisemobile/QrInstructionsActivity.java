@@ -90,7 +90,10 @@ public class QrInstructionsActivity extends AppCompatActivity {
     // else, alert the user to try again
     private void handleTableNumberScanned(String qrCode) {
 
-        if (qrCode.matches("[-+]?\\d*\\.?\\d+")) {
+        if (qrCode == null) {
+            finish();
+        }
+        else if (qrCode.matches("[-+]?\\d*\\.?\\d+")) {
 
             Intent returnIntent = new Intent(this, CartActivity.class);
             returnIntent.putExtra("tableQRCode", qrCode);
