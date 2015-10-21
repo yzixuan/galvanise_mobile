@@ -27,6 +27,12 @@
         android:id="@+id/linea" >
     </View>
 
+    <LinearLayout
+        android:id="@+id/phoneInputLayout"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
     <TextView
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
@@ -62,6 +68,8 @@
             android:ems="8"
             android:id="@+id/phoneNumber"
             android:layout_gravity="center_vertical" />
+
+    </LinearLayout>
 
     </LinearLayout>
 

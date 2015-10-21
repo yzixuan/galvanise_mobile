@@ -8,15 +8,20 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
 
+    private Switch aSwitch;
     private Toolbar toolbar;
     private SharedPreferences preferences;
     private EditText phoneNumberInput;
+    private LinearLayout phoneInputLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +32,11 @@ public class SettingsActivity extends AppCompatActivity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         phoneNumberInput = (EditText)findViewById(R.id.phoneNumber);
+        aSwitch = (Switch)findViewById(R.id.switch1);
+        phoneInputLayout = (LinearLayout)findViewById(R.id.phoneInputLayout);
 
-        setPhoneNumberInput();
+        getPreferencesSettings();
+        listenSwitch();
     }
 
     public void setToolbar() {
@@ -62,15 +70,39 @@ public class SettingsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void setPhoneNumberInput() {
+    public void getPreferencesSettings() {
 
+        boolean smsPermission = preferences.getBoolean("SMSPermission", false);
         String previouslySaved = preferences.getString("PhoneNumber", "");
         phoneNumberInput.setText(previouslySaved, TextView.BufferType.EDITABLE);
+
+        if (smsPermission) {
+
+            aSwitch.setChecked(true);
+
+        } else {
+
+            aSwitch.setChecked(false);
+            phoneInputLayout.setVisibility(View.INVISIBLE);
+
+        }
     }
 
     public void onClick_saveSettings(View view) {
 
-        String phoneNumber = getPhoneNumberInput();
+        saveSMSPermission(aSwitch.isChecked());
+
+        if (aSwitch.isChecked()) {
+
+            getPhoneNumberInput();
+        }
+
+        Toast.makeText(this, "SMS settings have been saved.", Toast.LENGTH_LONG).show();
+    }
+
+    public void getPhoneNumberInput() {
+
+        String phoneNumber =  phoneNumberInput.getText().toString().trim();
 
         if (phoneNumber.isEmpty() || phoneNumber == null) {
 
@@ -81,19 +113,34 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    public String getPhoneNumberInput() {
+    public void saveSMSPermission(boolean canSend) {
 
-        return phoneNumberInput.getText().toString().trim();
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("SMSPermission", canSend);
+        editor.apply();
     }
 
     public void savePhoneNumber(String phoneNumber) {
 
-        String sgPhoneNumber = phoneNumber;
-
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("PhoneNumber", sgPhoneNumber);
+        editor.putString("PhoneNumber", phoneNumber);
         editor.apply();
+    }
 
-        Toast.makeText(this, "SMS settings have been saved.", Toast.LENGTH_LONG).show();
+    public void listenSwitch() {
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+
+                if(isChecked){
+                    phoneInputLayout.setVisibility(View.VISIBLE);
+                }else{
+                    phoneInputLayout.setVisibility(View.INVISIBLE);
+                }
+
+            }
+        });
     }
 }
