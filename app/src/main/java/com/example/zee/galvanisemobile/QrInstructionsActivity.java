@@ -72,9 +72,10 @@ public class QrInstructionsActivity extends AppCompatActivity {
 
         if (qrCode.matches("[-+]?\\d*\\.?\\d+")) {
 
-            Intent intent = new Intent(this, PrePayPalActivity.class);
-            intent.putExtra("tableQRCode", qrCode);
-            startActivity(intent);
+            Intent returnIntent = new Intent(this, CartActivity.class);
+            returnIntent.putExtra("tableQRCode", qrCode);
+            setResult(RESULT_OK, returnIntent);
+            finish();
 
         } else {
 

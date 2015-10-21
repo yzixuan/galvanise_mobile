@@ -11,6 +11,7 @@ public class ShoppingCart implements Serializable {
     private static double totalPrice = 0;
     private static double discount = 0;
     private static double discountedPrice = totalPrice;
+    private static String tableNumber = null;
 
     public static int getNumOfItems() {
         return numOfItems;
@@ -44,6 +45,18 @@ public class ShoppingCart implements Serializable {
     // this is a private method
     private static void setDiscountedPrice() {
         discountedPrice = totalPrice * (1 - discount);
+    }
+
+    public static void setDiscountedPrice(double discountedPrice) {
+        ShoppingCart.discountedPrice = discountedPrice;
+    }
+
+    public static String getTableNumber() {
+        return tableNumber;
+    }
+
+    public static void setTableNumber(String tableNumber) {
+        ShoppingCart.tableNumber = tableNumber;
     }
 
     public static ArrayList<OrderItem> getOrderItems() {
@@ -89,6 +102,7 @@ public class ShoppingCart implements Serializable {
     }
 
     public static void clear() {
+        tableNumber = null;
         orderItems.clear();
         updateCartTotal();
     }

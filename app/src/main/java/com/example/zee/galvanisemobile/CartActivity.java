@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class CartActivity extends AppCompatActivity {
@@ -17,23 +18,47 @@ public class CartActivity extends AppCompatActivity {
     private TextView totalPayable;
     private TextView discountedPayable;
     private Button checkoutButton;
+    private LinearLayout tableNumberLayout;
+    private TextView tableNumberTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        toolbar = (Toolbar)findViewById(R.id.app_bar);
         cartQuantity = (TextView)findViewById(R.id.cart_quantity);
         totalPayable = (TextView)findViewById(R.id.total_payable);
         discountedPayable = (TextView)findViewById(R.id.discounted_payable);
         checkoutButton = (Button)findViewById(R.id.checkout);
+
+        setToolbar();
+        handleTableNumber();
+        refreshCartInfo();
+    }
+
+    public void setToolbar() {
+
+        toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        refreshCartInfo();
+    public void handleTableNumber() {
+
+        tableNumberLayout = (LinearLayout)findViewById(R.id.tableNumberLayout);
+
+        if (ShoppingCart.getTableNumber() == null) {
+
+            tableNumberLayout.setVisibility(View.GONE);
+
+        } else {
+
+            tableNumberTextView = (TextView)findViewById(R.id.tableNumber);
+            tableNumberTextView.setText(ShoppingCart.getTableNumber());
+            tableNumberLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -84,6 +109,7 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void refreshCartInfo() {
+
         cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
         totalPayable.setText("Cart Subtotal: SGD $" + String.format("%.2f", ShoppingCart.getTotalPrice()));
         setCheckoutVisibility();
@@ -91,11 +117,18 @@ public class CartActivity extends AppCompatActivity {
 
     public void onClick_checkout(View view) {
 
-        Intent intent = new Intent(this, QrInstructionsActivity.class);
-        startActivity(intent);
+        if (ShoppingCart.getTableNumber() == null) {
+            Intent intent = new Intent(this, QrInstructionsActivity.class);
+            startActivityForResult(intent, 1);
+        } else {
+            Intent intent = new Intent(this, PrePayPalActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     private void startShareActivity(String subject, String text) {
+
         try {
             Intent intent = new Intent(android.content.Intent.ACTION_SEND);
             intent.setType("text/plain");
@@ -104,7 +137,24 @@ public class CartActivity extends AppCompatActivity {
             startActivity(intent);
         }
         catch(android.content.ActivityNotFoundException e) {
-            // can't start activity
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+
+            if(resultCode == QrInstructionsActivity.RESULT_OK){
+
+                ShoppingCart.setTableNumber(data.getStringExtra("tableQRCode"));
+                handleTableNumber();
+            }
+
+            if (resultCode == QrInstructionsActivity.RESULT_CANCELED) {
+
+            }
         }
     }
 
