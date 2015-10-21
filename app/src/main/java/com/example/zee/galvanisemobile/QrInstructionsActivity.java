@@ -42,6 +42,7 @@ public class QrInstructionsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // use ZXing Library to scan QR Code
     public void onClick_scanQRCode(View view) {
 
         IntentIntegrator integrator = new IntentIntegrator(this);
@@ -54,6 +55,7 @@ public class QrInstructionsActivity extends AppCompatActivity {
         integrator.initiateScan();
     }
 
+    // wait for QR Code result from ZXing (required for integrating ZXing)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult barcodeResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -64,11 +66,16 @@ public class QrInstructionsActivity extends AppCompatActivity {
         }
     }
 
+    // if it's a valid table number, go to the next activity
+    // else, alert the user to try again
     private void handleTableNumberScanned(String qrCode) {
+
         if (qrCode.matches("[-+]?\\d*\\.?\\d+")) {
+
             Intent intent = new Intent(this, PrePayPalActivity.class);
             intent.putExtra("tableQRCode", qrCode);
             startActivity(intent);
+
         } else {
 
             new AlertDialog.Builder(this)
