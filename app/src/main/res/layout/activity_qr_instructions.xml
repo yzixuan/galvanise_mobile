@@ -1,0 +1,58 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/accentColor"
+    tools:context="com.example.zee.galvanisemobile.QrInstructionsActivity">
+
+    <TextView
+        android:text="Scan Your \nTable Number"
+        android:gravity="center"
+        android:textSize="24dp"
+        android:paddingTop="80dp"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="Scan the QR Code found at the corner of your table where you're seated at"
+        android:gravity="center"
+        android:textSize="16dp"
+        android:paddingTop="10dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:textColor="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:padding="14dp"
+        android:text="Scan QR Code"
+        android:id="@+id/scan_button"
+        android:background="@color/primaryColor"
+        android:onClick="onClick_scanQRCode"
+        android:layout_gravity="center_horizontal" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/remove_icon"
+            android:src="@drawable/galvanise_table" />
+
+    </RelativeLayout>
+
+</LinearLayout>

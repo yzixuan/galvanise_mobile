@@ -95,14 +95,18 @@ public class CartActivity extends AppCompatActivity {
     }
 
     public void onClick_checkout(View view) {
-        IntentIntegrator integrator = new IntentIntegrator(this);
+
+        Intent intent = new Intent(this, QrInstructionsActivity.class);
+        startActivity(intent);
+
+        /*IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.setCaptureActivity(ScanQRCodeActivity.class);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
         integrator.setOrientationLocked(true);
         integrator.setPrompt("Scan the table number");
         integrator.setCameraId(0);  // Use a specific camera of the device
         integrator.setBeepEnabled(false);
-        integrator.initiateScan();
+        integrator.initiateScan();*/
     }
 
     @Override

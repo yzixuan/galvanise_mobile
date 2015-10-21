@@ -28,5 +28,6 @@
     <string name="receipt_sms">A Receipt SMS has been sent to your phone</string>
     <string name="return_to_menu">Back to Menu</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_qr_instructions">QrInstructionsActivity</string>
 
 </resources>
