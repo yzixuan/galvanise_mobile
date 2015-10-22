@@ -25,7 +25,7 @@ public class PersistentReceiver extends BroadcastReceiver {
         this.context = context;
         Bundle extras = intent.getExtras();
 
-        if(intent.getAction().equals(Intent.ACTION_BATTERY_LOW) || intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED)) {
+        if(intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {
             showNotification("Your battery is low", "Get a charger from the counter at Galvanise Cafe!");
         }
 
@@ -33,7 +33,7 @@ public class PersistentReceiver extends BroadcastReceiver {
             if(extras.containsKey("AddtoCart")) {
                 boolean broadcast = intent.getBooleanExtra("AddtoCart", false);
                 if (broadcast == true) {
-                    Toast.makeText(context, "Successfully added to cart.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Successfully added to order.", Toast.LENGTH_SHORT).show();
                 }
             }
         }

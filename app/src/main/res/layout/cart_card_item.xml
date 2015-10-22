@@ -77,7 +77,7 @@
             android:layout_alignParentBottom="true"
             android:gravity="center_vertical"
             android:textColor="#fff"
-            android:background="@color/greyColor"
+            android:background="@color/asphaltColor"
             android:text="CHANGE QUANTITY"/>
 
         <ImageView
