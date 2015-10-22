@@ -87,11 +87,17 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
         paymentDateTime.setText("on " + dateOfOrder);
     }
 
+    /*
+     * NOTE: We are not able to use third-party messaging clients such as Twilio to send SMSes
+     * because it costs money. Hence, we are just using the default SMS Manager as a proof of concept.
+     */
     private void sendSMSReceipt() {
 
         boolean smsPermission = preferences.getBoolean("SMSPermission", false);
         String savedNumber = preferences.getString("PhoneNumber", "");
 
+        // if user has indicated permission to send SMS in the settings activity, then send SMS
+        // else, no SMS will be sent to the user.
         if (smsPermission == true && !savedNumber.isEmpty()) {
 
             String receiptMessage = composeSMSReceipt();
