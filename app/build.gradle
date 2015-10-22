@@ -21,6 +21,13 @@ android {
         main.jniLibs.srcDirs = ['libs']
         test.jniLibs.srcDirs = ['libs']
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
 dependencies {
@@ -34,4 +41,6 @@ dependencies {
     compile 'com.googlecode.android-query:android-query:0.24.3'
     compile 'com.journeyapps:zxing-android-embedded:3.0.2@aar'
     compile 'com.google.zxing:core:3.2.0'
+    compile 'com.firebase:firebase-client-android:2.4.0'
 }
+
