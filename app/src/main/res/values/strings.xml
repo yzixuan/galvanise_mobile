@@ -33,8 +33,11 @@
 
     <string-array name="tabs">
         <item>ALL</item>
+        <item>COFFEE</item>
+        <item>TEA</item>
+        <item>JUICES</item>
+        <item>SNACKS</item>
         <item>DESSERTS</item>
-        <item>BEVERAGES</item>
     </string-array>
 
 </resources>

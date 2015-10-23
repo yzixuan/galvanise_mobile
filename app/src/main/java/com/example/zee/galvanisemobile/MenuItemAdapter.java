@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.customViewHolder> {
@@ -52,6 +54,25 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.custom
 
     public int getItemCount() {
         return (null != feedItemList ? feedItemList.size() : 0);
+    }
+
+    public void updateList(List<MenuItem> orders) {
+        feedItemList = orders;
+        notifyDataSetChanged();
+    }
+
+    public void filterList(int categoryId) {
+
+        List<MenuItem> filteredList = new ArrayList<MenuItem>();
+        Iterator<MenuItem> orderIterator = feedItemList.iterator();
+
+        while (orderIterator.hasNext()) {
+            MenuItem currOrder = orderIterator.next();
+            if (currOrder.getCategory() == categoryId) {
+                filteredList.add(currOrder);
+            }
+        }
+        updateList(filteredList);
     }
 
 

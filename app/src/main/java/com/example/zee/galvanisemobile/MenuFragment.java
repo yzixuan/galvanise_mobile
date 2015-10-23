@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -22,6 +23,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -34,7 +36,7 @@ public class MenuFragment extends Fragment {
     private MenuItemAdapter mAdapter; //  private MyRecyclerAdapter adapter;
 
     private static final String TAG = "RecyclerViewExample";
-    private List<MenuItem> feedsList;
+    private List<MenuItem> feedsList = new ArrayList<MenuItem>();
 
     public static MenuFragment getInstance(int position) {
         MenuFragment menuTabFragment = new MenuFragment();
@@ -66,7 +68,30 @@ public class MenuFragment extends Fragment {
 
         mAdapter = new MenuItemAdapter(getActivity().getApplicationContext(), feedsList);
         mRecyclerView.setAdapter(mAdapter);
+
+        Bundle bundle = getArguments();
+
+        if (bundle != null) {
+            filterMenuByTabs(bundle.getInt("position"));
+        }
+
         return layout;
+    }
+
+    private void onDataLoaded() {
+        filterMenuByTabs(getArguments().getInt("position"));
+    }
+    private void filterMenuByTabs(int tab) {
+
+        if (tab == 0) {
+
+            mAdapter.updateList(feedsList);
+
+        } else {
+
+            mAdapter.filterList(tab);
+
+        }
     }
 
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
@@ -80,7 +105,7 @@ public class MenuFragment extends Fragment {
                 urlConnection = (HttpURLConnection) url.openConnection();
                 int statusCode = urlConnection.getResponseCode();
 
-                // 200 represents HTTP OK
+                // 200 represents HTTP OK (SUCCESS)
                 if (statusCode == 200) {
                     BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     StringBuilder response = new StringBuilder();
@@ -106,8 +131,9 @@ public class MenuFragment extends Fragment {
                 mAdapter = new MenuItemAdapter(getActivity().getApplicationContext(), feedsList);
                 mRecyclerView.setAdapter(mAdapter);
             } else {
-                Toast.makeText(getActivity(), "Failed to fetch data!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Couldn't fetch data. Please check your Internet connectivity", Toast.LENGTH_SHORT).show();
             }
+            MenuFragment.this.onDataLoaded();
         }
     }
 
@@ -122,6 +148,7 @@ public class MenuFragment extends Fragment {
                 JSONObject post = posts.optJSONObject(i);
                 MenuItem item = new MenuItem();
                 item.setId(post.optInt("id"));
+                item.setCategoryViaName(post.optString("category"));
                 item.setItemName(post.optString("name"));
                 item.setThumbnail(post.optString("image"));
                 item.setPromoPrice(post.optInt("price"));

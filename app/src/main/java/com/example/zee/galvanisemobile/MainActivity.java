@@ -1,7 +1,6 @@
 package com.example.zee.galvanisemobile;
 
 import android.app.Dialog;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.app.Notification;
@@ -15,13 +14,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estimote.sdk.Beacon;
@@ -186,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         catch(android.content.ActivityNotFoundException e) {
-            // can't start activity
+
         }
     }
 
@@ -212,34 +208,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 3;
-        }
-    }
-
-    public static class MenuTabFragment extends Fragment{
-
-        private TextView textView;
-
-        public static MenuTabFragment getInstance(int position) {
-            MenuTabFragment menuTabFragment = new MenuTabFragment();
-            Bundle args = new Bundle();
-            args.putInt("position", position);
-            menuTabFragment.setArguments(args);
-            return menuTabFragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            View layout = inflater.inflate(R.layout.fragment_menu, container, false);
-            textView = (TextView)layout.findViewById(R.id.pagerText);
-
-            Bundle bundle = getArguments();
-
-            if (bundle != null) {
-                textView.setText("Pager is " + bundle.getInt("position"));
-            }
-
-            return layout;
+            return 6;
         }
     }
 }

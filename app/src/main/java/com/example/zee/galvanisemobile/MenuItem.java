@@ -9,7 +9,7 @@ import android.os.Parcelable;
 public class MenuItem implements Parcelable{
 
     private int id;
-    private int category_id;
+    private int category;
     private String itemName;
     private double promoPrice;
     private String thumbnail;
@@ -27,12 +27,36 @@ public class MenuItem implements Parcelable{
         this.id = id;
     }
 
-    public int getCategory_id() {
-        return category_id;
+    public int getCategory() {
+        return category;
     }
 
-    public void setCategory_id(int category_id) {
-        this.category_id = category_id;
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public void setCategoryViaName(String categoryName) {
+
+        switch (categoryName) {
+            case "Coffees":
+                this.setCategory(1);
+                break;
+            case "Teas":
+                this.setCategory(2);
+                break;
+            case "Juices":
+                this.setCategory(3);
+                break;
+            case "Snacks":
+                this.setCategory(4);
+                break;
+            case "Dreamy Desserts":
+                this.setCategory(5);
+                break;
+            default:
+                this.setCategory(0);
+                break;
+        }
     }
 
     public String getItemName() {
@@ -67,53 +91,9 @@ public class MenuItem implements Parcelable{
         this.itemDesc = desc;
     }
 
-
-//    protected MenuItem(Parcel in) {
-//        id = in.readInt();
-//        category_id = in.readInt();
-//        itemName = in.readString();
-////        promoPrice = in.readDouble();
-////        thumbnail = in.readInt();
-//    }
-
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel dest, int flags) {
-//        dest.writeInt(id);
-//        dest.writeInt(category_id);
-//        dest.writeString(itemName);
-////        dest.writeDouble(promoPrice);
-//    }
-//
-//    @SuppressWarnings("unused")
-//    public static final Parcelable.Creator<MenuItem> CREATOR = new Parcelable.Creator<MenuItem>() {
-//        @Override
-//        public MenuItem createFromParcel(Parcel in) {
-//            return new MenuItem(in);
-//        }
-//
-//        @Override
-//        public MenuItem[] newArray(int size) {
-//            return new MenuItem[size];
-//        }
-//    };
-
-
-
-
-
-
-
-
-
-
     protected MenuItem(Parcel in) {
         id = in.readInt();
-        category_id = in.readInt();
+        category = in.readInt();
         itemName = in.readString();
         promoPrice = in.readDouble();
         thumbnail = in.readString();
@@ -128,7 +108,7 @@ public class MenuItem implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
-        dest.writeInt(category_id);
+        dest.writeInt(category);
         dest.writeString(itemName);
         dest.writeDouble(promoPrice);
         dest.writeString(thumbnail);
