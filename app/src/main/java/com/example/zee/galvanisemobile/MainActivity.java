@@ -30,6 +30,7 @@ import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
+    private NavigationDrawerFragment drawerFragment;
     private Toolbar toolbar;
     private BeaconManager beaconManager;
     private ViewPager mPager;
@@ -41,37 +42,51 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setToolbar();
+        setNavigationDrawer();
+        setTabs();
+
+        setUpBeaconManager();
+    }
+
+    public void setToolbar() {
+
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
-        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+    public void setNavigationDrawer() {
+
+        drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+
+    }
+
+    public void setTabs() {
 
         mPager = (ViewPager)findViewById(R.id.pager);
         mPager.setAdapter(new MenuPagerAdapter(getSupportFragmentManager()));
         mTabs = (SlidingTabLayout)findViewById(R.id.tabs);
         mTabs.setViewPager(mPager);
 
-        setUpBeaconManager();
     }
 
     @Override
     public void onNewIntent(Intent intent){
         Bundle extras = intent.getExtras();
         if(extras != null){
-            if(extras.containsKey("NotificationMessage"))
-            {
+            if(extras.containsKey("NotificationMessage")) {
                 if (ShoppingCart.getDiscount() > 0) {
+
                     Toast.makeText(this, "A " + Math.round(ShoppingCart.getDiscount() * 100) + "% discount has been included", Toast.LENGTH_SHORT).show();
                 }
                 else {
+
                     handleBeaconDialog();
                 }
             }
         }
-
-
     }
 
     @Override
