@@ -31,4 +31,10 @@
     <string name="title_activity_qr_instructions">QrInstructionsActivity</string>
     <string name="title_activity_chat">ChatActivity</string>
 
+    <string-array name="tabs">
+        <item>ALL</item>
+        <item>DESSERTS</item>
+        <item>BEVERAGES</item>
+    </string-array>
+
 </resources>

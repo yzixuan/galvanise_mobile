@@ -1,24 +1,33 @@
 package com.example.zee.galvanisemobile;
 
 import android.app.Dialog;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
+import com.example.zee.galvanisemobile.tabs.SlidingTabLayout;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private BeaconManager beaconManager;
+    private ViewPager mPager;
+    private SlidingTabLayout mTabs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+
+        mPager = (ViewPager)findViewById(R.id.pager);
+        mPager.setAdapter(new MenuPagerAdapter(getSupportFragmentManager()));
+        mTabs = (SlidingTabLayout)findViewById(R.id.tabs);
+        mTabs.setViewPager(mPager);
 
         setUpBeaconManager();
     }
@@ -170,6 +187,59 @@ public class MainActivity extends AppCompatActivity {
         }
         catch(android.content.ActivityNotFoundException e) {
             // can't start activity
+        }
+    }
+
+    class MenuPagerAdapter extends FragmentPagerAdapter {
+
+        String[] tabs;
+
+        public MenuPagerAdapter(FragmentManager fm) {
+            super(fm);
+            tabs = getResources().getStringArray(R.array.tabs);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            MenuFragment menuTabFragment = MenuFragment.getInstance(position);
+            return menuTabFragment;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabs[position];
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+    }
+
+    public static class MenuTabFragment extends Fragment{
+
+        private TextView textView;
+
+        public static MenuTabFragment getInstance(int position) {
+            MenuTabFragment menuTabFragment = new MenuTabFragment();
+            Bundle args = new Bundle();
+            args.putInt("position", position);
+            menuTabFragment.setArguments(args);
+            return menuTabFragment;
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            View layout = inflater.inflate(R.layout.fragment_menu, container, false);
+            textView = (TextView)layout.findViewById(R.id.pagerText);
+
+            Bundle bundle = getArguments();
+
+            if (bundle != null) {
+                textView.setText("Pager is " + bundle.getInt("position"));
+            }
+
+            return layout;
         }
     }
 }

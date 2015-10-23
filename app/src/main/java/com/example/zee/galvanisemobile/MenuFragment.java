@@ -1,7 +1,8 @@
 package com.example.zee.galvanisemobile;
 
 
-import android.app.Fragment;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -35,8 +36,12 @@ public class MenuFragment extends Fragment {
     private static final String TAG = "RecyclerViewExample";
     private List<MenuItem> feedsList;
 
-    public MenuFragment() {
-        // Required empty public constructor
+    public static MenuFragment getInstance(int position) {
+        MenuFragment menuTabFragment = new MenuFragment();
+        Bundle args = new Bundle();
+        args.putInt("position", position);
+        menuTabFragment.setArguments(args);
+        return menuTabFragment;
     }
 
     @Override
@@ -46,8 +51,7 @@ public class MenuFragment extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // Downloading data from below url
         final String url = "http://galvanize.space/catalogs.json";
