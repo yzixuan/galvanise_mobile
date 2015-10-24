@@ -37,8 +37,6 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
 
         setPaymentDateTime();
         generateReceiptObject();
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        sendSMSReceipt();
         clearCart();
     }
 
@@ -75,6 +73,8 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
 
         FinalisedCartFragment fragment = (FinalisedCartFragment) getFragmentManager().findFragmentById(R.id.finalized_fragment_cart);
         fragment.modifyAdapterContents(receipt);
+
+        sendSMSReceipt();
     }
 
     private void setPaymentDateTime() {
@@ -92,6 +92,8 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
      * because it costs money. Hence, we are just using the default SMS Manager as a proof of concept.
      */
     private void sendSMSReceipt() {
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         boolean smsPermission = preferences.getBoolean("SMSPermission", false);
         String savedNumber = preferences.getString("PhoneNumber", "");
@@ -129,10 +131,7 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
 
         String orderItemsText = title.concat("\n" + dateTime + "\n\n");
 
-        Iterator<OrderItem> orderIterator = receipt.getOrderItems().iterator();
-        while (orderIterator.hasNext()) {
-
-            OrderItem currOrder = orderIterator.next();
+        /*for(OrderItem currOrder: receipt.getOrderItems()){
 
             String itemName = currOrder.getMenuItem().getItemName();
             String quantity = String.valueOf(currOrder.getQuantity());
@@ -140,7 +139,8 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
 
             String currItemText = itemName + " :\n($" + price + ") x " + quantity + "\n";
             orderItemsText = orderItemsText.concat(currItemText);
-        }
+
+        }*/
 
         String subtotal = String.format("%.2f", receipt.getSubTotal());
         String discount = String.valueOf(Math.round(receipt.getDiscount() * 100));
