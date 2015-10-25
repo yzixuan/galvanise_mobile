@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#3F51B5</color>
-    <color name="primaryColorDark">#303F9F</color>
+    <color name="primaryColor">#D3145A</color>
+    <color name="primaryColorDark">#9E005D</color>
     <color name="accentColor">#00BCD4</color>
-    <color name="primaryColorMelon">#F05557</color>
-    <color name="primaryColorDarkMelon">#E53935</color>
+    <color name="primaryColorIndigo">#3F51B5</color>
+    <color name="primaryColorDarkIndigo">#3F51B5</color>
     <color name="Translucent">#00000000</color>
     <color name="greyColor">#a2b0b1</color>
     <color name="asphaltColor">#34495e</color>

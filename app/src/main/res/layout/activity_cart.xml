@@ -94,8 +94,8 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="No Discount Applicable"
-        android:textColor="#000"
-        android:background="@color/amber"
+        android:textColor="#fff"
+        android:background="@color/primaryColor"
         android:id="@+id/discounted_payable" />
 
     <!-- Recycler View (List of Order Items) !-->

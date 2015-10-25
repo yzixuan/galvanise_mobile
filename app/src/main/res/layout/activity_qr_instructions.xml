@@ -35,7 +35,7 @@
         android:padding="14dp"
         android:text="Scan QR Code"
         android:id="@+id/scan_button"
-        android:background="@color/primaryColor"
+        android:background="@color/asphaltColor"
         android:onClick="onClick_scanQRCode"
         android:layout_gravity="center_horizontal" />
 

@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         mPager.setAdapter(new MenuPagerAdapter(getSupportFragmentManager()));
         mTabs = (SlidingTabLayout)findViewById(R.id.tabs);
         mTabs.setViewPager(mPager);
-
     }
 
     @Override

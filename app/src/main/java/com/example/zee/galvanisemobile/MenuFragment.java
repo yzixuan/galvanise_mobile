@@ -30,13 +30,15 @@ import java.util.List;
  */
 public class MenuFragment extends Fragment {
 
-    private RecyclerView mRecyclerView; //  private MyRecyclerAdapter adapter;
-    private MenuItemAdapter mAdapter; //  private MyRecyclerAdapter adapter;
+    private RecyclerView mRecyclerView; //  private MenuRecyclerAdapter adapter;
+    private MenuItemAdapter mAdapter; //  private MenuRecyclerAdapter adapter;
 
     private static final String TAG = "RecyclerViewExample";
     private List<MenuItem> feedsList = new ArrayList<MenuItem>();
+    private int tabPosition = 0;
 
     public static MenuFragment getInstance(int position) {
+
         MenuFragment menuTabFragment = new MenuFragment();
         Bundle args = new Bundle();
         args.putInt("position", position);
@@ -53,6 +55,12 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        Bundle bundle = getArguments();
+
+        if (bundle != null) {
+            tabPosition = bundle.getInt("position");
+        }
+
         // Downloading data from below url
         final String url = "http://galvanize.space/catalogs.json";
         new AsyncHttpTask().execute(url);
@@ -67,58 +75,47 @@ public class MenuFragment extends Fragment {
         mAdapter = new MenuItemAdapter(getActivity().getApplicationContext(), feedsList);
         mRecyclerView.setAdapter(mAdapter);
 
-        Bundle bundle = getArguments();
-
-        if (bundle != null) {
-            filterMenuByTabs(bundle.getInt("position"));
-        }
-
         return layout;
-    }
-
-    private void onDataLoaded() {
-        filterMenuByTabs(getArguments().getInt("position"));
-    }
-    private void filterMenuByTabs(int tab) {
-
-        if (tab == 0) {
-
-            mAdapter.updateList(feedsList);
-
-        } else {
-
-            mAdapter.filterList(tab);
-
-        }
     }
 
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
 
         @Override
         protected Integer doInBackground(String... params) {
+
             Integer result = 0;
             HttpURLConnection urlConnection;
+
             try {
+
                 URL url = new URL(params[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 int statusCode = urlConnection.getResponseCode();
 
                 // 200 represents HTTP OK (SUCCESS)
                 if (statusCode == 200) {
+
                     BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                     StringBuilder response = new StringBuilder();
                     String line;
+
                     while ((line = r.readLine()) != null) {
+
                         response.append(line);
                     }
+
                     parseResult(response.toString());
                     result = 1; // Successful
+
                 } else {
+
                     result = 0; //"Failed to fetch data!";
                 }
             } catch (Exception e) {
+
                 Log.d(TAG, e.getLocalizedMessage());
             }
+
             return result; //"Failed to fetch data!";
         }
 
@@ -126,12 +123,15 @@ public class MenuFragment extends Fragment {
         protected void onPostExecute(Integer result) {
 
             if (result == 1) {
+
                 mAdapter = new MenuItemAdapter(getActivity().getApplicationContext(), feedsList);
                 mRecyclerView.setAdapter(mAdapter);
+
             } else {
+
                 Toast.makeText(getActivity(), "Couldn't fetch data. Please check your Internet connectivity", Toast.LENGTH_SHORT).show();
             }
-            MenuFragment.this.onDataLoaded();
+            //MenuFragment.this.onDataLoaded();
         }
     }
 
@@ -143,18 +143,24 @@ public class MenuFragment extends Fragment {
             feedsList = new ArrayList<>();
 
             for (int i = 0; i < posts.length(); i++) {
+
                 JSONObject post = posts.optJSONObject(i);
                 MenuItem item = new MenuItem();
-                item.setId(post.optInt("id"));
                 item.setCategoryViaName(post.optString("category"));
-                item.setItemName(post.optString("name"));
-                item.setThumbnail(post.optString("image"));
-                item.setPromoPrice(post.optInt("price"));
-                item.setItemDesc(post.optString("description"));
 
-                feedsList.add(item);
+                if (tabPosition == 0 || item.getCategory() == tabPosition) {
+
+                    item.setId(post.optInt("id"));
+                    item.setItemName(post.optString("name"));
+                    item.setThumbnail(post.optString("image"));
+                    item.setPromoPrice(post.optInt("price"));
+                    item.setItemDesc(post.optString("description"));
+
+                    feedsList.add(item);
+                }
             }
         } catch (JSONException e) {
+
             e.printStackTrace();
         }
     }
