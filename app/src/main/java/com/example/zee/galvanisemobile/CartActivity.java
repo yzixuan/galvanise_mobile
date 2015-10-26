@@ -75,11 +75,6 @@ public class CartActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_share) {
-            startShareActivity("Galvanise Cafe", getResources().getString(R.string.social_share_text));
-        }
-
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
@@ -132,20 +127,6 @@ public class CartActivity extends AppCompatActivity {
         Intent intent = new Intent(this, QrInstructionsActivity.class);
         intent.putExtra("rescanCode", true);
         startActivityForResult(intent, 1);
-    }
-
-    private void startShareActivity(String subject, String text) {
-
-        try {
-            Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
-            intent.putExtra(android.content.Intent.EXTRA_TEXT, text);
-            startActivity(intent);
-        }
-        catch(android.content.ActivityNotFoundException e) {
-
-        }
     }
 
     @Override

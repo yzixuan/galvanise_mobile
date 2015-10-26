@@ -3,11 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.zee.galvanisemobile.CartActivity">
 
-    <item
-        android:id="@+id/action_share"
-        android:title="@string/action_settings"
-        android:icon="@drawable/ic_menu_share"
-        android:orderInCategory="100"
-        app:showAsAction="ifRoom" />
-
 </menu>

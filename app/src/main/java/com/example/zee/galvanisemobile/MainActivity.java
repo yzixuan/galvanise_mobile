@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = intent.getExtras();
         if(extras != null){
             if(extras.containsKey("NotificationMessage")) {
-                if (ShoppingCart.getDiscount() > 0) {
+                if (ShoppingCart.getDiscount() >= 0.2) {
 
                     Toast.makeText(this, "A " + Math.round(ShoppingCart.getDiscount() * 100) + "% discount has been included", Toast.LENGTH_SHORT).show();
                 }
