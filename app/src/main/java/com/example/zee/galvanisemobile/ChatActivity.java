@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class ChatActivity extends AppCompatActivity {
 
-    // TODO: change this to your own Firebase URL
+    // Firebase URL
     private static final String FIREBASE_URL = "https://fiery-fire-9963.firebaseio.com/";
 
     private String mUsername;
@@ -39,12 +39,8 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         setToolbar();
 
-        // Make sure we have a mUsername
         setupUsername();
-
-        setTitle("Chatting as " + mUsername);
-
-        // Setup our Firebase mFirebaseRef
+        //setTitle("Chatting as " + mUsername);
         mFirebaseRef = new Firebase(FIREBASE_URL).child("chat");
 
         // Setup our input methods. Enter key on the keyboard or pushing the send button

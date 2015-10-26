@@ -106,17 +106,21 @@ public class MenuFragment extends Fragment {
 
                     parseResult(response.toString());
                     result = 1; // Successful
+                    return result;
 
                 } else {
 
                     result = 0; //"Failed to fetch data!";
                 }
+
             } catch (Exception e) {
 
                 Log.d(TAG, e.getLocalizedMessage());
+                result = 0;
+
             }
 
-            return result; //"Failed to fetch data!";
+            return result;
         }
 
         @Override
@@ -129,7 +133,7 @@ public class MenuFragment extends Fragment {
 
             } else {
 
-                Toast.makeText(getActivity(), "Couldn't fetch data. Please check your Internet connectivity", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Couldn't fetch data. Please check your Internet connectivity.", Toast.LENGTH_SHORT).show();
             }
             //MenuFragment.this.onDataLoaded();
         }
