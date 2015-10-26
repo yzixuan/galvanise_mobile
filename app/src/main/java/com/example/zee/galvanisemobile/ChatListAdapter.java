@@ -1,8 +1,12 @@
 package com.example.zee.galvanisemobile;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.firebase.client.Query;
@@ -18,10 +22,12 @@ public class ChatListAdapter extends FirebaseListAdapter<Chat> {
 
     // The mUsername for this client. We use this to indicate which messages originated from this user
     private String mUsername;
+    private Context context;
 
-    public ChatListAdapter(Query ref, Activity activity, int layout, String mUsername) {
+    public ChatListAdapter(Context context, Query ref, Activity activity, int layout, String mUsername) {
         super(ref, Chat.class, layout, activity);
         this.mUsername = mUsername;
+        this.context = context;
     }
 
     /**
@@ -34,15 +40,20 @@ public class ChatListAdapter extends FirebaseListAdapter<Chat> {
      */
     @Override
     protected void populateView(View view, Chat chat) {
-        // Map a Chat object to an entry in our listview
+
         String author = chat.getAuthor();
         TextView authorText = (TextView) view.findViewById(R.id.author);
-        authorText.setText(author + ": ");
-        // If the message was sent by this user, color it differently
+        ImageView authorAvatar = (ImageView) view.findViewById(R.id.chat_avatar);
+
         if (author != null && author.equals(mUsername)) {
-            authorText.setTextColor(Color.RED);
+            authorText.setText("You:");
+            authorText.setTextColor(context.getResources().getColor(R.color.primaryColor));
+            authorAvatar.setImageResource(R.drawable.ic_chat_user);
         } else {
-            authorText.setTextColor(Color.BLUE);
+            // If the message was sent by the admin, color it and label it differently
+            authorText.setText("Galvanise Cafe:");
+            authorText.setTextColor(context.getResources().getColor(R.color.asphaltColor));
+            authorAvatar.setImageResource(R.drawable.ic_cafe_staff);
         }
         ((TextView) view.findViewById(R.id.message)).setText(chat.getMessage());
     }

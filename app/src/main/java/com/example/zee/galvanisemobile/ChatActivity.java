@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class ChatActivity extends AppCompatActivity {
 
-    // TODO: change this to your own Firebase URL
+    // Firebase URL
     private static final String FIREBASE_URL = "https://fiery-fire-9963.firebaseio.com/";
 
     private String mUsername;
@@ -39,13 +39,10 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         setToolbar();
 
-        // Make sure we have a mUsername
         setupUsername();
 
-        setTitle("Chatting as " + mUsername);
-
-        // Setup our Firebase mFirebaseRef
         mFirebaseRef = new Firebase(FIREBASE_URL).child("chat");
+        Toast.makeText(ChatActivity.this, "Loading Chat...", Toast.LENGTH_SHORT).show();
 
         // Setup our input methods. Enter key on the keyboard or pushing the send button
         EditText inputText = (EditText) findViewById(R.id.messageInput);
@@ -83,7 +80,7 @@ public class ChatActivity extends AppCompatActivity {
         // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
         final ListView listView = (ListView)findViewById(R.id.list);
         // Tell our list adapter that we only want 50 messages at a time
-        mChatListAdapter = new ChatListAdapter(mFirebaseRef.limit(50), this, R.layout.chat_message, mUsername);
+        mChatListAdapter = new ChatListAdapter(this, mFirebaseRef.limit(50), this, R.layout.chat_message, mUsername);
         listView.setAdapter(mChatListAdapter);
         mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
@@ -97,11 +94,13 @@ public class ChatActivity extends AppCompatActivity {
         mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 boolean connected = (Boolean) dataSnapshot.getValue();
+
                 if (connected) {
-                    Toast.makeText(ChatActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatActivity.this, "Connected to Cafe Chat", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ChatActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
