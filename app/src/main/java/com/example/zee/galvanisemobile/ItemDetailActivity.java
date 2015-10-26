@@ -76,17 +76,31 @@ public class ItemDetailActivity extends AppCompatActivity {
                 plusButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int currValue = Integer.parseInt(quantity.getText().toString());
-                        quantity.setText(String.valueOf(currValue+1), TextView.BufferType.EDITABLE);
+
+                        String inputFromDialog = quantity.getText().toString();
+
+                        if (isEmpty(inputFromDialog)) {
+                            quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                        } else {
+                            int currValue = Integer.parseInt(inputFromDialog);
+                            quantity.setText(String.valueOf(currValue+1), TextView.BufferType.EDITABLE);
+                        }
                     }
                 });
 
                 minusButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int currValue = Integer.parseInt(quantity.getText().toString());
-                        if (currValue != 1) {
-                            quantity.setText(String.valueOf(currValue-1), TextView.BufferType.EDITABLE);
+
+                        String inputFromDialog = quantity.getText().toString();
+
+                        if (isEmpty(inputFromDialog)) {
+                            quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                        } else {
+                            int currValue = Integer.parseInt(inputFromDialog);
+                            if (currValue != 1) {
+                                quantity.setText(String.valueOf(currValue-1), TextView.BufferType.EDITABLE);
+                            }
                         }
                     }
                 });
@@ -114,8 +128,14 @@ public class ItemDetailActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
 
-
+    private boolean isEmpty(String input) {
+        if (input.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
