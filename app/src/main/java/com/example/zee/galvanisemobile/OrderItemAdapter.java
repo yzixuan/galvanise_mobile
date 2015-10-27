@@ -116,17 +116,31 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currValue = Integer.parseInt(quantity.getText().toString());
-                quantity.setText(String.valueOf(currValue + 1), TextView.BufferType.EDITABLE);
+                String inputFromDialog = quantity.getText().toString();
+
+                if (inputFromDialog.isEmpty()) {
+                    quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                } else {
+                    int currValue = Integer.parseInt(inputFromDialog);
+                    quantity.setText(String.valueOf(currValue+1), TextView.BufferType.EDITABLE);
+                }
             }
         });
 
         minusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currValue = Integer.parseInt(quantity.getText().toString());
-                if (currValue != 1) {
-                    quantity.setText(String.valueOf(currValue - 1), TextView.BufferType.EDITABLE);
+                String inputFromDialog = quantity.getText().toString();
+
+                if (inputFromDialog.isEmpty()) {
+                    quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                } else {
+                    int currValue = Integer.parseInt(inputFromDialog);
+                    if (currValue <= 1) {
+                        quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                    } else {
+                        quantity.setText(String.valueOf(currValue-1), TextView.BufferType.EDITABLE);
+                    }
                 }
             }
         });
@@ -134,11 +148,17 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         confirmAdd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                ShoppingCart.changeOrderQuantity(selectedItem, Integer.parseInt(quantity.getText().toString()));
-                ((CartActivity) context).refreshCartInfo();
+                String inputFromDialog = quantity.getText().toString();
 
-                dialog.dismiss();
-                notifyDataSetChanged();
+                if (inputFromDialog.isEmpty() || Integer.parseInt(inputFromDialog) <= 0) {
+                    alertEmptyItem();
+                } else {
+                    ShoppingCart.changeOrderQuantity(selectedItem, Integer.parseInt(inputFromDialog));
+                    ((CartActivity) context).refreshCartInfo();
+
+                    dialog.dismiss();
+                    notifyDataSetChanged();
+                }
             }
         });
 
@@ -150,6 +170,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         });
 
         dialog.show();
+    }
+
+    private void alertEmptyItem() {
+        Toast.makeText(context, "Minimum quantity should be 1.", Toast.LENGTH_SHORT).show();
     }
 
     // remove an existing item from the cart

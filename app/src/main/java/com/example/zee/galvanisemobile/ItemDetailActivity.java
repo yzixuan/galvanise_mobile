@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 
@@ -79,7 +80,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
                         String inputFromDialog = quantity.getText().toString();
 
-                        if (isEmpty(inputFromDialog)) {
+                        if (inputFromDialog.isEmpty()) {
                             quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
                         } else {
                             int currValue = Integer.parseInt(inputFromDialog);
@@ -94,11 +95,13 @@ public class ItemDetailActivity extends AppCompatActivity {
 
                         String inputFromDialog = quantity.getText().toString();
 
-                        if (isEmpty(inputFromDialog)) {
+                        if (inputFromDialog.isEmpty()) {
                             quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
                         } else {
                             int currValue = Integer.parseInt(inputFromDialog);
-                            if (currValue != 1) {
+                            if (currValue <= 1) {
+                                quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                            } else {
                                 quantity.setText(String.valueOf(currValue-1), TextView.BufferType.EDITABLE);
                             }
                         }
@@ -108,13 +111,19 @@ public class ItemDetailActivity extends AppCompatActivity {
                 confirmAdd.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
-                        // create order item and add to shopping cart
-                        OrderItem orderItem = new OrderItem(food, Integer.parseInt(quantity.getText().toString()));
-                        ShoppingCart.addOrderItem(orderItem);
+                        String inputFromDialog = quantity.getText().toString();
 
-                        sendPersistentBroadcastMessage();
+                        if (inputFromDialog.isEmpty() || Integer.parseInt(inputFromDialog) <= 0) {
+                            alertEmptyItem();
+                        } else {
+                            // create order item and add to shopping cart
+                            OrderItem orderItem = new OrderItem(food, Integer.parseInt(inputFromDialog));
+                            ShoppingCart.addOrderItem(orderItem);
 
-                        dialog.dismiss();
+                            sendPersistentBroadcastMessage();
+
+                            dialog.dismiss();
+                        }
                     }
                 });
 
@@ -130,12 +139,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isEmpty(String input) {
-        if (input.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+    private void alertEmptyItem() {
+        Toast.makeText(this, "Minimum quantity should be 1.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
