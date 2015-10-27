@@ -21,12 +21,12 @@ public class ItemDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private com.example.zee.galvanisemobile.MenuItem food;
 
-    ImageView imageView;
-    TextView foodNameText;
-    TextView priceLabel;
-    Button addCartButton;
-    EditText quantity;
-    TextView descriptionText;
+    private ImageView imageView;
+    private TextView foodNameText;
+    private TextView priceLabel;
+    private Button addCartButton;
+    private EditText quantity;
+    private TextView descriptionText;
 
     AQuery androidAQuery=new AQuery(this);
 
@@ -35,12 +35,24 @@ public class ItemDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
 
+        setToolbar();
+        setUpItemDetails();
+
+        handleAddToCartDialog();
+    }
+
+    public void setToolbar() {
+
         toolbar = (Toolbar)findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 
+    private void setUpItemDetails() {
+
+        // set image, name & price of menu item
         Intent i = getIntent();
         food = i.getParcelableExtra("foodObject");
         foodNameText = (TextView)findViewById(R.id.foodNameText);
@@ -48,12 +60,14 @@ public class ItemDetailActivity extends AppCompatActivity {
         imageView = (ImageView)findViewById(R.id.image);
         descriptionText = (TextView)findViewById(R.id.descriptionText);
 
-        // setting image, name & price
         androidAQuery.id(imageView).image(food.getThumbnail(), true, true);
         foodNameText.setText(food.getItemName());
         priceLabel.setText("$" + String.format("%.2f", food.getPromoPrice()));
         descriptionText.setText(food.getItemDesc());
 
+    }
+
+    private void handleAddToCartDialog() {
 
         // add button listener
         addCartButton = (Button)findViewById(R.id.add_to_cart);
@@ -175,7 +189,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void sendPersistentBroadcastMessage() {
+    private void sendPersistentBroadcastMessage() {
         Intent myIntent = new Intent("GalvaniseBroadcast");
         myIntent.putExtra("AddtoCart", true);
         sendBroadcast(myIntent);
