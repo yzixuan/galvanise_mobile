@@ -18,17 +18,21 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        toolbar = (Toolbar)findViewById(R.id.app_bar);
-
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setToolbar();
 
         WebView wv = (WebView)findViewById(R.id.webView1);
         wv.getSettings().setJavaScriptEnabled(true);
         wv.setWebChromeClient(new WebChromeClient());
         wv.loadUrl("file:///android_asset/www/index.html");
+    }
+
+    public void setToolbar() {
+
+        toolbar = (Toolbar)findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -46,7 +50,7 @@ public class AboutActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_share) {
             startShareActivity("Galvanise Cafe", getResources().getString(R.string.social_share_text));
         }
 
@@ -54,7 +58,6 @@ public class AboutActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
-
 
         return super.onOptionsItemSelected(item);
     }
