@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
@@ -26,22 +27,23 @@ public class ChatActivity extends AppCompatActivity {
     // Firebase URL
     private static final String FIREBASE_URL = "https://fiery-fire-9963.firebaseio.com/";
 
+    private Toolbar toolbar;
+    private SharedPreferences preferences;
     private String mUsername;
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
     private ChatListAdapter mChatListAdapter;
-    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_chat);
-        setToolbar();
 
+        setToolbar();
         setupUsername();
 
-        mFirebaseRef = new Firebase(FIREBASE_URL).child("chat");
+        mFirebaseRef = new Firebase(FIREBASE_URL).child(mUsername);
         Toast.makeText(ChatActivity.this, "Loading Chat...", Toast.LENGTH_SHORT).show();
 
         // Setup our input methods. Enter key on the keyboard or pushing the send button
@@ -134,23 +136,30 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void setupUsername() {
-        SharedPreferences prefs = getApplication().getSharedPreferences("ChatPrefs", 0);
-        mUsername = prefs.getString("username", null);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mUsername = preferences.getString("ChatUserName", null);
+
         if (mUsername == null) {
             Random r = new Random();
             // Assign a random user name if we don't have one saved.
             mUsername = "JavaUser" + r.nextInt(100000);
-            prefs.edit().putString("username", mUsername).commit();
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("ChatUserName", mUsername);
+            editor.apply();
+
         }
     }
 
     private void sendMessage() {
+
         EditText inputText = (EditText) findViewById(R.id.messageInput);
         String input = inputText.getText().toString();
+
         if (!input.equals("")) {
-            // Create our 'model', a Chat object
+
             Chat chat = new Chat(input, mUsername);
-            // Create a new, auto-generated child of that chat location, and save our chat data there
             mFirebaseRef.push().setValue(chat);
             inputText.setText("");
         }

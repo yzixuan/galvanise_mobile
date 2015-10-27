@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,16 +46,24 @@ public class ChatListAdapter extends FirebaseListAdapter<Chat> {
         TextView authorText = (TextView) view.findViewById(R.id.author);
         ImageView authorAvatar = (ImageView) view.findViewById(R.id.chat_avatar);
 
-        if (author != null && author.equals(mUsername)) {
-            authorText.setText("You:");
-            authorText.setTextColor(context.getResources().getColor(R.color.primaryColor));
-            authorAvatar.setImageResource(R.drawable.ic_chat_user);
-        } else {
-            // If the message was sent by the admin, color it and label it differently
-            authorText.setText("Galvanise Cafe:");
-            authorText.setTextColor(context.getResources().getColor(R.color.asphaltColor));
-            authorAvatar.setImageResource(R.drawable.ic_cafe_staff);
+        if (author != null) {
+
+            if (author.equals(mUsername)) {
+
+                authorText.setText("You:");
+                authorText.setTextColor(context.getResources().getColor(R.color.primaryColor));
+                authorAvatar.setImageResource(R.drawable.ic_chat_user);
+                ((TextView) view.findViewById(R.id.message)).setText(chat.getMessage());
+
+            } else if (author.equals("Galvanize Cafe")) {
+
+                // If the message was sent by the admin, color it and label it differently
+                authorText.setText("Galvanize Cafe:");
+                authorText.setTextColor(context.getResources().getColor(R.color.asphaltColor));
+                authorAvatar.setImageResource(R.drawable.ic_cafe_staff);
+                ((TextView) view.findViewById(R.id.message)).setText(chat.getMessage());
+            }
         }
-        ((TextView) view.findViewById(R.id.message)).setText(chat.getMessage());
+
     }
 }
