@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,26 +37,25 @@ public class DrawingView extends View {
     private Set<String> mOutstandingSegments;
     private Segment mCurrentSegment;
     private float mScale = 1.0f;
-    private int mCanvasWidth;
-    private int mCanvasHeight;
 
-    public DrawingView(Context context, Firebase ref) {
-        this(context, ref, 1.0f);
-    }
-    public DrawingView(Context context, Firebase ref, int width, int height) {
-        this(context, ref);
-        this.setBackgroundColor(Color.DKGRAY);
-        mCanvasWidth = width;
-        mCanvasHeight = height;
-    }
-    public DrawingView(Context context, Firebase ref, float scale) {
-        super(context);
+    public DrawingView(Context context, AttributeSet attributes) {
+        super(context, attributes);
 
         mOutstandingSegments = new HashSet<String>();
         mPath = new Path();
-        this.mFirebaseRef = ref;
-        this.mScale = scale;
 
+        mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setDither(true);
+        mPaint.setColor(0xFFFF0000);
+        mPaint.setStyle(Paint.Style.STROKE);
+
+        mBitmapPaint = new Paint(Paint.DITHER_FLAG);
+        this.setBackgroundColor(Color.DKGRAY);
+    }
+
+    public void setFirebaseRef(Firebase ref) {
+        mFirebaseRef = ref;
         mListener = ref.addChildEventListener(new ChildEventListener() {
             /**
              * @param dataSnapshot The data we need to construct a new Segment
@@ -95,19 +95,12 @@ public class DrawingView extends View {
                 // No-op
             }
         });
-
-
-        mPaint = new Paint();
-        mPaint.setAntiAlias(true);
-        mPaint.setDither(true);
-        mPaint.setColor(0xFFFF0000);
-        mPaint.setStyle(Paint.Style.STROKE);
-
-        mBitmapPaint = new Paint(Paint.DITHER_FLAG);
     }
 
     public void cleanup() {
-        mFirebaseRef.removeEventListener(mListener);
+        if (mFirebaseRef != null) {
+            mFirebaseRef.removeEventListener(mListener);
+        }
     }
 
     public void setColor(int color) {
@@ -127,9 +120,7 @@ public class DrawingView extends View {
     protected void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
 
-        mScale = Math.min(1.0f * w / mCanvasWidth, 1.0f * h / mCanvasHeight);
-
-        mBitmap = Bitmap.createBitmap(Math.round(mCanvasWidth * mScale), Math.round(mCanvasHeight * mScale), Bitmap.Config.ARGB_8888);
+        mBitmap = Bitmap.createBitmap(Math.max(1, w), Math.max(1, h), Bitmap.Config.ARGB_8888);
         mBuffer = new Canvas(mBitmap);
         Log.i("AndroidDrawing", "onSizeChanged: created bitmap/buffer of "+mBitmap.getWidth()+"x"+mBitmap.getHeight());
     }

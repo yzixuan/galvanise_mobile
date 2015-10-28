@@ -46,29 +46,30 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_drawing);
+
+        mDrawingView = (DrawingView)findViewById(R.id.drawing_view);
+
         Intent intent = getIntent();
         final String url = intent.getStringExtra("FIREBASE_URL");
         final String boardId = intent.getStringExtra("BOARD_ID");
         Log.i(TAG, "Adding DrawingView on "+url+" for boardId "+boardId);
         mFirebaseRef = new Firebase(url);
+        mDrawingView.setFirebaseRef(mFirebaseRef.child("boardsegments").child(boardId));
         mBoardId = boardId;
         mMetadataRef = mFirebaseRef.child("boardmetas").child(boardId);
         mSegmentsRef = mFirebaseRef.child("boardsegments").child(mBoardId);
+
         mMetadataRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (mDrawingView != null) {
-                    ((ViewGroup) mDrawingView.getParent()).removeView(mDrawingView);
-                    mDrawingView.cleanup();
-                    mDrawingView = null;
-                }
+
                 Map<String, Object> boardValues = (Map<String, Object>) dataSnapshot.getValue();
+
                 if (boardValues != null && boardValues.get("width") != null && boardValues.get("height") != null) {
+
                     mBoardWidth = ((Long) boardValues.get("width")).intValue();
                     mBoardHeight = ((Long) boardValues.get("height")).intValue();
-
-                    mDrawingView = new DrawingView(DrawingActivity.this, mFirebaseRef.child("boardsegments").child(boardId), mBoardWidth, mBoardHeight);
-                    setContentView(mDrawingView);
                 }
             }
 
@@ -104,11 +105,12 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
     @Override
     public void onStop() {
         super.onStop();
-        // Clean up our listener so we don't have it attached twice.
+
         mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
         if (mDrawingView != null) {
             mDrawingView.cleanup();
         }
+
         this.updateThumbnail(mBoardWidth, mBoardHeight, mSegmentsRef, mMetadataRef);
     }
 
@@ -116,7 +118,6 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        // getMenuInflater().inflate(R.menu.menu_drawing, menu);
 
         menu.add(0, COLOR_MENU_ID, 0, "Color").setShortcut('3', 'c').setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(0, CLEAR_MENU_ID, 2, "Clear").setShortcut('5', 'x');
@@ -145,9 +146,6 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
                     if (firebaseError != null) {
                         throw firebaseError.toException();
                     }
-                    mDrawingView = new DrawingView(DrawingActivity.this, mFirebaseRef.child("boardsegments").child(mBoardId), mBoardWidth, mBoardHeight);
-                    setContentView(mDrawingView);
-                    //mDrawingView.clear();
                 }
             });
 
