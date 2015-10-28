@@ -70,14 +70,17 @@ public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHo
                 case 1: // your cart
                     v.getContext().startActivity(new Intent(v.getContext(), CartActivity.class));
                     break;
-                case 4: // settings
-                    v.getContext().startActivity(new Intent(v.getContext(), SettingsActivity.class));
+                case 3: // advance booking
+                    v.getContext().startActivity(new Intent(v.getContext(), BookingActivity.class));
                     break;
-                case 5: // about us
+                case 4: // about us
                     v.getContext().startActivity(new Intent(v.getContext(), AboutActivity.class));
                     break;
-                case 6: // about us
+                case 5: // live chat us
                     v.getContext().startActivity(new Intent(v.getContext(), ChatActivity.class));
+                    break;
+                case 6: // settings
+                    v.getContext().startActivity(new Intent(v.getContext(), SettingsActivity.class));
                     break;
                 default:
                     break;
