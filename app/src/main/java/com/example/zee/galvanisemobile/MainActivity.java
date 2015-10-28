@@ -77,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
         if(extras != null){
             if(extras.containsKey("NotificationMessage")) {
                 if (ShoppingCart.getDiscount() >= 0.2) {
-
-                    Toast.makeText(this, "A " + Math.round(ShoppingCart.getDiscount() * 100) + "% discount has been included", Toast.LENGTH_SHORT).show();
+                    toastDiscount(ShoppingCart.getDiscount());
                 }
                 else {
 
@@ -86,6 +85,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void toastDiscount(double discount) {
+        Toast.makeText(this, "A " + Math.round(discount * 100) + "% discount has been included", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -154,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 new Intent[] { notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new Notification.Builder(this)
-                .setSmallIcon(android.R.drawable.btn_star_big_on)
+                .setSmallIcon(R.drawable.ic_logo_white)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
@@ -180,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     ShoppingCart.setDiscount(0.2);
+                    toastDiscount(0.2);
                     dialog.dismiss();
                 }
             });

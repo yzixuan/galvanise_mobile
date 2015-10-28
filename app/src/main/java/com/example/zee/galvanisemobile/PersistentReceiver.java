@@ -48,7 +48,7 @@ public class PersistentReceiver extends BroadcastReceiver {
                 new Intent[] { notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Notification notification = new Notification.Builder(context)
-                .setSmallIcon(android.R.drawable.ic_lock_idle_low_battery)
+                .setSmallIcon(R.drawable.ic_logo_white)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
