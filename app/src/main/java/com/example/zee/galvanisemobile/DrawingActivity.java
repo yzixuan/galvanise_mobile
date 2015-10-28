@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -135,6 +137,13 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
         menu.add(0, CLEAR_MENU_ID, 2, "Clear").setShortcut('5', 'x');
         menu.add(0, PIN_MENU_ID, 3, "Keep in sync").setShortcut('6', 's').setIcon(android.R.drawable.ic_lock_lock)
                 .setCheckable(true).setChecked(SyncedBoardManager.isSynced(mBoardId));
+
+        for(int i = 0; i < menu.size(); i++) {
+            MenuItem item = menu.getItem(i);
+            SpannableString spanString = new SpannableString(menu.getItem(i).getTitle().toString());
+            spanString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spanString.length(), 0);
+            item.setTitle(spanString);
+        }
 
         return true;
     }

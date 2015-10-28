@@ -9,6 +9,7 @@
     <color name="greyColor">#a2b0b1</color>
     <color name="asphaltColor">#34495e</color>
     <color name="greenColor">#8BC34A</color>
+    <color name="black">#000</color>
     <color name="white">#fff</color>
     <color name="amber">#FFC107</color>
 </resources>
