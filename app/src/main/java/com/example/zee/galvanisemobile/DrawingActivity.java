@@ -131,7 +131,7 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(0, COLOR_MENU_ID, 0, "Color").setShortcut('3', 'c').setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        //menu.add(0, COLOR_MENU_ID, 0, "Color").setShortcut('3', 'c').setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(0, CLEAR_MENU_ID, 2, "Clear").setShortcut('5', 'x');
         menu.add(0, PIN_MENU_ID, 3, "Keep in sync").setShortcut('6', 's').setIcon(android.R.drawable.ic_lock_lock)
                 .setCheckable(true).setChecked(SyncedBoardManager.isSynced(mBoardId));
@@ -152,11 +152,6 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
 
         if (id == android.R.id.home) {
             onBackPressed();
-            return true;
-        }
-
-        if (id == COLOR_MENU_ID) {
-            new ColorPickerDialog(this, this, 0xFFFF0000).show();
             return true;
         } else if (id == CLEAR_MENU_ID) {
             mDrawingView.clear();

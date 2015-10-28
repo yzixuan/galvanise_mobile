@@ -32,7 +32,7 @@ public class DrawingView extends View {
     private Paint mBitmapPaint;
     private Firebase mFirebaseRef;
     private ChildEventListener mListener;
-    private int mCurrentColor = 0xFFFF0000;
+    private int mCurrentColor = Color.BLACK;
     private Path mPath;
     private Set<String> mOutstandingSegments;
     private Segment mCurrentSegment;
@@ -47,7 +47,7 @@ public class DrawingView extends View {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
-        mPaint.setColor(0xFFFF0000);
+        mPaint.setColor(Color.BLACK);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(5);
 
