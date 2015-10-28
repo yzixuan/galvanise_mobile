@@ -49,6 +49,7 @@ public class DrawingView extends View {
         mPaint.setDither(true);
         mPaint.setColor(0xFFFF0000);
         mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(5);
 
         mBitmapPaint = new Paint(Paint.DITHER_FLAG);
         this.setBackgroundColor(Color.DKGRAY);
@@ -145,6 +146,7 @@ public class DrawingView extends View {
         p.setDither(true);
         p.setColor(color);
         p.setStyle(style);
+        p.setStrokeWidth(5);
         return p;
     }
 

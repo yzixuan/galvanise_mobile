@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,7 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
     private static final int CLEAR_MENU_ID = COLOR_MENU_ID + 1;
     private static final int PIN_MENU_ID = CLEAR_MENU_ID + 1;
     public static final String TAG = "AndroidDrawing";
+    private Toolbar toolbar;
 
     private DrawingView mDrawingView;
     private Firebase mFirebaseRef; // Firebase base URL
@@ -47,6 +49,7 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
+        setToolbar();
 
         mDrawingView = (DrawingView)findViewById(R.id.drawing_view);
 
@@ -78,6 +81,15 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
                 // No-op
             }
         });
+    }
+
+    public void setToolbar() {
+
+        toolbar = (Toolbar)findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -135,10 +147,19 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == COLOR_MENU_ID) {
+
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+
+        if (id == COLOR_MENU_ID) {
             new ColorPickerDialog(this, this, 0xFFFF0000).show();
             return true;
-        } else if (item.getItemId() == CLEAR_MENU_ID) {
+        } else if (id == CLEAR_MENU_ID) {
+            mDrawingView.clear();
             mDrawingView.cleanup();
             mSegmentsRef.removeValue(new Firebase.CompletionListener() {
                 @Override
@@ -150,7 +171,7 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
             });
 
             return true;
-        } else if (item.getItemId() == PIN_MENU_ID) {
+        } else if (id == PIN_MENU_ID) {
             SyncedBoardManager.toggle(mFirebaseRef.child("boardsegments"), mBoardId);
             item.setChecked(SyncedBoardManager.isSynced(mBoardId));
             return true;
