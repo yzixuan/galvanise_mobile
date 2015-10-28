@@ -82,6 +82,9 @@ public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHo
                 case 6: // settings
                     v.getContext().startActivity(new Intent(v.getContext(), SettingsActivity.class));
                     break;
+                case 7: // Drawing
+                    v.getContext().startActivity(new Intent(v.getContext(), BoardListActivity.class));
+                    break;
                 default:
                     break;
             }
