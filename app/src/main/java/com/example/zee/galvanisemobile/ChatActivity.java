@@ -43,9 +43,6 @@ public class ChatActivity extends AppCompatActivity {
         setToolbar();
         setupUsername();
 
-        mFirebaseRef = new Firebase(FIREBASE_URL).child(mUsername);
-        Toast.makeText(ChatActivity.this, "Loading Chat...", Toast.LENGTH_SHORT).show();
-
         // Setup our input methods. Enter key on the keyboard or pushing the send button
         EditText inputText = (EditText) findViewById(R.id.messageInput);
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -150,6 +147,9 @@ public class ChatActivity extends AppCompatActivity {
             editor.apply();
 
         }
+
+        mFirebaseRef = new Firebase(FIREBASE_URL).child(mUsername);
+        Toast.makeText(ChatActivity.this, "Loading Chat...", Toast.LENGTH_LONG).show();
     }
 
     private void sendMessage() {
