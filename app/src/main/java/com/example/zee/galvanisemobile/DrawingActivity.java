@@ -33,6 +33,7 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
     private static final int CLEAR_MENU_ID = COLOR_MENU_ID + 1;
     private static final int PIN_MENU_ID = CLEAR_MENU_ID + 1;
     public static final String TAG = "AndroidDrawing";
+    private com.example.zee.galvanisemobile.MenuItem customFood;
     private Toolbar toolbar;
 
     private DrawingView mDrawingView;
@@ -44,14 +45,12 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
     private int mBoardWidth;
     private int mBoardHeight;
 
-    /**
-     * Called when the activity is first created.
-     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
         setToolbar();
+        getCustomizableFood();
 
         mDrawingView = (DrawingView)findViewById(R.id.drawing_view);
 
@@ -83,6 +82,12 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
                 // No-op
             }
         });
+    }
+
+    public void getCustomizableFood() {
+
+        Intent i = getIntent();
+        customFood = i.getParcelableExtra("customFoodObject");
     }
 
     public void setToolbar() {

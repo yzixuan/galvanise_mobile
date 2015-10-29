@@ -3,10 +3,13 @@ package com.example.zee.galvanisemobile;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by zee on 8/10/15.
  */
-public class MenuItem implements Parcelable{
+public class MenuItem implements Parcelable, Cloneable {
 
     private int id;
     private int category;
@@ -15,10 +18,16 @@ public class MenuItem implements Parcelable{
     private String thumbnail;
     private String itemDesc;
     private boolean customizable = false;
-    private String customArt;
+    private ArrayList<String> customArt = new ArrayList<>();
 
-    public MenuItem(){
+    public MenuItem() {
 
+    }
+
+    protected Object clone() throws CloneNotSupportedException {
+        MenuItem result = (MenuItem)super.clone();
+        result.customArt = new ArrayList<String>(customArt);
+        return result;
     }
 
     public int getId() {
@@ -108,11 +117,11 @@ public class MenuItem implements Parcelable{
             this.customizable = true;
     }
 
-    public String getCustomArt() {
+    public ArrayList <String> getCustomArt() {
         return customArt;
     }
 
-    public void setCustomArt(String customArt) {
+    public void setCustomArt(ArrayList <String> customArt) {
         this.customArt = customArt;
     }
 
@@ -124,7 +133,7 @@ public class MenuItem implements Parcelable{
         thumbnail = in.readString();
         itemDesc = in.readString();
         customizable = in.readByte() != 0;
-        customArt = in.readString();
+        customArt = in.createStringArrayList();
     }
 
     @Override
@@ -141,7 +150,7 @@ public class MenuItem implements Parcelable{
         dest.writeString(thumbnail);
         dest.writeString(itemDesc);
         dest.writeByte((byte) (customizable ? 1 : 0));
-        dest.writeString(customArt);
+        dest.writeStringList(customArt);
     }
 
     @SuppressWarnings("unused")

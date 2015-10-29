@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ServerValue;
+import com.firebase.client.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -95,7 +104,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 Button confirmAdd = (Button) dialog.findViewById(R.id.confirm_add);
                 Button cancel = (Button) dialog.findViewById(R.id.cancel);
 
-                quantity = (EditText)dialog.findViewById(R.id.quantity);
+                quantity = (EditText) dialog.findViewById(R.id.quantity);
 
                 plusButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -107,7 +116,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                             quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
                         } else {
                             int currValue = Integer.parseInt(inputFromDialog);
-                            quantity.setText(String.valueOf(currValue+1), TextView.BufferType.EDITABLE);
+                            quantity.setText(String.valueOf(currValue + 1), TextView.BufferType.EDITABLE);
                         }
                     }
                 });
@@ -125,7 +134,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                             if (currValue <= 1) {
                                 quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
                             } else {
-                                quantity.setText(String.valueOf(currValue-1), TextView.BufferType.EDITABLE);
+                                quantity.setText(String.valueOf(currValue - 1), TextView.BufferType.EDITABLE);
                             }
                         }
                     }
@@ -213,8 +222,26 @@ public class ItemDetailActivity extends AppCompatActivity {
             startActivity(intent);
         }
         catch(android.content.ActivityNotFoundException e) {
-            // can't start activity
+
         }
     }
 
+    public void onClickCustomize(View view) {
+
+        try {
+            com.example.zee.galvanisemobile.MenuItem customFood;
+            customFood = (com.example.zee.galvanisemobile.MenuItem) food.clone();
+            customFood.setId(food.getId() * 100);
+            goToFirebase();
+        }
+        catch(CloneNotSupportedException e) {
+
+        }
+    }
+
+    private void goToFirebase() {
+        Intent intent = new Intent(this, BoardListActivity.class);
+        intent.putExtra("customFoodObject", food);
+        startActivity(intent);
+    }
 }

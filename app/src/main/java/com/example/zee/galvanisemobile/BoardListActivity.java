@@ -31,6 +31,8 @@ public class BoardListActivity extends AppCompatActivity {
     public static final String TAG = "AndroidDrawing";
     private static String FIREBASE_URL = "https://galvanize-drawing.firebaseIO.com/";
 
+    private com.example.zee.galvanisemobile.MenuItem customFood;
+
     private Firebase mRef;
     private Firebase mBoardsRef;
     private Firebase mSegmentsRef;
@@ -46,11 +48,34 @@ public class BoardListActivity extends AppCompatActivity {
 
         Firebase.setAndroidContext(this);
         mRef = new Firebase(FIREBASE_URL);
+        getCustomizableFood();
+    }
+
+    public void getCustomizableFood() {
+
+        Intent i = getIntent();
+        customFood = i.getParcelableExtra("customFoodObject");
+
+        setBoardsRef();
+    }
+
+    private void setBoardsRef() {
+
+        /*if (customFood != null) {
+            mBoardsRef = mRef.child(customFood.getId() + "boardmetas");
+            mSegmentsRef = mRef.child(customFood.getId() + "boardsegments");
+        } else {
+            mBoardsRef = mRef.child("boardmetas");
+            mSegmentsRef = mRef.child("boardsegments");
+        }*/
         mBoardsRef = mRef.child("boardmetas");
-        mBoardsRef.keepSynced(true); // keep the board list in sync
         mSegmentsRef = mRef.child("boardsegments");
+        mBoardsRef.keepSynced(true);
         SyncedBoardManager.setContext(this);
         SyncedBoardManager.restoreSyncedBoards(mSegmentsRef);
+
+        if (customFood != null)
+            createBoard();
     }
 
     public void setToolbar() {
@@ -165,11 +190,12 @@ public class BoardListActivity extends AppCompatActivity {
     }
 
     private void openBoard(String key) {
-        Log.i(TAG, "Opening board "+key);
+        Log.i(TAG, "Opening board " + key);
         Toast.makeText(BoardListActivity.this, "Opening board: "+key, Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, DrawingActivity.class);
         intent.putExtra("FIREBASE_URL", FIREBASE_URL);
         intent.putExtra("BOARD_ID", key);
+        intent.putExtra("customFoodObject", customFood);
         startActivity(intent);
     }
 
@@ -202,8 +228,6 @@ public class BoardListActivity extends AppCompatActivity {
         if (id == R.id.action_new_board) {
             createBoard();
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
