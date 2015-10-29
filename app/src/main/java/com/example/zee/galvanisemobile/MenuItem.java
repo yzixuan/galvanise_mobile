@@ -14,6 +14,8 @@ public class MenuItem implements Parcelable{
     private double promoPrice;
     private String thumbnail;
     private String itemDesc;
+    private boolean customizable = false;
+    private String customArt;
 
     public MenuItem(){
 
@@ -25,6 +27,7 @@ public class MenuItem implements Parcelable{
 
     public void setId(int id) {
         this.id = id;
+        setCustomizableBasedOnId(id);
     }
 
     public int getCategory() {
@@ -91,6 +94,28 @@ public class MenuItem implements Parcelable{
         this.itemDesc = desc;
     }
 
+    public boolean isCustomizable() {
+        return customizable;
+    }
+
+    public void setCustomizable(boolean customizable) {
+        this.customizable = customizable;
+    }
+
+    public void setCustomizableBasedOnId(int id) {
+
+        if (id == 20)
+            this.customizable = true;
+    }
+
+    public String getCustomArt() {
+        return customArt;
+    }
+
+    public void setCustomArt(String customArt) {
+        this.customArt = customArt;
+    }
+
     protected MenuItem(Parcel in) {
         id = in.readInt();
         category = in.readInt();
@@ -98,6 +123,8 @@ public class MenuItem implements Parcelable{
         promoPrice = in.readDouble();
         thumbnail = in.readString();
         itemDesc = in.readString();
+        customizable = in.readByte() != 0;
+        customArt = in.readString();
     }
 
     @Override
@@ -113,6 +140,8 @@ public class MenuItem implements Parcelable{
         dest.writeDouble(promoPrice);
         dest.writeString(thumbnail);
         dest.writeString(itemDesc);
+        dest.writeByte((byte) (customizable ? 1 : 0));
+        dest.writeString(customArt);
     }
 
     @SuppressWarnings("unused")

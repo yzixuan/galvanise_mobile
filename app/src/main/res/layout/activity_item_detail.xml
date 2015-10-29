@@ -97,6 +97,27 @@
 
             </LinearLayout>
 
+            <FrameLayout
+                style="?android:attr/buttonStyle"
+                android:background="@color/amber"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:id="@+id/customize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    style="?android:attr/buttonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:clickable="false"
+                    android:drawableStart="@drawable/ic_customize"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:text="@string/custom_latte" />
+            </FrameLayout>
+
             <Button
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

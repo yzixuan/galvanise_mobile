@@ -33,6 +33,7 @@
     <string name="title_activity_booking">Book A Seat</string>
     <string name="chat_user">You:</string>
     <string name="action_new_board">New board</string>
+    <string name="custom_latte">  Add Custom Latte Art</string>
 
 
     <string-array name="tabs">

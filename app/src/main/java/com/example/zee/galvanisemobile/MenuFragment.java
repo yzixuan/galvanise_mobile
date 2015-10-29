@@ -159,7 +159,6 @@ public class MenuFragment extends Fragment {
                     item.setThumbnail(post.optString("image"));
                     item.setPromoPrice(post.optInt("price"));
                     item.setItemDesc(post.optString("description"));
-
                     feedsList.add(item);
                 }
             }

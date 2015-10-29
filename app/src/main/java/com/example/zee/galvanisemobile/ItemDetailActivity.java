@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private TextView foodNameText;
     private TextView priceLabel;
     private Button addCartButton;
+    private FrameLayout customizeButton;
     private EditText quantity;
     private TextView descriptionText;
 
@@ -55,6 +57,13 @@ public class ItemDetailActivity extends AppCompatActivity {
         // set image, name & price of menu item
         Intent i = getIntent();
         food = i.getParcelableExtra("foodObject");
+
+        customizeButton = (FrameLayout)findViewById(R.id.customize);
+
+        if (!food.isCustomizable()) {
+            customizeButton.setVisibility(View.GONE);
+        }
+
         foodNameText = (TextView)findViewById(R.id.foodNameText);
         priceLabel = (TextView)findViewById(R.id.priceText);
         imageView = (ImageView)findViewById(R.id.image);
