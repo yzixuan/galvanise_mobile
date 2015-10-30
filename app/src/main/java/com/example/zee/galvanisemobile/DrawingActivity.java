@@ -13,6 +13,7 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import android.support.v7.app.ActionBarActivity;
@@ -133,7 +134,6 @@ public class DrawingActivity extends ActionBarActivity {
         this.updateThumbnail(mBoardWidth, mBoardHeight, mSegmentsRef, mMetadataRef);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -237,6 +237,10 @@ public class DrawingActivity extends ActionBarActivity {
     public static Bitmap decodeFromBase64(String input) throws IOException {
         byte[] decodedByte = com.firebase.client.utilities.Base64.decode(input);
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
+
+    public void onClick_doneDrawing(View view) {
+        finish();
     }
 
 }

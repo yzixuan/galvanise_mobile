@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -131,6 +132,9 @@ public class DrawingView extends View {
         canvas.drawColor(Color.DKGRAY);
         canvas.drawRect(0, 0, mBitmap.getWidth(), mBitmap.getHeight(), paintFromColor(Color.WHITE, Paint.Style.FILL_AND_STROKE));
 
+        Drawable d = getResources().getDrawable(R.drawable.drawing_canvas);
+        d.setBounds(0, 0,mBitmap.getWidth(), mBitmap.getHeight());
+        d.draw(canvas);
         canvas.drawBitmap(mBitmap, 0, 0, mBitmapPaint);
 
         canvas.drawPath(mPath, mPaint);

@@ -34,6 +34,7 @@
     <string name="chat_user">You:</string>
     <string name="action_new_board">New board</string>
     <string name="custom_latte">  Add Custom Latte Art</string>
+    <string name="done_with_custom_art">Done with Custom Art</string>
 
 
     <string-array name="tabs">
