@@ -56,7 +56,9 @@ public class BoardListActivity extends AppCompatActivity {
         Intent i = getIntent();
         customFood = i.getParcelableExtra("customFoodObject");
 
-        setBoardsRef();
+        if (customFood != null) {
+            setBoardsRef();
+        }
     }
 
     private void setBoardsRef() {
@@ -74,8 +76,9 @@ public class BoardListActivity extends AppCompatActivity {
         SyncedBoardManager.setContext(this);
         SyncedBoardManager.restoreSyncedBoards(mSegmentsRef);
 
-        if (customFood != null)
+        if (customFood.getcustomArtId() == null) {
             createBoard();
+        }
     }
 
     public void setToolbar() {
@@ -183,6 +186,7 @@ public class BoardListActivity extends AppCompatActivity {
                     throw firebaseError.toException();
                 } else {
                     // once the board is created, start a DrawingActivity on it
+                    customFood.setcustomArtId(newBoardRef.getKey());
                     openBoard(newBoardRef.getKey());
                 }
             }
