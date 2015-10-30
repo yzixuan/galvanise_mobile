@@ -39,6 +39,7 @@ public class BoardListActivity extends AppCompatActivity {
     private FirebaseListAdapter2<HashMap> mBoardListAdapter;
     private ValueEventListener mConnectedListener;
     private Toolbar toolbar;
+    private String key = "-K1oM0bVIIAPHT8WCDZc";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,13 +64,6 @@ public class BoardListActivity extends AppCompatActivity {
 
     private void setBoardsRef() {
 
-        /*if (customFood != null) {
-            mBoardsRef = mRef.child(customFood.getId() + "boardmetas");
-            mSegmentsRef = mRef.child(customFood.getId() + "boardsegments");
-        } else {
-            mBoardsRef = mRef.child("boardmetas");
-            mSegmentsRef = mRef.child("boardsegments");
-        }*/
         mBoardsRef = mRef.child("boardmetas");
         mSegmentsRef = mRef.child("boardsegments");
         mBoardsRef.keepSynced(true);
@@ -90,30 +84,10 @@ public class BoardListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Set up a notification to let us know when we're connected or disconnected from the Firebase servers
-        mConnectedListener = mRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                boolean connected = (Boolean) dataSnapshot.getValue();
-                if (connected) {
-                    Toast.makeText(BoardListActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(BoardListActivity.this, "Disconnected from Firebase", Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                // No-op
-            }
-        });
+    public void setUpDrawingAdapter() {
 
         final ListView boardList = (ListView) this.findViewById(R.id.BoardList);
-        mBoardListAdapter = new FirebaseListAdapter2<HashMap>(mBoardsRef, HashMap.class, R.layout.board_in_list, this) {
+        mBoardListAdapter = new FirebaseListAdapter2<HashMap>(mBoardsRef, HashMap.class, R.layout.board_in_list, this, key) {
             @Override
             protected void populateView(View v, HashMap model) {
                 final String key = BoardListActivity.this.mBoardListAdapter.getModelKey(model);
@@ -158,6 +132,32 @@ public class BoardListActivity extends AppCompatActivity {
                 boardList.setSelection(mBoardListAdapter.getCount() - 1);
             }
         });
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Set up a notification to let us know when we're connected or disconnected from the Firebase servers
+        mConnectedListener = mRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean connected = (Boolean) dataSnapshot.getValue();
+                if (connected) {
+                    Toast.makeText(BoardListActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(BoardListActivity.this, "Disconnected from Firebase", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                // No-op
+            }
+        });
+
+        setUpDrawingAdapter();
     }
 
     @Override
@@ -186,8 +186,10 @@ public class BoardListActivity extends AppCompatActivity {
                     throw firebaseError.toException();
                 } else {
                     // once the board is created, start a DrawingActivity on it
-                    customFood.setcustomArtId(newBoardRef.getKey());
-                    openBoard(newBoardRef.getKey());
+                    key = newBoardRef.getKey();
+                    customFood.setcustomArtId(key);
+                    mBoardListAdapter.changeStringKey(ref, key);
+                    openBoard(key);
                 }
             }
         });

@@ -26,7 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
-public class DrawingActivity extends ActionBarActivity implements ColorPickerDialog.OnColorChangedListener {
+public class DrawingActivity extends ActionBarActivity {
     public static final int THUMBNAIL_SIZE = 256;
 
     private static final int COLOR_MENU_ID = Menu.FIRST;
@@ -233,13 +233,10 @@ public class DrawingActivity extends ActionBarActivity implements ColorPickerDia
 
         return imageEncoded;
     }
+
     public static Bitmap decodeFromBase64(String input) throws IOException {
         byte[] decodedByte = com.firebase.client.utilities.Base64.decode(input);
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 
-    @Override
-    public void colorChanged(int newColor) {
-        mDrawingView.setColor(newColor);
-    }
 }

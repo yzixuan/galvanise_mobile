@@ -45,9 +45,9 @@ public abstract class FirebaseListAdapter2<T> extends BaseAdapter {
      *                    instance of the corresponding view with the data from an instance of mModelClass.
      * @param activity    The activity containing the ListView
      */
-    public FirebaseListAdapter2(Query mRef, Class<T> mModelClass, int mLayout, Activity activity) {
+    public FirebaseListAdapter2(Query mRef, Class<T> mModelClass, int mLayout, Activity activity, String key) {
 
-        this.mRef = mRef.orderByKey().equalTo("-K1oM0bVIIAPHT8WCDZc");
+        this.mRef = mRef.orderByKey().equalTo(key);
         this.mModelClass = mModelClass;
         this.mLayout = mLayout;
         mInflater = activity.getLayoutInflater();
@@ -135,6 +135,12 @@ public abstract class FirebaseListAdapter2<T> extends BaseAdapter {
             }
 
         });
+    }
+
+
+    public void changeStringKey(Query mRef, String key) {
+        this.mRef = mRef.orderByKey().equalTo(key);
+        notifyDataSetChanged();
     }
 
     public void cleanup() {
