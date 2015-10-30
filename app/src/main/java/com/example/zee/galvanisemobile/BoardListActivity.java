@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidquery.AQuery;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -40,6 +41,8 @@ public class BoardListActivity extends AppCompatActivity {
     private ValueEventListener mConnectedListener;
     private Toolbar toolbar;
     private String key = "-K1oM0bVIIAPHT8WCDZc";
+
+    AQuery androidAQuery=new AQuery(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +72,14 @@ public class BoardListActivity extends AppCompatActivity {
 
         if (customFood != null && customFood.getcustomArtId() == null) {
             createBoard();
+        }
+
+        if (customFood != null) {
+            ImageView imageView = (ImageView)findViewById(R.id.image);
+            TextView foodNameText = (TextView)findViewById(R.id.foodNameText);
+
+            androidAQuery.id(imageView).image(customFood.getThumbnail(), true, true);
+            foodNameText.setText("Custom " + customFood.getItemName());
         }
     }
 
@@ -228,9 +239,6 @@ public class BoardListActivity extends AppCompatActivity {
             return true;
         }
 
-        if (id == R.id.action_new_board) {
-            createBoard();
-        }
         return super.onOptionsItemSelected(item);
     }
 

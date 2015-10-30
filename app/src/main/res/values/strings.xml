@@ -35,6 +35,7 @@
     <string name="action_new_board">New board</string>
     <string name="custom_latte">  Add Custom Latte Art</string>
     <string name="done_with_custom_art">Done with Custom Art</string>
+    <string name="add_custom_to_cart">Add Custom Latte To Cart</string>
 
 
     <string-array name="tabs">
