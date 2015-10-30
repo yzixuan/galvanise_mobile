@@ -50,16 +50,13 @@ public class BoardListActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         mRef = new Firebase(FIREBASE_URL);
         getCustomizableFood();
+        setBoardsRef();
     }
 
     public void getCustomizableFood() {
 
         Intent i = getIntent();
         customFood = i.getParcelableExtra("customFoodObject");
-
-        if (customFood != null) {
-            setBoardsRef();
-        }
     }
 
     private void setBoardsRef() {
@@ -70,7 +67,7 @@ public class BoardListActivity extends AppCompatActivity {
         SyncedBoardManager.setContext(this);
         SyncedBoardManager.restoreSyncedBoards(mSegmentsRef);
 
-        if (customFood.getcustomArtId() == null) {
+        if (customFood != null && customFood.getcustomArtId() == null) {
             createBoard();
         }
     }

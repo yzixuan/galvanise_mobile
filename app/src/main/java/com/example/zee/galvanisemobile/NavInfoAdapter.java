@@ -67,7 +67,7 @@ public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHo
                 case 0: // cafe menu
                     v.getContext().startActivity(new Intent(v.getContext(), MainActivity.class));
                     break;
-                case 1: // your cart
+                case 1: // your order
                     v.getContext().startActivity(new Intent(v.getContext(), CartActivity.class));
                     break;
                 case 3: // advance booking
@@ -76,14 +76,11 @@ public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHo
                 case 4: // about us
                     v.getContext().startActivity(new Intent(v.getContext(), AboutActivity.class));
                     break;
-                case 5: // live chat us
+                case 5: // chat with a staff
                     v.getContext().startActivity(new Intent(v.getContext(), ChatActivity.class));
                     break;
                 case 6: // settings
                     v.getContext().startActivity(new Intent(v.getContext(), SettingsActivity.class));
-                    break;
-                case 7: // Drawing
-                    v.getContext().startActivity(new Intent(v.getContext(), BoardListActivity.class));
                     break;
                 default:
                     break;
