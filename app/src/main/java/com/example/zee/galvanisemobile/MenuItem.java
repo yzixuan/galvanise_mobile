@@ -18,16 +18,14 @@ public class MenuItem implements Parcelable, Cloneable {
     private String thumbnail;
     private String itemDesc;
     private boolean customizable = false;
-    private ArrayList<String> customArt = new ArrayList<>();
+    private String customArtId;
 
     public MenuItem() {
 
     }
 
     protected Object clone() throws CloneNotSupportedException {
-        MenuItem result = (MenuItem)super.clone();
-        result.customArt = new ArrayList<String>(customArt);
-        return result;
+        return super.clone();
     }
 
     public int getId() {
@@ -117,12 +115,12 @@ public class MenuItem implements Parcelable, Cloneable {
             this.customizable = true;
     }
 
-    public ArrayList <String> getCustomArt() {
-        return customArt;
+    public String getcustomArtId() {
+        return customArtId;
     }
 
-    public void setCustomArt(ArrayList <String> customArt) {
-        this.customArt = customArt;
+    public void setcustomArtId(String customArt) {
+        this.customArtId = customArtId;
     }
 
     protected MenuItem(Parcel in) {
@@ -133,7 +131,7 @@ public class MenuItem implements Parcelable, Cloneable {
         thumbnail = in.readString();
         itemDesc = in.readString();
         customizable = in.readByte() != 0;
-        customArt = in.createStringArrayList();
+        customArtId = in.readString();
     }
 
     @Override
@@ -150,7 +148,7 @@ public class MenuItem implements Parcelable, Cloneable {
         dest.writeString(thumbnail);
         dest.writeString(itemDesc);
         dest.writeByte((byte) (customizable ? 1 : 0));
-        dest.writeStringList(customArt);
+        dest.writeString(customArtId);
     }
 
     @SuppressWarnings("unused")

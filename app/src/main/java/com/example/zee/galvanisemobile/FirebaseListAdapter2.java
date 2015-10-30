@@ -46,14 +46,15 @@ public abstract class FirebaseListAdapter2<T> extends BaseAdapter {
      * @param activity    The activity containing the ListView
      */
     public FirebaseListAdapter2(Query mRef, Class<T> mModelClass, int mLayout, Activity activity) {
-        this.mRef = mRef;
+
+        this.mRef = mRef.orderByKey().equalTo("-K1oM0bVIIAPHT8WCDZc");
         this.mModelClass = mModelClass;
         this.mLayout = mLayout;
         mInflater = activity.getLayoutInflater();
         mModels = new ArrayList<T>();
         mModelKeys = new HashMap<String, T>();
         Log.v("FirebaseListAdapter", "adding child event listeners");
-        // Look for all child events. We will then map them to our own internal ArrayList, which backs ListView
+
         mListener = this.mRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
