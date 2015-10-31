@@ -45,6 +45,7 @@ public class BoardListActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String key = "";
     private EditText quantity;
+    private Button addCartButton;
 
     AQuery androidAQuery=new AQuery(this);
 
@@ -75,17 +76,47 @@ public class BoardListActivity extends AppCompatActivity {
         SyncedBoardManager.setContext(this);
         SyncedBoardManager.restoreSyncedBoards(mSegmentsRef);
 
+        if (customFood != null) {
+            setUpBoardDetails();
+        }
+
         if (customFood != null && customFood.getcustomArtId() == null) {
             createBoard();
         }
+    }
 
-        if (customFood != null) {
+    private void setUpBoardDetails() {
+
+        addCartButton = (Button)findViewById(R.id.add_to_cart);
+
+        if (customFood.getcustomArtId() != null) {
+
+            TextView loadingImage = (TextView)findViewById(R.id.loadingImage);
+            loadingImage.setVisibility(View.INVISIBLE);
+
+            addCartButton.setVisibility(View.VISIBLE);
+
+            // view or edit an existing custom latte art
             ImageView imageView = (ImageView)findViewById(R.id.image);
             TextView foodNameText = (TextView)findViewById(R.id.foodNameText);
 
             androidAQuery.id(imageView).image(customFood.getThumbnail(), true, true);
             foodNameText.setText(customFood.getItemName());
+
+        } else {
+            // this is a new custom latte, load the drawing board
+            addCartButton.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onResume() {
+
+        if (customFood != null) {
+            setUpBoardDetails();
+        }
+
+        super.onResume();
     }
 
     public void setToolbar() {
@@ -244,8 +275,6 @@ public class BoardListActivity extends AppCompatActivity {
     }
 
     private void handleAddToCartDialog() {
-
-        Button addCartButton;
 
         // add button listener
         addCartButton = (Button)findViewById(R.id.add_to_cart);

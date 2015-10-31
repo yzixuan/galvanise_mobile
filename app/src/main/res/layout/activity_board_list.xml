@@ -47,4 +47,15 @@
         android:background="@color/primaryColor"
         android:id="@+id/add_to_cart" />
 
+    <TextView
+        android:id="@+id/loadingImage"
+        android:text="@string/loading_drawing_board"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:background="@color/primaryColor"
+        android:textStyle="bold" />
+
 </RelativeLayout>

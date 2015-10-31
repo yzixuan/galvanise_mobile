@@ -36,6 +36,7 @@
     <string name="custom_latte">  Add Custom Latte Art</string>
     <string name="done_with_custom_art">Done with Custom Art</string>
     <string name="add_custom_to_cart">Add Custom Latte To Cart</string>
+    <string name="loading_drawing_board">Loading\nDrawing Board\n...</string>
 
 
     <string-array name="tabs">

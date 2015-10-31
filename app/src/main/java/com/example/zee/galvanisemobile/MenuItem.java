@@ -119,7 +119,7 @@ public class MenuItem implements Parcelable, Cloneable {
         return customArtId;
     }
 
-    public void setcustomArtId(String customArt) {
+    public void setcustomArtId(String customArtId) {
         this.customArtId = customArtId;
     }
 
