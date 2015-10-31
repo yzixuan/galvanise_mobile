@@ -232,16 +232,17 @@ public class ItemDetailActivity extends AppCompatActivity {
             com.example.zee.galvanisemobile.MenuItem customFood;
             customFood = (com.example.zee.galvanisemobile.MenuItem) food.clone();
             customFood.setId(food.getId() * 100);
-            goToFirebase();
+            customFood.setItemName("Custom " + customFood.getItemName());
+            goToFirebase(customFood);
         }
         catch(CloneNotSupportedException e) {
 
         }
     }
 
-    private void goToFirebase() {
+    private void goToFirebase(com.example.zee.galvanisemobile.MenuItem customFood) {
         Intent intent = new Intent(this, BoardListActivity.class);
-        intent.putExtra("customFoodObject", food);
+        intent.putExtra("customFoodObject", customFood);
         startActivity(intent);
     }
 }
