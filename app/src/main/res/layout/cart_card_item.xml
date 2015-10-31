@@ -14,9 +14,20 @@
 
         <ImageView
             android:id="@+id/img_thumbnail"
-            android:layout_width="100dp"
+            android:layout_width="120dp"
             android:layout_height="150dp"
             android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/custom_art_label"
+            android:padding="5dp"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:background="@color/amber"
+            android:text="* LATTE ART *"/>
 
         <TextView
             android:layout_width="wrap_content"

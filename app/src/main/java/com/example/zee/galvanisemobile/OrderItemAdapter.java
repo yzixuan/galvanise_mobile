@@ -2,6 +2,7 @@ package com.example.zee.galvanisemobile;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,13 +46,29 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        MenuItem menuItem = menuitems.get(i).getMenuItem();
+
+        final MenuItem menuItem = menuitems.get(i).getMenuItem();
+
         viewHolder.itemName.setText(menuItem.getItemName());
         androidAQuery.id(viewHolder.imgThumbnail).image(menuItem.getThumbnail(), true, true);
         viewHolder.promoPrice.setText("$" + String.format("%.2f", menuItem.getPromoPrice()));
         viewHolder.quantityAdded.setText("Quantity added: " + menuitems.get(i).getQuantity());
         viewHolder.orderSubtotal.setText("Item Subtotal: $" + String.format("%.2f", menuitems.get(i).getQuantity()* menuItem.getPromoPrice()));
         viewHolder.itemView.setTag(menuitems.get(i));
+
+        if (menuItem.getcustomArtId() == null) {
+            viewHolder.customArtLabel.setVisibility(View.INVISIBLE);
+        } else {
+            viewHolder.customArtLabel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, BoardListActivity.class);
+                    intent.putExtra("customFoodObject", menuItem);
+                    context.startActivity(intent);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -63,6 +80,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         public ImageView imgThumbnail;
+        public TextView customArtLabel;
         public TextView itemName;
         public TextView promoPrice;
         public TextView quantityAdded;
@@ -73,6 +91,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         public ViewHolder(final View itemView){
             super(itemView);
             imgThumbnail = (ImageView)itemView.findViewById(R.id.img_thumbnail);
+            customArtLabel = (TextView)itemView.findViewById(R.id.custom_art_label);
             itemName = (TextView)itemView.findViewById(R.id.tv_menu_item_name);
             promoPrice = (TextView)itemView.findViewById(R.id.tv_menu_item_price);
             quantityAdded = (TextView)itemView.findViewById(R.id.tv_order_quantity);

@@ -75,8 +75,14 @@ public class ShoppingCart implements Serializable {
         while (orderIterator.hasNext()) {
             OrderItem currOrder = orderIterator.next();
             if (currOrder.getMenuItem().getId() == toBeAdded.getMenuItem().getId()) {
-                currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
-                added = true;
+
+                // if it's non-customizable, or custom art id matches, add to existing order
+                if (currOrder.getMenuItem().getcustomArtId() == null ||
+                    currOrder.getMenuItem().getcustomArtId().equals(toBeAdded.getMenuItem().getcustomArtId()) ) {
+
+                    currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
+                    added = true;
+                }
             }
         }
 

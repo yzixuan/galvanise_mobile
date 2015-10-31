@@ -55,9 +55,10 @@ public class BoardListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_board_list);
         setToolbar();
 
+        getCustomizableFood();
+
         Firebase.setAndroidContext(this);
         mRef = new Firebase(FIREBASE_URL);
-        getCustomizableFood();
         setBoardsRef();
         handleAddToCartDialog();
     }
@@ -90,6 +91,9 @@ public class BoardListActivity extends AppCompatActivity {
         addCartButton = (Button)findViewById(R.id.add_to_cart);
 
         if (customFood.getcustomArtId() != null) {
+
+            //key = customFood.getcustomArtId();
+            //mBoardListAdapter.changeStringKey(mBoardsRef, key);
 
             TextView loadingImage = (TextView)findViewById(R.id.loadingImage);
             loadingImage.setVisibility(View.INVISIBLE);
@@ -129,6 +133,10 @@ public class BoardListActivity extends AppCompatActivity {
     }
 
     public void setUpDrawingAdapter() {
+
+        if (customFood != null && customFood.getcustomArtId() != null) {
+            key = customFood.getcustomArtId();
+        }
 
         final ListView boardList = (ListView) this.findViewById(R.id.BoardList);
         mBoardListAdapter = new FirebaseListAdapter2<HashMap>(mBoardsRef, HashMap.class, R.layout.board_in_list, this, key) {
