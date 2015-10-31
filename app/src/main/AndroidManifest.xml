@@ -100,10 +100,12 @@
 
         <activity
             android:name=".DrawingActivity"
+            android:screenOrientation="sensorPortrait"
             android:label="Draw Custom Art" >
         </activity>
         <activity
             android:name=".BoardListActivity"
+            android:screenOrientation="sensorPortrait"
             android:label="Custom Latte Art" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
