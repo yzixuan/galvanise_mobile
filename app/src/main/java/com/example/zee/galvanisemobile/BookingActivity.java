@@ -17,7 +17,7 @@ public class BookingActivity extends AppCompatActivity {
 
     // instantiate webview and defining our url
     WebView webView;
-    public final String GlobalUrl = "http://galvanize.space/book";
+    public final String GlobalUrl = "http://galvanize.space/android";
 
 
     @Override
