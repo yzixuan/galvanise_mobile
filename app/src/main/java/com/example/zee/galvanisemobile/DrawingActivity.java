@@ -51,7 +51,6 @@ public class DrawingActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawing);
         setToolbar();
-        getCustomizableFood();
 
         mDrawingView = (DrawingView)findViewById(R.id.drawing_view);
 
@@ -85,12 +84,6 @@ public class DrawingActivity extends ActionBarActivity {
         });
     }
 
-    public void getCustomizableFood() {
-
-        Intent i = getIntent();
-        customFood = i.getParcelableExtra("customFoodObject");
-    }
-
     public void setToolbar() {
 
         toolbar = (Toolbar)findViewById(R.id.app_bar);
@@ -107,11 +100,11 @@ public class DrawingActivity extends ActionBarActivity {
         mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 boolean connected = (Boolean) dataSnapshot.getValue();
+
                 if (connected) {
                     Toast.makeText(DrawingActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(DrawingActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
                 }
             }
 
