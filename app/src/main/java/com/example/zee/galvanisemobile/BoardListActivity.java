@@ -43,7 +43,7 @@ public class BoardListActivity extends AppCompatActivity {
     private FirebaseListAdapter2<HashMap> mBoardListAdapter;
     private ValueEventListener mConnectedListener;
     private Toolbar toolbar;
-    private String key = "-K1oM0bVIIAPHT8WCDZc";
+    private String key = "";
     private EditText quantity;
 
     AQuery androidAQuery=new AQuery(this);
@@ -105,16 +105,6 @@ public class BoardListActivity extends AppCompatActivity {
             protected void populateView(View v, HashMap model) {
                 final String key = BoardListActivity.this.mBoardListAdapter.getModelKey(model);
                 ((TextView)v.findViewById(R.id.board_title)).setText(key);
-
-                // show if the board is synced and listen for clicks to toggle that state
-                CheckBox checkbox = (CheckBox) v.findViewById(R.id.keepSynced);
-                checkbox.setChecked(SyncedBoardManager.isSynced(key));
-                checkbox.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        SyncedBoardManager.toggle(mSegmentsRef, key);
-                    }
-                });
 
                 // display the board's thumbnail if it is available
                 ImageView thumbnailView = (ImageView) v.findViewById(R.id.board_thumbnail);
@@ -237,6 +227,11 @@ public class BoardListActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             onBackPressed();
             return true;
+        }
+
+        if (id == R.id.action_cart) {
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
         }
 
         //noinspection SimplifiableIfStatement

@@ -32,13 +32,13 @@ public class DrawingActivity extends ActionBarActivity {
 
     private static final int COLOR_MENU_ID = Menu.FIRST;
     private static final int CLEAR_MENU_ID = COLOR_MENU_ID + 1;
-    private static final int PIN_MENU_ID = CLEAR_MENU_ID + 1;
+
     public static final String TAG = "AndroidDrawing";
     private com.example.zee.galvanisemobile.MenuItem customFood;
     private Toolbar toolbar;
 
     private DrawingView mDrawingView;
-    private Firebase mFirebaseRef; // Firebase base URL
+    private Firebase mFirebaseRef;
     private Firebase mMetadataRef;
     private Firebase mSegmentsRef;
     private ValueEventListener mConnectedListener;
@@ -138,10 +138,7 @@ public class DrawingActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        //menu.add(0, COLOR_MENU_ID, 0, "Color").setShortcut('3', 'c').setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(0, CLEAR_MENU_ID, 2, "Clear").setShortcut('5', 'x');
-        menu.add(0, PIN_MENU_ID, 3, "Keep in sync").setShortcut('6', 's').setIcon(android.R.drawable.ic_lock_lock)
-                .setCheckable(true).setChecked(SyncedBoardManager.isSynced(mBoardId));
 
         for(int i = 0; i < menu.size(); i++) {
             MenuItem item = menu.getItem(i);
@@ -165,9 +162,13 @@ public class DrawingActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
+
             onBackPressed();
             return true;
-        } else if (id == CLEAR_MENU_ID) {
+
+        }
+
+        if (id == CLEAR_MENU_ID) {
             mDrawingView.clear();
             mDrawingView.cleanup();
             mSegmentsRef.removeValue(new Firebase.CompletionListener() {
@@ -180,13 +181,10 @@ public class DrawingActivity extends ActionBarActivity {
             });
 
             return true;
-        } else if (id == PIN_MENU_ID) {
-            SyncedBoardManager.toggle(mFirebaseRef.child("boardsegments"), mBoardId);
-            item.setChecked(SyncedBoardManager.isSynced(mBoardId));
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
         }
+
+        return super.onOptionsItemSelected(item);
+
     }
 
     public static void updateThumbnail(int boardWidth, int boardHeight, Firebase segmentsRef, final Firebase metadataRef) {
