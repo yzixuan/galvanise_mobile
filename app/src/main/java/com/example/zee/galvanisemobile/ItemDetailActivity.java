@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,6 @@ public class ItemDetailActivity extends AppCompatActivity {
     private TextView foodNameText;
     private TextView priceLabel;
     private Button addCartButton;
-    private FrameLayout customizeButton;
     private EditText quantity;
     private TextView descriptionText;
 
@@ -67,9 +67,11 @@ public class ItemDetailActivity extends AppCompatActivity {
         Intent i = getIntent();
         food = i.getParcelableExtra("foodObject");
 
-        customizeButton = (FrameLayout)findViewById(R.id.customize);
+        LinearLayout orDivider = (LinearLayout)findViewById(R.id.or_divider);
+        FrameLayout customizeButton = (FrameLayout)findViewById(R.id.customize);
 
         if (!food.isCustomizable()) {
+            orDivider.setVisibility(View.GONE);
             customizeButton.setVisibility(View.GONE);
         }
 

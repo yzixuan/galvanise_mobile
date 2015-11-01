@@ -97,6 +97,50 @@
 
             </LinearLayout>
 
+            <Button
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_to_cart"
+                android:background="@color/primaryColor"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:id="@+id/add_to_cart" />
+
+            <LinearLayout
+                android:id="@+id/or_divider"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin" >
+
+                <View
+                    android:padding="8dp"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#ffd5d5d5"
+                    android:layout_weight="2"
+                    android:layout_gravity="center_vertical" />
+
+                <TextView
+                    android:padding="8dp"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="OR"/>
+
+                <View
+                    android:padding="8dp"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#ffd5d5d5"
+                    android:layout_weight="2"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+
             <FrameLayout
                 style="?android:attr/buttonStyle"
                 android:background="@color/amber"
@@ -118,14 +162,6 @@
                     android:gravity="center"
                     android:text="@string/custom_latte" />
             </FrameLayout>
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/add_to_cart"
-                android:background="@color/primaryColor"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:id="@+id/add_to_cart" />
 
         </LinearLayout>
 
