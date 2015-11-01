@@ -35,6 +35,27 @@
             android:text="@string/click_to_edit"
             android:id="@+id/total_payable" />
 
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/asphaltColor"
+            android:text="Price"
+            android:id="@+id/priceText" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:background="@color/primaryColor"
+            android:text="Add Custom Order"
+            android:id="@+id/random_text"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp" />
+
     </LinearLayout>
 
 </LinearLayout>

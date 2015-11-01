@@ -156,6 +156,92 @@ public class BoardListActivity extends AppCompatActivity {
                 else {
                     thumbnailView.setVisibility(View.INVISIBLE);
                 }
+
+                TextView priceText = (TextView) v.findViewById(R.id.priceText);
+                priceText.setText("Price: $ " + String.format("%.2f", customFood.getPromoPrice()));
+
+                TextView addCart2 = (TextView) v.findViewById(R.id.random_text);
+                addCart2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        final Dialog dialog = new Dialog(BoardListActivity.this);
+                        dialog.setContentView(R.layout.dialog_add_to_cart);
+                        dialog.setTitle("Select Quantity");
+
+                        Button plusButton = (Button) dialog.findViewById(R.id.plus_button);
+                        Button minusButton = (Button) dialog.findViewById(R.id.minus_button);
+
+                        Button confirmAdd = (Button) dialog.findViewById(R.id.confirm_add);
+                        Button cancel = (Button) dialog.findViewById(R.id.cancel);
+
+                        quantity = (EditText) dialog.findViewById(R.id.quantity);
+
+                        plusButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                String inputFromDialog = quantity.getText().toString();
+
+                                if (inputFromDialog.isEmpty()) {
+                                    quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                                } else {
+                                    int currValue = Integer.parseInt(inputFromDialog);
+                                    quantity.setText(String.valueOf(currValue + 1), TextView.BufferType.EDITABLE);
+                                }
+                            }
+                        });
+
+                        minusButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                String inputFromDialog = quantity.getText().toString();
+
+                                if (inputFromDialog.isEmpty()) {
+                                    quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                                } else {
+                                    int currValue = Integer.parseInt(inputFromDialog);
+                                    if (currValue <= 1) {
+                                        quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                                    } else {
+                                        quantity.setText(String.valueOf(currValue - 1), TextView.BufferType.EDITABLE);
+                                    }
+                                }
+                            }
+                        });
+
+                        confirmAdd.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+
+                                String inputFromDialog = quantity.getText().toString();
+
+                                if (inputFromDialog.isEmpty() || Integer.parseInt(inputFromDialog) <= 0) {
+                                    alertEmptyItem();
+                                } else {
+                                    // create order item and add to shopping cart
+                                    OrderItem orderItem = new OrderItem(customFood, Integer.parseInt(inputFromDialog));
+                                    ShoppingCart.addOrderItem(orderItem);
+
+                                    sendPersistentBroadcastMessage();
+
+                                    dialog.dismiss();
+                                }
+                            }
+                        });
+
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+
+                                dialog.dismiss();
+                            }
+                        });
+
+                        dialog.show();
+
+                    }
+                });
+
             }
         };
         boardList.setAdapter(mBoardListAdapter);
