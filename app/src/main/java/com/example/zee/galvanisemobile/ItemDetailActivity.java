@@ -231,7 +231,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         try {
             com.example.zee.galvanisemobile.MenuItem customFood;
             customFood = (com.example.zee.galvanisemobile.MenuItem) food.clone();
-            customFood.setId(food.getId() * 100);
             customFood.setItemName("Custom " + customFood.getItemName());
             goToFirebase(customFood);
         }

@@ -224,8 +224,10 @@ public class BoardListActivity extends AppCompatActivity {
             @Override
             public void onComplete(FirebaseError firebaseError, Firebase ref) {
                 if (firebaseError != null) {
+
                     Log.e(TAG, firebaseError.toString());
                     throw firebaseError.toException();
+
                 } else {
                     // once the board is created, start a DrawingActivity on it
                     key = newBoardRef.getKey();
