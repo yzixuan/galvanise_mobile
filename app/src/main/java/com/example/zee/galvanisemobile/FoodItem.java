@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by zee on 8/10/15.
  */
-public class MenuItem implements Parcelable, Cloneable {
+public class FoodItem implements Parcelable, Cloneable {
 
     private int id;
     private int category;
@@ -20,7 +20,7 @@ public class MenuItem implements Parcelable, Cloneable {
     private boolean customizable = false;
     private String customArtId;
 
-    public MenuItem() {
+    public FoodItem() {
 
     }
 
@@ -123,7 +123,7 @@ public class MenuItem implements Parcelable, Cloneable {
         this.customArtId = customArtId;
     }
 
-    protected MenuItem(Parcel in) {
+    protected FoodItem(Parcel in) {
         id = in.readInt();
         category = in.readInt();
         itemName = in.readString();
@@ -152,15 +152,15 @@ public class MenuItem implements Parcelable, Cloneable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<MenuItem> CREATOR = new Parcelable.Creator<MenuItem>() {
+    public static final Parcelable.Creator<FoodItem> CREATOR = new Parcelable.Creator<FoodItem>() {
         @Override
-        public MenuItem createFromParcel(Parcel in) {
-            return new MenuItem(in);
+        public FoodItem createFromParcel(Parcel in) {
+            return new FoodItem(in);
         }
 
         @Override
-        public MenuItem[] newArray(int size) {
-            return new MenuItem[size];
+        public FoodItem[] newArray(int size) {
+            return new FoodItem[size];
         }
     };
 

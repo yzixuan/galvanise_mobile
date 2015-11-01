@@ -21,7 +21,7 @@ import com.androidquery.AQuery;
 public class ItemDetailActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private com.example.zee.galvanisemobile.MenuItem food;
+    private FoodItem food;
 
     private ImageView imageView;
     private TextView foodNameText;
@@ -222,8 +222,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     public void onClickCustomize(View view) {
 
         try {
-            com.example.zee.galvanisemobile.MenuItem customFood;
-            customFood = (com.example.zee.galvanisemobile.MenuItem) food.clone();
+            FoodItem customFood;
+            customFood = (FoodItem) food.clone();
             customFood.setItemName("Custom " + customFood.getItemName());
             goToFirebase(customFood);
         }
@@ -232,7 +232,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         }
     }
 
-    private void goToFirebase(com.example.zee.galvanisemobile.MenuItem customFood) {
+    private void goToFirebase(FoodItem customFood) {
         Intent intent = new Intent(this, CustomLatteActivity.class);
         intent.putExtra("customFoodObject", customFood);
         startActivity(intent);

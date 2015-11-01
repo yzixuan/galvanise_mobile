@@ -131,17 +131,6 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
 
         String orderItemsText = title.concat("\n" + dateTime + "\n\n");
 
-        /*for(OrderItem currOrder: receipt.getOrderItems()){
-
-            String itemName = currOrder.getMenuItem().getItemName();
-            String quantity = String.valueOf(currOrder.getQuantity());
-            String price = String.format("%.2f", currOrder.getMenuItem().getPromoPrice());
-
-            String currItemText = itemName + " :\n($" + price + ") x " + quantity + "\n";
-            orderItemsText = orderItemsText.concat(currItemText);
-
-        }*/
-
         String subtotal = String.format("%.2f", receipt.getSubTotal());
         String discount = String.valueOf(Math.round(receipt.getDiscount() * 100));
         String totalPaid = String.format("%.2f", receipt.getTotalPaid());

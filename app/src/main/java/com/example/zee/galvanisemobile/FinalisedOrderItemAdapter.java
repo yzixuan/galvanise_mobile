@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class FinalisedOrderItemAdapter extends RecyclerView.Adapter<FinalisedOrderItemAdapter.ViewHolder> {
 
-    List<OrderItem> menuitems;
+    List<OrderItem> foodItems;
     private LayoutInflater inflater;
     private Context context;
 
@@ -26,7 +26,7 @@ public class FinalisedOrderItemAdapter extends RecyclerView.Adapter<FinalisedOrd
     public FinalisedOrderItemAdapter(Context context) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        menuitems = ShoppingCart.getOrderItems();
+        foodItems = ShoppingCart.getOrderItems();
     }
 
     @Override
@@ -38,26 +38,26 @@ public class FinalisedOrderItemAdapter extends RecyclerView.Adapter<FinalisedOrd
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        MenuItem menuItem = menuitems.get(i).getMenuItem();
-        viewHolder.itemName.setText(menuItem.getItemName());
-        androidAQuery.id(viewHolder.imgThumbnail).image(menuItem.getThumbnail(), true, true);
+        FoodItem foodItem = foodItems.get(i).getFoodItem();
+        viewHolder.itemName.setText(foodItem.getItemName());
+        androidAQuery.id(viewHolder.imgThumbnail).image(foodItem.getThumbnail(), true, true);
 
-        String promoPrice = String.format("%.2f", menuItem.getPromoPrice());
-        String itemSubtotal = String.format("%.2f", menuitems.get(i).getQuantity() * menuItem.getPromoPrice());
+        String promoPrice = String.format("%.2f", foodItem.getPromoPrice());
+        String itemSubtotal = String.format("%.2f", foodItems.get(i).getQuantity() * foodItem.getPromoPrice());
 
-        viewHolder.promoPrice.setText("$" + promoPrice + " x " + menuitems.get(i).getQuantity() + " = SGD $" + itemSubtotal);
-        viewHolder.itemView.setTag(menuitems.get(i));
+        viewHolder.promoPrice.setText("$" + promoPrice + " x " + foodItems.get(i).getQuantity() + " = SGD $" + itemSubtotal);
+        viewHolder.itemView.setTag(foodItems.get(i));
     }
 
     public void updateList(List<OrderItem> orders) {
-        menuitems = orders;
+        foodItems = orders;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
 
-        return menuitems.size();
+        return foodItems.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

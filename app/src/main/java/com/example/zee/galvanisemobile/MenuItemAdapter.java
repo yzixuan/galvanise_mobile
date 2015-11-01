@@ -16,11 +16,11 @@ import java.util.List;
 
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.customViewHolder> {
 
-    private List<MenuItem> feedItemList;
+    private List<FoodItem> feedItemList;
     private Context mContext;
 
 
-    public MenuItemAdapter(Context context, List<MenuItem> feedItemList) {
+    public MenuItemAdapter(Context context, List<FoodItem> feedItemList) {
         this.feedItemList = feedItemList;
         this.mContext = context;
     }
@@ -35,7 +35,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.custom
 
     @Override
     public void onBindViewHolder(customViewHolder viewHolder, int i) {
-        MenuItem feedItem = feedItemList.get(i);
+        FoodItem feedItem = feedItemList.get(i);
 
         //Download image using picasso library
         Picasso.with(mContext)
@@ -77,7 +77,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.custom
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    MenuItem food = (MenuItem) v.getTag();
+                    FoodItem food = (FoodItem) v.getTag();
                     Intent intent = new Intent(v.getContext(), ItemDetailActivity.class);
                     intent.putExtra("foodObject", food);
                     v.getContext().startActivity(intent);

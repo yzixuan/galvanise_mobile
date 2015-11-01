@@ -34,7 +34,6 @@ public class DrawingActivity extends ActionBarActivity {
     private static final int CLEAR_MENU_ID = COLOR_MENU_ID + 1;
 
     public static final String TAG = "AndroidDrawing";
-    private com.example.zee.galvanisemobile.MenuItem customFood;
     private Toolbar toolbar;
 
     private DrawingView mDrawingView;

@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.ViewHolder> {
 
-    List<OrderItem> menuitems;
+    List<OrderItem> orderItems;
     private LayoutInflater inflater;
     private Context context;
 
@@ -34,7 +34,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     public OrderItemAdapter(Context context) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        menuitems = ShoppingCart.getOrderItems();
+        orderItems = ShoppingCart.getOrderItems();
     }
 
     @Override
@@ -47,16 +47,16 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
 
-        final MenuItem menuItem = menuitems.get(i).getMenuItem();
+        final FoodItem foodItem = orderItems.get(i).getFoodItem();
 
-        viewHolder.itemName.setText(menuItem.getItemName());
-        androidAQuery.id(viewHolder.imgThumbnail).image(menuItem.getThumbnail(), true, true);
-        viewHolder.promoPrice.setText("$" + String.format("%.2f", menuItem.getPromoPrice()));
-        viewHolder.quantityAdded.setText("Quantity added: " + menuitems.get(i).getQuantity());
-        viewHolder.orderSubtotal.setText("Item Subtotal: $" + String.format("%.2f", menuitems.get(i).getQuantity()* menuItem.getPromoPrice()));
-        viewHolder.itemView.setTag(menuitems.get(i));
+        viewHolder.itemName.setText(foodItem.getItemName());
+        androidAQuery.id(viewHolder.imgThumbnail).image(foodItem.getThumbnail(), true, true);
+        viewHolder.promoPrice.setText("$" + String.format("%.2f", foodItem.getPromoPrice()));
+        viewHolder.quantityAdded.setText("Quantity added: " + orderItems.get(i).getQuantity());
+        viewHolder.orderSubtotal.setText("Item Subtotal: $" + String.format("%.2f", orderItems.get(i).getQuantity()* foodItem.getPromoPrice()));
+        viewHolder.itemView.setTag(orderItems.get(i));
 
-        if (menuItem.getcustomArtId() == null) {
+        if (foodItem.getcustomArtId() == null) {
 
             viewHolder.customArtLabel.setVisibility(View.INVISIBLE);
 
@@ -67,14 +67,14 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
             viewHolder.imgThumbnail.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editCustomArt(menuItem);
+                    editCustomArt(foodItem);
                 }
             });
 
             viewHolder.customArtLabel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editCustomArt(menuItem);
+                    editCustomArt(foodItem);
                 }
             });
         }
@@ -84,10 +84,10 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     @Override
     public int getItemCount() {
 
-        return menuitems.size();
+        return orderItems.size();
     }
 
-    private void editCustomArt(MenuItem menuItem) {
+    private void editCustomArt(FoodItem menuItem) {
 
         Intent intent = new Intent(context, CustomLatteActivity.class);
         intent.putExtra("customFoodObject", menuItem);
@@ -214,7 +214,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
 
     // remove an existing item from the cart
     public void delete(int position) {
-        OrderItem removed = menuitems.remove(position);
+        OrderItem removed = orderItems.remove(position);
         ShoppingCart.removeItem(removed);
         ((CartActivity)context).refreshCartInfo();
         notifyItemRemoved(position);

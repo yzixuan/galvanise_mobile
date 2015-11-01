@@ -5,20 +5,20 @@ package com.example.zee.galvanisemobile;
  */
 public class OrderItem {
 
-    private MenuItem menuItem;
+    private FoodItem foodItem;
     private int quantity;
 
-    public OrderItem(MenuItem menuItem, int quantity) {
-        this.menuItem = menuItem;
+    public OrderItem(FoodItem foodItem, int quantity) {
+        this.foodItem = foodItem;
         this.quantity = quantity;
     }
 
-    public MenuItem getMenuItem() {
-        return menuItem;
+    public FoodItem getFoodItem() {
+        return foodItem;
     }
 
-    public void setMenuItem(MenuItem menuItem) {
-        this.menuItem = menuItem;
+    public void setFoodItem(FoodItem foodItem) {
+        this.foodItem = foodItem;
     }
 
     public int getQuantity() {

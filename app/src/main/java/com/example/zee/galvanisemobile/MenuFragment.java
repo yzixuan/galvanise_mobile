@@ -34,7 +34,7 @@ public class MenuFragment extends Fragment {
     private MenuItemAdapter mAdapter; //  private MenuRecyclerAdapter adapter;
 
     private static final String TAG = "RecyclerViewExample";
-    private List<MenuItem> feedsList = new ArrayList<MenuItem>();
+    private List<FoodItem> feedsList = new ArrayList<FoodItem>();
     private int tabPosition = 0;
 
     public static MenuFragment getInstance(int position) {
@@ -148,7 +148,7 @@ public class MenuFragment extends Fragment {
             for (int i = 0; i < posts.length(); i++) {
 
                 JSONObject post = posts.optJSONObject(i);
-                MenuItem item = new MenuItem();
+                FoodItem item = new FoodItem();
                 item.setCategoryViaName(post.optString("category"));
 
                 if (tabPosition == 0 || item.getCategory() == tabPosition) {

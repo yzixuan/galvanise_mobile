@@ -34,7 +34,7 @@ public class CustomLatteActivity extends AppCompatActivity {
     public static final String TAG = "AndroidDrawing";
     private static String FIREBASE_URL = "https://galvanize-drawing.firebaseIO.com/";
 
-    private com.example.zee.galvanisemobile.MenuItem customFood;
+    private FoodItem customFood;
 
     private Firebase mRef;
     private Firebase mBoardsRef;
