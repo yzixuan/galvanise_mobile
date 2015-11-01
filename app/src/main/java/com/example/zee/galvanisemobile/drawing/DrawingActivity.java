@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.drawing;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,10 +14,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 import android.support.v7.app.ActionBarActivity;
 
+import com.example.zee.galvanisemobile.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;

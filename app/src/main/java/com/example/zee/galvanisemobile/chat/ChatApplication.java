@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.chat;
 
 import com.firebase.client.Firebase;
 

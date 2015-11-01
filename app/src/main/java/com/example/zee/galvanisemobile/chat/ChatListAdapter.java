@@ -1,15 +1,13 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.chat;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewManager;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.zee.galvanisemobile.FirebaseListAdapter;
+import com.example.zee.galvanisemobile.R;
 import com.firebase.client.Query;
 
 /**

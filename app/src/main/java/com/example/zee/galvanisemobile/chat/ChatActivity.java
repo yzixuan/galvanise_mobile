@@ -1,6 +1,5 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.chat;
 
-import android.app.ListActivity;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.zee.galvanisemobile.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;

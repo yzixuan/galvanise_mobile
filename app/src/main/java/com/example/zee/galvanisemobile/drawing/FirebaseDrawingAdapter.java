@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.drawing;
 
 import android.app.Activity;
 import android.util.Log;

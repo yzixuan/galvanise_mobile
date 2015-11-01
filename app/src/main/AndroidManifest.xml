@@ -90,7 +90,7 @@
             android:label="@string/title_activity_qr_instructions" >
         </activity>
         <activity
-            android:name=".ChatActivity"
+            android:name=".chat.ChatActivity"
             android:label="@string/title_activity_chat" >
         </activity>
         <activity
@@ -99,7 +99,7 @@
         </activity>
 
         <activity
-            android:name=".DrawingActivity"
+            android:name=".drawing.DrawingActivity"
             android:screenOrientation="sensorPortrait"
             android:label="Draw Custom Art" >
         </activity>

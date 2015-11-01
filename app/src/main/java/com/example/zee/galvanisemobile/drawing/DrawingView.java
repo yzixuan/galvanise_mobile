@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.drawing;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.example.zee.galvanisemobile.R;
 import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;

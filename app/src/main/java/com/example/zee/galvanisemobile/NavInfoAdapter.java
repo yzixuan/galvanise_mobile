@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.zee.galvanisemobile.chat.ChatActivity;
+
 import java.util.Collections;
 import java.util.List;
 
