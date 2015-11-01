@@ -57,14 +57,24 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         viewHolder.itemView.setTag(menuitems.get(i));
 
         if (menuItem.getcustomArtId() == null) {
+
             viewHolder.customArtLabel.setVisibility(View.INVISIBLE);
+
         } else {
+
+            // allow thumnail and label to be clicked: to go edit custom latte art
+
+            viewHolder.imgThumbnail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editCustomArt(menuItem);
+                }
+            });
+
             viewHolder.customArtLabel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, BoardListActivity.class);
-                    intent.putExtra("customFoodObject", menuItem);
-                    context.startActivity(intent);
+                    editCustomArt(menuItem);
                 }
             });
         }
@@ -75,6 +85,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
     public int getItemCount() {
 
         return menuitems.size();
+    }
+
+    private void editCustomArt(MenuItem menuItem) {
+
+        Intent intent = new Intent(context, BoardListActivity.class);
+        intent.putExtra("customFoodObject", menuItem);
+        context.startActivity(intent);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
