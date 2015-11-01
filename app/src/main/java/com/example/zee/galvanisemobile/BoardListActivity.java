@@ -1,6 +1,7 @@
 package com.example.zee.galvanisemobile;
 
 import android.app.Dialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -60,7 +61,6 @@ public class BoardListActivity extends AppCompatActivity {
         Firebase.setAndroidContext(this);
         mRef = new Firebase(FIREBASE_URL);
         setBoardsRef();
-        handleAddToCartDialog();
     }
 
     public void getCustomizableFood() {
@@ -165,79 +165,7 @@ public class BoardListActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        final Dialog dialog = new Dialog(BoardListActivity.this);
-                        dialog.setContentView(R.layout.dialog_add_to_cart);
-                        dialog.setTitle("Select Quantity");
-
-                        Button plusButton = (Button) dialog.findViewById(R.id.plus_button);
-                        Button minusButton = (Button) dialog.findViewById(R.id.minus_button);
-
-                        Button confirmAdd = (Button) dialog.findViewById(R.id.confirm_add);
-                        Button cancel = (Button) dialog.findViewById(R.id.cancel);
-
-                        quantity = (EditText) dialog.findViewById(R.id.quantity);
-
-                        plusButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                String inputFromDialog = quantity.getText().toString();
-
-                                if (inputFromDialog.isEmpty()) {
-                                    quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
-                                } else {
-                                    int currValue = Integer.parseInt(inputFromDialog);
-                                    quantity.setText(String.valueOf(currValue + 1), TextView.BufferType.EDITABLE);
-                                }
-                            }
-                        });
-
-                        minusButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                String inputFromDialog = quantity.getText().toString();
-
-                                if (inputFromDialog.isEmpty()) {
-                                    quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
-                                } else {
-                                    int currValue = Integer.parseInt(inputFromDialog);
-                                    if (currValue <= 1) {
-                                        quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
-                                    } else {
-                                        quantity.setText(String.valueOf(currValue - 1), TextView.BufferType.EDITABLE);
-                                    }
-                                }
-                            }
-                        });
-
-                        confirmAdd.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-
-                                String inputFromDialog = quantity.getText().toString();
-
-                                if (inputFromDialog.isEmpty() || Integer.parseInt(inputFromDialog) <= 0) {
-                                    alertEmptyItem();
-                                } else {
-                                    // create order item and add to shopping cart
-                                    OrderItem orderItem = new OrderItem(customFood, Integer.parseInt(inputFromDialog));
-                                    ShoppingCart.addOrderItem(orderItem);
-
-                                    sendPersistentBroadcastMessage();
-
-                                    dialog.dismiss();
-                                }
-                            }
-                        });
-
-                        cancel.setOnClickListener(new View.OnClickListener() {
-                            public void onClick(View v) {
-
-                                dialog.dismiss();
-                            }
-                        });
-
-                        dialog.show();
+                        handleAddToCartDialog();
 
                     }
                 });
@@ -368,9 +296,87 @@ public class BoardListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void handleAddToCartDialog() {
+    public void handleAddToCartDialog() {
 
+        final Dialog dialog = new Dialog(BoardListActivity.this);
+        dialog.setContentView(R.layout.dialog_add_to_cart);
+        dialog.setTitle("Select Quantity");
 
+        Button plusButton = (Button) dialog.findViewById(R.id.plus_button);
+        Button minusButton = (Button) dialog.findViewById(R.id.minus_button);
+
+        Button confirmAdd = (Button) dialog.findViewById(R.id.confirm_add);
+        Button cancel = (Button) dialog.findViewById(R.id.cancel);
+
+        quantity = (EditText) dialog.findViewById(R.id.quantity);
+
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String inputFromDialog = quantity.getText().toString();
+
+                if (inputFromDialog.isEmpty()) {
+                    quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                } else {
+                    int currValue = Integer.parseInt(inputFromDialog);
+                    quantity.setText(String.valueOf(currValue + 1), TextView.BufferType.EDITABLE);
+                }
+            }
+        });
+
+        minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String inputFromDialog = quantity.getText().toString();
+
+                if (inputFromDialog.isEmpty()) {
+                    quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                } else {
+                    int currValue = Integer.parseInt(inputFromDialog);
+                    if (currValue <= 1) {
+                        quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
+                    } else {
+                        quantity.setText(String.valueOf(currValue - 1), TextView.BufferType.EDITABLE);
+                    }
+                }
+            }
+        });
+
+        confirmAdd.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                String inputFromDialog = quantity.getText().toString();
+
+                if (inputFromDialog.isEmpty() || Integer.parseInt(inputFromDialog) <= 0) {
+                    alertEmptyItem();
+                } else {
+                    // create order item and add to shopping cart
+                    OrderItem orderItem = new OrderItem(customFood, Integer.parseInt(inputFromDialog));
+                    ShoppingCart.addOrderItem(orderItem);
+
+                    sendPersistentBroadcastMessage();
+
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    public void onClick_returnToNormal(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     private void alertEmptyItem() {
