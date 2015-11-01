@@ -26,7 +26,7 @@ import java.util.Map;
  *
  * @param <T> The class type to use as a model for the data contained in the children of the given Firebase location
  */
-public abstract class FirebaseListAdapter2<T> extends BaseAdapter {
+public abstract class FirebaseDrawingAdapter<T> extends BaseAdapter {
 
     private Query mRef;
     private Class<T> mModelClass;
@@ -45,7 +45,7 @@ public abstract class FirebaseListAdapter2<T> extends BaseAdapter {
      *                    instance of the corresponding view with the data from an instance of mModelClass.
      * @param activity    The activity containing the ListView
      */
-    public FirebaseListAdapter2(Query mRef, Class<T> mModelClass, int mLayout, Activity activity, String key) {
+    public FirebaseDrawingAdapter(Query mRef, Class<T> mModelClass, int mLayout, Activity activity, String key) {
 
         this.mRef = mRef.orderByKey().equalTo(key);
         this.mModelClass = mModelClass;
@@ -59,7 +59,7 @@ public abstract class FirebaseListAdapter2<T> extends BaseAdapter {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
 
-                T model = dataSnapshot.getValue(FirebaseListAdapter2.this.mModelClass);
+                T model = dataSnapshot.getValue(FirebaseDrawingAdapter.this.mModelClass);
                 mModelKeys.put(dataSnapshot.getKey(), model);
 
                 // Insert into the correct location, based on previousChildName
@@ -85,7 +85,7 @@ public abstract class FirebaseListAdapter2<T> extends BaseAdapter {
                 // One of the mModels changed. Replace it in our list and name mapping
                 String modelName = dataSnapshot.getKey();
                 T oldModel = mModelKeys.get(modelName);
-                T newModel = dataSnapshot.getValue(FirebaseListAdapter2.this.mModelClass);
+                T newModel = dataSnapshot.getValue(FirebaseDrawingAdapter.this.mModelClass);
                 int index = mModels.indexOf(oldModel);
 
                 mModels.set(index, newModel);
@@ -111,7 +111,7 @@ public abstract class FirebaseListAdapter2<T> extends BaseAdapter {
                 // A model changed position in the list. Update our list accordingly
                 String modelName = dataSnapshot.getKey();
                 T oldModel = mModelKeys.get(modelName);
-                T newModel = dataSnapshot.getValue(FirebaseListAdapter2.this.mModelClass);
+                T newModel = dataSnapshot.getValue(FirebaseDrawingAdapter.this.mModelClass);
                 int index = mModels.indexOf(oldModel);
                 mModels.remove(index);
                 if (previousChildName == null) {

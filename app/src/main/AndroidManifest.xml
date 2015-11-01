@@ -104,7 +104,7 @@
             android:label="Draw Custom Art" >
         </activity>
         <activity
-            android:name=".BoardListActivity"
+            android:name=".CustomLatteActivity"
             android:screenOrientation="sensorPortrait"
             android:label="Custom Latte Art" >
             <intent-filter>

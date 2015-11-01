@@ -1,7 +1,6 @@
 package com.example.zee.galvanisemobile;
 
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -31,7 +29,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BoardListActivity extends AppCompatActivity {
+public class CustomLatteActivity extends AppCompatActivity {
 
     public static final String TAG = "AndroidDrawing";
     private static String FIREBASE_URL = "https://galvanize-drawing.firebaseIO.com/";
@@ -41,7 +39,7 @@ public class BoardListActivity extends AppCompatActivity {
     private Firebase mRef;
     private Firebase mBoardsRef;
     private Firebase mSegmentsRef;
-    private FirebaseListAdapter2<HashMap> mBoardListAdapter;
+    private FirebaseDrawingAdapter<HashMap> mBoardListAdapter;
     private ValueEventListener mConnectedListener;
     private Toolbar toolbar;
     private String key = "";
@@ -139,7 +137,7 @@ public class BoardListActivity extends AppCompatActivity {
         }
 
         final ListView boardList = (ListView) this.findViewById(R.id.BoardList);
-        mBoardListAdapter = new FirebaseListAdapter2<HashMap>(mBoardsRef, HashMap.class, R.layout.board_in_list, this, key) {
+        mBoardListAdapter = new FirebaseDrawingAdapter<HashMap>(mBoardsRef, HashMap.class, R.layout.board_in_list, this, key) {
             @Override
             protected void populateView(View v, HashMap model) {
 
@@ -201,7 +199,7 @@ public class BoardListActivity extends AppCompatActivity {
                 boolean connected = (Boolean) dataSnapshot.getValue();
 
                 if (connected) {
-                    Toast.makeText(BoardListActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CustomLatteActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
                 } else {
                     Log.e(TAG, "Couldn't connect to firebase.");
                 }
@@ -298,7 +296,7 @@ public class BoardListActivity extends AppCompatActivity {
 
     public void handleAddToCartDialog() {
 
-        final Dialog dialog = new Dialog(BoardListActivity.this);
+        final Dialog dialog = new Dialog(CustomLatteActivity.this);
         dialog.setContentView(R.layout.dialog_add_to_cart);
         dialog.setTitle("Select Quantity");
 

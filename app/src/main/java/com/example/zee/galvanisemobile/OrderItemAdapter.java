@@ -89,7 +89,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
 
     private void editCustomArt(MenuItem menuItem) {
 
-        Intent intent = new Intent(context, BoardListActivity.class);
+        Intent intent = new Intent(context, CustomLatteActivity.class);
         intent.putExtra("customFoodObject", menuItem);
         context.startActivity(intent);
     }

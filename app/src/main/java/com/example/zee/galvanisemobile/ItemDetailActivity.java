@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,14 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ServerValue;
-import com.firebase.client.ValueEventListener;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -242,7 +233,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void goToFirebase(com.example.zee.galvanisemobile.MenuItem customFood) {
-        Intent intent = new Intent(this, BoardListActivity.class);
+        Intent intent = new Intent(this, CustomLatteActivity.class);
         intent.putExtra("customFoodObject", customFood);
         startActivity(intent);
     }
