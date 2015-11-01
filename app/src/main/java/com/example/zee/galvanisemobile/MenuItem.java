@@ -111,7 +111,7 @@ public class MenuItem implements Parcelable, Cloneable {
 
     public void setCustomizableBasedOnId(int id) {
 
-        if (id == 20)
+        if (id == 10 || id == 20 )
             this.customizable = true;
     }
 

@@ -48,8 +48,14 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.custom
         //Setting text view title
         viewHolder.tvbeverage.setText(Html.fromHtml(feedItem.getItemName()));
         viewHolder.promoPrice.setText("$" + String.format("%.2f", feedItem.getPromoPrice()));
-        viewHolder.itemDesc.setText(Html.fromHtml(feedItem.getItemDesc()));
         viewHolder.itemView.setTag(feedItem);
+
+        if (feedItem.isCustomizable()) {
+            viewHolder.customizable.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.customizable.setVisibility(View.GONE);
+        }
+
     }
 
     public int getItemCount() {
@@ -81,15 +87,14 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.custom
         public ImageView imgThumbnail;
         public TextView tvbeverage;
         public TextView promoPrice;
-        public TextView itemDesc;
-
+        public TextView customizable;
 
         public customViewHolder(View itemView) {
             super(itemView);
             imgThumbnail = (ImageView) itemView.findViewById(R.id.img_thumbnail);
             tvbeverage = (TextView) itemView.findViewById(R.id.tv_menu_item_name);
             promoPrice = (TextView) itemView.findViewById(R.id.tv_menu_item_price);
-            itemDesc = (TextView) itemView.findViewById(R.id.tv_menu_desc);
+            customizable = (TextView) itemView.findViewById(R.id.customizable);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
