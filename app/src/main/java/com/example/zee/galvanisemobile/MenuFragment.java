@@ -135,7 +135,6 @@ public class MenuFragment extends Fragment {
 
                 Toast.makeText(getActivity(), "Couldn't fetch data. Please check your Internet connectivity.", Toast.LENGTH_SHORT).show();
             }
-            //MenuFragment.this.onDataLoaded();
         }
     }
 
