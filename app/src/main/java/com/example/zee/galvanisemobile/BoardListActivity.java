@@ -45,7 +45,7 @@ public class BoardListActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private String key = "";
     private EditText quantity;
-    private Button addCartButton;
+    private Button returnToNormal;
 
     AQuery androidAQuery=new AQuery(this);
 
@@ -88,7 +88,7 @@ public class BoardListActivity extends AppCompatActivity {
 
     private void setUpBoardDetails() {
 
-        addCartButton = (Button)findViewById(R.id.add_to_cart);
+        returnToNormal = (Button)findViewById(R.id.return_to_normal);
 
         if (customFood.getcustomArtId() != null) {
 
@@ -98,7 +98,7 @@ public class BoardListActivity extends AppCompatActivity {
             TextView loadingImage = (TextView)findViewById(R.id.loadingImage);
             loadingImage.setVisibility(View.INVISIBLE);
 
-            addCartButton.setVisibility(View.VISIBLE);
+            returnToNormal.setVisibility(View.VISIBLE);
 
             // view or edit an existing custom latte art
             ImageView imageView = (ImageView)findViewById(R.id.image);
@@ -109,7 +109,7 @@ public class BoardListActivity extends AppCompatActivity {
 
         } else {
             // this is a new custom latte, load the drawing board
-            addCartButton.setVisibility(View.INVISIBLE);
+            returnToNormal.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -370,88 +370,7 @@ public class BoardListActivity extends AppCompatActivity {
 
     private void handleAddToCartDialog() {
 
-        // add button listener
-        addCartButton = (Button)findViewById(R.id.add_to_cart);
-        addCartButton.setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View view) {
-
-                final Dialog dialog = new Dialog(BoardListActivity.this);
-                dialog.setContentView(R.layout.dialog_add_to_cart);
-                dialog.setTitle("Select Quantity");
-
-                Button plusButton = (Button) dialog.findViewById(R.id.plus_button);
-                Button minusButton = (Button) dialog.findViewById(R.id.minus_button);
-
-                Button confirmAdd = (Button) dialog.findViewById(R.id.confirm_add);
-                Button cancel = (Button) dialog.findViewById(R.id.cancel);
-
-                quantity = (EditText) dialog.findViewById(R.id.quantity);
-
-                plusButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        String inputFromDialog = quantity.getText().toString();
-
-                        if (inputFromDialog.isEmpty()) {
-                            quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
-                        } else {
-                            int currValue = Integer.parseInt(inputFromDialog);
-                            quantity.setText(String.valueOf(currValue + 1), TextView.BufferType.EDITABLE);
-                        }
-                    }
-                });
-
-                minusButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        String inputFromDialog = quantity.getText().toString();
-
-                        if (inputFromDialog.isEmpty()) {
-                            quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
-                        } else {
-                            int currValue = Integer.parseInt(inputFromDialog);
-                            if (currValue <= 1) {
-                                quantity.setText(String.valueOf(1), TextView.BufferType.EDITABLE);
-                            } else {
-                                quantity.setText(String.valueOf(currValue - 1), TextView.BufferType.EDITABLE);
-                            }
-                        }
-                    }
-                });
-
-                confirmAdd.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-
-                        String inputFromDialog = quantity.getText().toString();
-
-                        if (inputFromDialog.isEmpty() || Integer.parseInt(inputFromDialog) <= 0) {
-                            alertEmptyItem();
-                        } else {
-                            // create order item and add to shopping cart
-                            OrderItem orderItem = new OrderItem(customFood, Integer.parseInt(inputFromDialog));
-                            ShoppingCart.addOrderItem(orderItem);
-
-                            sendPersistentBroadcastMessage();
-
-                            dialog.dismiss();
-                        }
-                    }
-                });
-
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-            }
-        });
     }
 
     private void alertEmptyItem() {

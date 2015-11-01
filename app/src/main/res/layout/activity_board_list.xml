@@ -43,9 +43,9 @@
         android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/add_custom_to_cart"
-        android:background="@color/primaryColor"
-        android:id="@+id/add_to_cart" />
+        android:text="Return to Non-Custom Order Instead"
+        android:background="@color/greyColor"
+        android:id="@+id/return_to_normal" />
 
     <TextView
         android:id="@+id/loadingImage"
