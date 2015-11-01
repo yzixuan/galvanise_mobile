@@ -14,13 +14,13 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.customViewHolder> {
+public class FoodMenuItemAdapter extends RecyclerView.Adapter<FoodMenuItemAdapter.customViewHolder> {
 
     private List<FoodItem> feedItemList;
     private Context mContext;
 
 
-    public MenuItemAdapter(Context context, List<FoodItem> feedItemList) {
+    public FoodMenuItemAdapter(Context context, List<FoodItem> feedItemList) {
         this.feedItemList = feedItemList;
         this.mContext = context;
     }

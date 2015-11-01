@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            MenuFragment menuTabFragment = MenuFragment.getInstance(position);
+            FoodMenuFragment menuTabFragment = FoodMenuFragment.getInstance(position);
             return menuTabFragment;
         }
 

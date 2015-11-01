@@ -33,7 +33,7 @@
             android:id="@+id/fragment_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:name="com.example.zee.galvanisemobile.MenuFragment"
+            android:name="com.example.zee.galvanisemobile.FoodMenuFragmentment"
             tools:layout="@layout/fragment_menu" />!-->
 
     </LinearLayout>

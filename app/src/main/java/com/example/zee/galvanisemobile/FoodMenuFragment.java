@@ -28,18 +28,18 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MenuFragment extends Fragment {
+public class FoodMenuFragment extends Fragment {
 
     private RecyclerView mRecyclerView; //  private MenuRecyclerAdapter adapter;
-    private MenuItemAdapter mAdapter; //  private MenuRecyclerAdapter adapter;
+    private FoodMenuItemAdapter mAdapter; //  private MenuRecyclerAdapter adapter;
 
     private static final String TAG = "RecyclerViewExample";
     private List<FoodItem> feedsList = new ArrayList<FoodItem>();
     private int tabPosition = 0;
 
-    public static MenuFragment getInstance(int position) {
+    public static FoodMenuFragment getInstance(int position) {
 
-        MenuFragment menuTabFragment = new MenuFragment();
+        FoodMenuFragment menuTabFragment = new FoodMenuFragment();
         Bundle args = new Bundle();
         args.putInt("position", position);
         menuTabFragment.setArguments(args);
@@ -72,7 +72,7 @@ public class MenuFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new MenuItemAdapter(getActivity().getApplicationContext(), feedsList);
+        mAdapter = new FoodMenuItemAdapter(getActivity().getApplicationContext(), feedsList);
         mRecyclerView.setAdapter(mAdapter);
 
         return layout;
@@ -128,7 +128,7 @@ public class MenuFragment extends Fragment {
 
             if (result == 1) {
 
-                mAdapter = new MenuItemAdapter(getActivity().getApplicationContext(), feedsList);
+                mAdapter = new FoodMenuItemAdapter(getActivity().getApplicationContext(), feedsList);
                 mRecyclerView.setAdapter(mAdapter);
 
             } else {
