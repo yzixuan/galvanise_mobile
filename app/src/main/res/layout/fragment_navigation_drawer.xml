@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eee"
-    tools:context="com.example.zee.galvanisemobile.NavigationDrawerFragment">
+    tools:context="com.example.zee.galvanisemobile.navigation.NavigationDrawerFragment">
 
     <LinearLayout
         android:id="@+id/container_drawer_image"

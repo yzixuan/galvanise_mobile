@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.scanner;
 
 import com.journeyapps.barcodescanner.CaptureActivity;
 

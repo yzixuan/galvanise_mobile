@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.zee.galvanisemobile.SuccessfulPaymentActivity">
+    tools:context="com.example.zee.galvanisemobile.payment.SuccessfulPaymentActivity">
 
     <TextView
         android:text="@string/payment_successful"
@@ -82,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:name="com.example.zee.galvanisemobile.FinalisedCartFragment"
+        android:name="com.example.zee.galvanisemobile.cart.FinalisedCartFragment"
         tools:layout="@layout/fragment_finalised_cart" />
 
     <!-- Shopping Cart Info !-->

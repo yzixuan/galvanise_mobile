@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/accentColor"
-    tools:context="com.example.zee.galvanisemobile.QrInstructionsActivity">
+    tools:context="com.example.zee.galvanisemobile.scanner.QrInstructionsActivity">
 
     <TextView
         android:text="Scan Your \nTable Number"

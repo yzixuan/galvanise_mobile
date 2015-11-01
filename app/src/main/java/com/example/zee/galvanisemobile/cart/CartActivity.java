@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.cart;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.zee.galvanisemobile.payment.PrePayPalActivity;
+import com.example.zee.galvanisemobile.scanner.QrInstructionsActivity;
+import com.example.zee.galvanisemobile.R;
 
 public class CartActivity extends AppCompatActivity {
 

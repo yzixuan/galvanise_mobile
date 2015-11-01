@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.orderitem;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
+import com.example.zee.galvanisemobile.R;
+import com.example.zee.galvanisemobile.cart.ShoppingCart;
+import com.example.zee.galvanisemobile.foodmenu.FoodItem;
 
 import java.util.List;
 

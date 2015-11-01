@@ -1,10 +1,7 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.foodmenu;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Created by zee on 8/10/15.
@@ -24,7 +21,7 @@ public class FoodItem implements Parcelable, Cloneable {
 
     }
 
-    protected Object clone() throws CloneNotSupportedException {
+    public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
 

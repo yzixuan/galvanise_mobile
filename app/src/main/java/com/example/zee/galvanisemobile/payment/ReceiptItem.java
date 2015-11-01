@@ -1,4 +1,7 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.payment;
+
+import com.example.zee.galvanisemobile.cart.ShoppingCart;
+import com.example.zee.galvanisemobile.orderitem.OrderItem;
 
 import java.util.ArrayList;
 import java.util.Date;

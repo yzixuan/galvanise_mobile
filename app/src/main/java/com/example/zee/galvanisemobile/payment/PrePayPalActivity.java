@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.payment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.zee.galvanisemobile.MainActivity;
+import com.example.zee.galvanisemobile.R;
+import com.example.zee.galvanisemobile.cart.ShoppingCart;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalOAuthScopes;
 import com.paypal.android.sdk.payments.PayPalPayment;

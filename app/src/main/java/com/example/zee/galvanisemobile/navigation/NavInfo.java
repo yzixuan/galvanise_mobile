@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.navigation;
 
 /**
  * Created by zee on 8/10/15.

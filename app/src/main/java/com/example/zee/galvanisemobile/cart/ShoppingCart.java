@@ -1,4 +1,6 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.cart;
+
+import com.example.zee.galvanisemobile.orderitem.OrderItem;
 
 import java.io.Serializable;
 import java.util.ArrayList;

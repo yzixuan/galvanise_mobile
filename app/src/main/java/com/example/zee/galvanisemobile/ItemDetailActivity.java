@@ -17,6 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
+import com.example.zee.galvanisemobile.cart.CartActivity;
+import com.example.zee.galvanisemobile.cart.ShoppingCart;
+import com.example.zee.galvanisemobile.foodmenu.FoodItem;
+import com.example.zee.galvanisemobile.orderitem.OrderItem;
 
 public class ItemDetailActivity extends AppCompatActivity {
 

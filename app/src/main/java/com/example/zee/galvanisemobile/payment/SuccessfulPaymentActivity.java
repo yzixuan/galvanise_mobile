@@ -1,25 +1,25 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.payment;
 
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.DateFormat;
+import com.example.zee.galvanisemobile.MainActivity;
+import com.example.zee.galvanisemobile.R;
+import com.example.zee.galvanisemobile.cart.FinalisedCartFragment;
+import com.example.zee.galvanisemobile.cart.ShoppingCart;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Iterator;
 
 public class SuccessfulPaymentActivity extends AppCompatActivity {
 

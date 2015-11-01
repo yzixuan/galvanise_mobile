@@ -1,4 +1,6 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.orderitem;
+
+import com.example.zee.galvanisemobile.foodmenu.FoodItem;
 
 /**
  * Created by zee on 10/10/15.

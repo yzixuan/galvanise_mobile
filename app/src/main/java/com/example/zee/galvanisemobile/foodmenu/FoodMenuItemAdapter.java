@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.foodmenu;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.zee.galvanisemobile.ItemDetailActivity;
+import com.example.zee.galvanisemobile.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

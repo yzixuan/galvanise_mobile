@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.navigation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.zee.galvanisemobile.AboutActivity;
+import com.example.zee.galvanisemobile.BookingActivity;
+import com.example.zee.galvanisemobile.cart.CartActivity;
+import com.example.zee.galvanisemobile.MainActivity;
+import com.example.zee.galvanisemobile.R;
+import com.example.zee.galvanisemobile.SettingsActivity;
 import com.example.zee.galvanisemobile.chat.ChatActivity;
 
 import java.util.Collections;

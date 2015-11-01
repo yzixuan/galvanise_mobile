@@ -23,6 +23,10 @@ import android.widget.Toast;
 import com.estimote.sdk.Beacon;
 import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
+import com.example.zee.galvanisemobile.cart.CartActivity;
+import com.example.zee.galvanisemobile.cart.ShoppingCart;
+import com.example.zee.galvanisemobile.foodmenu.FoodMenuFragment;
+import com.example.zee.galvanisemobile.navigation.NavigationDrawerFragment;
 import com.example.zee.galvanisemobile.tabs.SlidingTabLayout;
 
 import java.util.List;

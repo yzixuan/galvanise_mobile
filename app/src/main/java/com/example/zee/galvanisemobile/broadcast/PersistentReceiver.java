@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.broadcast;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -10,6 +10,9 @@ import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.example.zee.galvanisemobile.MainActivity;
+import com.example.zee.galvanisemobile.R;
 
 public class PersistentReceiver extends BroadcastReceiver {
 

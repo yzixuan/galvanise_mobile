@@ -1,4 +1,4 @@
-package com.example.zee.galvanisemobile;
+package com.example.zee.galvanisemobile.navigation;
 
 
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.zee.galvanisemobile.R;
 
 import java.util.ArrayList;
 import java.util.List;
