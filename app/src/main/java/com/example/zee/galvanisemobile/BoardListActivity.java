@@ -142,8 +142,6 @@ public class BoardListActivity extends AppCompatActivity {
         mBoardListAdapter = new FirebaseListAdapter2<HashMap>(mBoardsRef, HashMap.class, R.layout.board_in_list, this, key) {
             @Override
             protected void populateView(View v, HashMap model) {
-                final String key = BoardListActivity.this.mBoardListAdapter.getModelKey(model);
-                ((TextView)v.findViewById(R.id.board_title)).setText(key);
 
                 // display the board's thumbnail if it is available
                 ImageView thumbnailView = (ImageView) v.findViewById(R.id.board_thumbnail);

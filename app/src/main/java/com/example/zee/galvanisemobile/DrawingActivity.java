@@ -181,7 +181,7 @@ public class DrawingActivity extends ActionBarActivity {
     }
 
     public static void updateThumbnail(int boardWidth, int boardHeight, Firebase segmentsRef, final Firebase metadataRef) {
-        final float scale = Math.min(1.0f * THUMBNAIL_SIZE / boardWidth, 1.0f * THUMBNAIL_SIZE / boardHeight);
+        final float scale = Math.min(2.0f * THUMBNAIL_SIZE / boardWidth, 2.0f * THUMBNAIL_SIZE / boardHeight);
         final Bitmap b = Bitmap.createBitmap(Math.round(boardWidth * scale), Math.round(boardHeight * scale), Bitmap.Config.ARGB_8888);
         final Canvas buffer = new Canvas(b);
 
