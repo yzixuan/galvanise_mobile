@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.example.zee.galvanisemobile.BookingActivity">
+      tools:context="com.example.zee.galvanisemobile.hybrid.BookingActivity">
       <item
           android:id="@+id/action_share"
           android:title="@string/action_settings"

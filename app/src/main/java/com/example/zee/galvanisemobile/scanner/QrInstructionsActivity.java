@@ -93,9 +93,10 @@ public class QrInstructionsActivity extends AppCompatActivity {
     private void handleTableNumberScanned(String qrCode) {
 
         if (qrCode == null) {
+
             finish();
         }
-        else if (qrCode.matches("[-+]?\\d*\\.?\\d+")) {
+        else if (isValidTableNumber(qrCode)) {
 
             Intent returnIntent = new Intent(this, CartActivity.class);
             returnIntent.putExtra("tableQRCode", qrCode);
@@ -115,6 +116,20 @@ public class QrInstructionsActivity extends AppCompatActivity {
                     }).show();
         }
 
+    }
+
+    public boolean isValidTableNumber(String qrCode) {
+
+        if (qrCode.length() != 3) {
+
+            return false;
+
+        } else if (qrCode.matches("^[T][012][0-9]$")) {
+
+            return true;
+        }
+
+        return false;
     }
 
 }

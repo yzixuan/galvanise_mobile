@@ -3,7 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context="com.example.zee.galvanisemobile.AboutActivity">
+              tools:context="com.example.zee.galvanisemobile.hybrid.AboutActivity">
 
     <include
         android:id="@+id/app_bar"
@@ -14,7 +14,7 @@
                     xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:context="com.example.zee.galvanisemobile.AboutActivity">
+                    tools:context="com.example.zee.galvanisemobile.hybrid.AboutActivity">
 
 
         <WebView
