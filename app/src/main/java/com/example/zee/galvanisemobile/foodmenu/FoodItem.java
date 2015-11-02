@@ -60,6 +60,12 @@ public class FoodItem implements Parcelable, Cloneable {
             case "Dreamy Desserts":
                 this.setCategory(5);
                 break;
+            case "Halloween":
+                this.setCategory(6);
+                break;
+            case "Credits":
+                this.setCategory(7);
+                break;
             default:
                 this.setCategory(0);
                 break;

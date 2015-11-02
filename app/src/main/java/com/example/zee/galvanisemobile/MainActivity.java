@@ -1,6 +1,7 @@
 package com.example.zee.galvanisemobile;
 
 import android.app.Dialog;
+import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.app.Notification;
@@ -25,10 +26,20 @@ import com.estimote.sdk.BeaconManager;
 import com.estimote.sdk.Region;
 import com.example.zee.galvanisemobile.cart.CartActivity;
 import com.example.zee.galvanisemobile.cart.ShoppingCart;
+import com.example.zee.galvanisemobile.foodmenu.FoodItem;
 import com.example.zee.galvanisemobile.foodmenu.FoodMenuFragment;
 import com.example.zee.galvanisemobile.navigation.NavigationDrawerFragment;
 import com.example.zee.galvanisemobile.tabs.SlidingTabLayout;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private BeaconManager beaconManager;
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
-
+    private List<FoodItem> feedsList = new ArrayList<FoodItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +59,15 @@ public class MainActivity extends AppCompatActivity {
 
         setToolbar();
         setNavigationDrawer();
-        setTabs();
+        getJSONFeed();
 
         setUpBeaconManager();
     }
+
+    public List<FoodItem> getFeedsList() {
+        return feedsList;
+    }
+
 
     public void setToolbar() {
 
@@ -230,7 +246,101 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 6;
+            return 8;
+        }
+    }
+
+
+    public void getJSONFeed() {
+
+        // Downloading data from below url
+        final String url = "http://galvanize.space/catalogs.json";
+        new AsyncHttpTask().execute(url);
+
+    }
+
+    public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(String... params) {
+
+            Integer result = 0;
+            HttpURLConnection urlConnection;
+
+            try {
+
+                URL url = new URL(params[0]);
+                urlConnection = (HttpURLConnection) url.openConnection();
+                int statusCode = urlConnection.getResponseCode();
+
+                // 200 represents HTTP OK (SUCCESS)
+                if (statusCode == 200) {
+
+                    BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+
+                    while ((line = r.readLine()) != null) {
+
+                        response.append(line);
+                    }
+
+                    parseResult(response.toString());
+                    result = 1; // Successful
+                    return result;
+
+                } else {
+
+                    result = 0; //"Failed to fetch data!";
+                }
+
+            } catch (Exception e) {
+
+                result = 0;
+
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Integer result) {
+
+            if (result == 1) {
+
+                setTabs();
+
+            } else {
+
+                Toast.makeText(MainActivity.this, "Couldn't fetch data. Please check your Internet connectivity.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void parseResult(String result) {
+        try {
+            JSONObject response = new JSONObject(result);
+
+            JSONArray posts = response.optJSONArray("items");
+            feedsList = new ArrayList<>();
+
+            for (int i = 0; i < posts.length(); i++) {
+
+                JSONObject post = posts.optJSONObject(i);
+                FoodItem item = new FoodItem();
+                item.setCategoryViaName(post.optString("category"));
+
+                item.setId(post.optInt("id"));
+                item.setItemName(post.optString("name"));
+                item.setThumbnail(post.optString("image"));
+                item.setPromoPrice(post.optInt("price"));
+                item.setItemDesc(post.optString("description"));
+                feedsList.add(item);
+
+            }
+        } catch (JSONException e) {
+
+            e.printStackTrace();
         }
     }
 }

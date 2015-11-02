@@ -3,26 +3,16 @@ package com.example.zee.galvanisemobile.foodmenu;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
+import com.example.zee.galvanisemobile.MainActivity;
 import com.example.zee.galvanisemobile.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +26,7 @@ public class FoodMenuFragment extends Fragment {
     private FoodMenuItemAdapter mAdapter; //  private MenuRecyclerAdapter adapter;
 
     private static final String TAG = "RecyclerViewExample";
-    private List<FoodItem> feedsList = new ArrayList<FoodItem>();
+    private List<FoodItem> filteredFeedsList = new ArrayList<FoodItem>();
     private int tabPosition = 0;
 
     public static FoodMenuFragment getInstance(int position) {
@@ -63,9 +53,9 @@ public class FoodMenuFragment extends Fragment {
             tabPosition = bundle.getInt("position");
         }
 
-        // Downloading data from below url
-        final String url = "http://galvanize.space/catalogs.json";
-        new AsyncHttpTask().execute(url);
+        if (filteredFeedsList.isEmpty()) {
+            filterList();
+        }
 
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_menu, container, false);
@@ -74,100 +64,26 @@ public class FoodMenuFragment extends Fragment {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mAdapter = new FoodMenuItemAdapter(getActivity().getApplicationContext(), feedsList);
+        mAdapter = new FoodMenuItemAdapter(getActivity().getApplicationContext(), filteredFeedsList);
         mRecyclerView.setAdapter(mAdapter);
 
         return layout;
     }
 
-    public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
 
-        @Override
-        protected Integer doInBackground(String... params) {
+    private void filterList() {
 
-            Integer result = 0;
-            HttpURLConnection urlConnection;
+        List<FoodItem> overallFeedsList = ((MainActivity)getActivity()).getFeedsList();
 
-            try {
+        for (int i = 0; i < overallFeedsList.size(); i++) {
 
-                URL url = new URL(params[0]);
-                urlConnection = (HttpURLConnection) url.openConnection();
-                int statusCode = urlConnection.getResponseCode();
+            FoodItem item = overallFeedsList.get(i);
 
-                // 200 represents HTTP OK (SUCCESS)
-                if (statusCode == 200) {
+            if (tabPosition == 0 || item.getCategory() == tabPosition) {
 
-                    BufferedReader r = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder response = new StringBuilder();
-                    String line;
-
-                    while ((line = r.readLine()) != null) {
-
-                        response.append(line);
-                    }
-
-                    parseResult(response.toString());
-                    result = 1; // Successful
-                    return result;
-
-                } else {
-
-                    result = 0; //"Failed to fetch data!";
-                }
-
-            } catch (Exception e) {
-
-                Log.d(TAG, e.getLocalizedMessage());
-                result = 0;
-
-            }
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(Integer result) {
-
-            if (result == 1) {
-
-                mAdapter = new FoodMenuItemAdapter(getActivity().getApplicationContext(), feedsList);
-                mRecyclerView.setAdapter(mAdapter);
-
-            } else {
-
-                Toast.makeText(getActivity(), "Couldn't fetch data. Please check your Internet connectivity.", Toast.LENGTH_SHORT).show();
+                filteredFeedsList.add(item);
             }
         }
     }
-
-    private void parseResult(String result) {
-        try {
-            JSONObject response = new JSONObject(result);
-
-            JSONArray posts = response.optJSONArray("items");
-            feedsList = new ArrayList<>();
-
-            for (int i = 0; i < posts.length(); i++) {
-
-                JSONObject post = posts.optJSONObject(i);
-                FoodItem item = new FoodItem();
-                item.setCategoryViaName(post.optString("category"));
-
-                if (tabPosition == 0 || item.getCategory() == tabPosition) {
-
-                    item.setId(post.optInt("id"));
-                    item.setItemName(post.optString("name"));
-                    item.setThumbnail(post.optString("image"));
-                    item.setPromoPrice(post.optInt("price"));
-                    item.setItemDesc(post.optString("description"));
-                    feedsList.add(item);
-                }
-            }
-        } catch (JSONException e) {
-
-            e.printStackTrace();
-        }
-    }
-
 
 }
