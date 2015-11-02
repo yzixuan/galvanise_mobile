@@ -1,13 +1,8 @@
 package com.example.zee.galvanisemobile;
 
-import android.app.Dialog;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,15 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.estimote.sdk.Beacon;
-import com.estimote.sdk.BeaconManager;
-import com.estimote.sdk.Region;
 import com.example.zee.galvanisemobile.cart.CartActivity;
 import com.example.zee.galvanisemobile.cart.ShoppingCart;
+import com.example.zee.galvanisemobile.estimote.CafeBeacon;
 import com.example.zee.galvanisemobile.foodmenu.FoodItem;
 import com.example.zee.galvanisemobile.foodmenu.FoodMenuFragment;
 import com.example.zee.galvanisemobile.navigation.NavigationDrawerFragment;
@@ -41,13 +32,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
     private NavigationDrawerFragment drawerFragment;
     private Toolbar toolbar;
-    private BeaconManager beaconManager;
+    private CafeBeacon cafeBeacon;
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
     private List<FoodItem> feedsList = new ArrayList<FoodItem>();
@@ -61,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
         setNavigationDrawer();
         getJSONFeed();
 
-        setUpBeaconManager();
+        cafeBeacon = new CafeBeacon(this);
+        cafeBeacon.setUpBeaconManager();
     }
 
     public List<FoodItem> getFeedsList() {
@@ -100,8 +91,7 @@ public class MainActivity extends AppCompatActivity {
                     toastDiscount(ShoppingCart.getDiscount());
                 }
                 else {
-
-                    handleBeaconDialog();
+                    cafeBeacon.handleBeaconDialog();
                 }
             }
         }
@@ -136,79 +126,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void setUpBeaconManager() {
-        beaconManager = new BeaconManager(getApplicationContext());
-
-        beaconManager.connect(new BeaconManager.ServiceReadyCallback() {
-            @Override
-            public void onServiceReady() {
-                beaconManager.startMonitoring(new Region(
-                        "monitored region",
-                        UUID.fromString("B9407F30-F5F8-466E-AFF9-25556B57FE6D"),
-                        31629, 43111));
-            }
-        });
-
-        beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
-            @Override
-            public void onEnteredRegion(Region region, List<Beacon> list) {
-                showNotification(
-                        "Welcome to Galvanise Cafe",
-                        "Check-in to get 20% off your bill");
-                handleBeaconDialog();
-            }
-
-            @Override
-            public void onExitedRegion(Region region) {
-
-            }
-        });
-    }
-
-    public void showNotification(String title, String message) {
-
-        Intent notifyIntent = new Intent(this, MainActivity.class);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        notifyIntent.putExtra("NotificationMessage", "world");
-
-        PendingIntent pendingIntent = PendingIntent.getActivities(this, 0,
-                new Intent[] { notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Notification notification = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.ic_logo_white)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent)
-                .build();
-
-        notification.defaults |= Notification.DEFAULT_SOUND;
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(1, notification);
-    }
-
-    public void handleBeaconDialog() {
-
-        if (ShoppingCart.getDiscount() <= 0) {
-            final Dialog dialog = new Dialog(MainActivity.this);
-            dialog.setContentView(R.layout.dialog_beacon_promo);
-            dialog.setTitle("Welcome to Galvanise!");
-
-            Button okButton = (Button) dialog.findViewById(R.id.button_ok);
-            okButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ShoppingCart.setDiscount(0.2);
-                    toastDiscount(0.2);
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
-        }
     }
 
     private void startShareActivity(String subject, String text) {
@@ -256,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
         // Downloading data from below url
         final String url = "http://galvanize.space/catalogs.json";
         new AsyncHttpTask().execute(url);
-
     }
 
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
