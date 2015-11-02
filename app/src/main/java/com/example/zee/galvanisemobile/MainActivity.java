@@ -1,6 +1,7 @@
 package com.example.zee.galvanisemobile;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
@@ -51,14 +52,20 @@ public class MainActivity extends AppCompatActivity {
         setNavigationDrawer();
         getJSONFeed();
 
-        cafeBeacon = new CafeBeacon(this);
-        cafeBeacon.setUpBeaconManager();
+        if (hasMinRequiredSDK()) {
+            cafeBeacon = new CafeBeacon(this);
+            cafeBeacon.setUpBeaconManager();
+        }
     }
 
     public List<FoodItem> getFeedsList() {
         return feedsList;
     }
 
+    private boolean hasMinRequiredSDK() {
+
+        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2);
+    }
 
     public void setToolbar() {
 
@@ -86,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     public void onNewIntent(Intent intent){
         Bundle extras = intent.getExtras();
         if(extras != null){
-            if(extras.containsKey("NotificationMessage")) {
+            if(extras.containsKey("NotificationMessage") && hasMinRequiredSDK()) {
                 if (ShoppingCart.getDiscount() >= 0.2) {
                     cafeBeacon.toastDiscount(ShoppingCart.getDiscount());
                 }
