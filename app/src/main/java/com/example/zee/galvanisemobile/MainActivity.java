@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected Integer doInBackground(String... params) {
 
-            Integer result = 0;
+            Integer result;
             HttpURLConnection urlConnection;
 
             try {
@@ -225,13 +225,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
 
-            if (result == 1) {
+            setTabs();
 
-                setTabs();
-
-            } else {
+            if (result != 1) {
 
                 Toast.makeText(MainActivity.this, "Couldn't fetch data. Please check your Internet connectivity.", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
