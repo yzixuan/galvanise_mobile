@@ -24,8 +24,10 @@ public class QrInstructionsActivity extends AppCompatActivity {
         checkForRescan();
     }
 
-    // if user is just re-scanning table number, skip instructions and go
-    // straight to using ZXing scanner
+    /*
+    * if user is just re-scanning table number, skip instructions and go
+    * straight to using ZXing scanner
+    */
     public void checkForRescan() {
 
         Intent intent = getIntent();
@@ -64,7 +66,9 @@ public class QrInstructionsActivity extends AppCompatActivity {
         openZXingScanner();
     }
 
-    // use ZXing Library to scan QR Code
+    /*
+     * use ZXing Library to scan QR Code
+     */
     public void openZXingScanner() {
 
         IntentIntegrator integrator = new IntentIntegrator(this);
@@ -77,7 +81,9 @@ public class QrInstructionsActivity extends AppCompatActivity {
         integrator.initiateScan();
     }
 
-    // wait for QR Code result from ZXing (required for integrating ZXing)
+    /*
+     * wait for QR Code result from ZXing (required for integrating ZXing)
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult barcodeResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -88,8 +94,10 @@ public class QrInstructionsActivity extends AppCompatActivity {
         }
     }
 
-    // if it's a valid table number, go to the next activity
-    // else, alert the user to try again
+    /*
+     * if it's a valid table number, go to the next activity
+     * else, alert the user to try again
+     */
     private void handleTableNumberScanned(String qrCode) {
 
         if (qrCode == null) {
@@ -118,18 +126,12 @@ public class QrInstructionsActivity extends AppCompatActivity {
 
     }
 
+    /*
+     * check if table number is from T01 to T21
+     */
     public boolean isValidTableNumber(String qrCode) {
 
-        if (qrCode.length() != 3) {
-
-            return false;
-
-        } else if (qrCode.matches("^[T][012][0-9]$")) {
-
-            return true;
-        }
-
-        return false;
+        return (qrCode.matches("^[T][0][1-9]$|^[T][1][0-9]$|^[T][2][01]$"));
     }
 
 }
