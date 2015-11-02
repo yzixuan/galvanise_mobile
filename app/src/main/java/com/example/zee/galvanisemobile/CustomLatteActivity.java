@@ -97,9 +97,6 @@ public class CustomLatteActivity extends AppCompatActivity {
 
         if (customFood.getcustomArtId() != null) {
 
-            //key = customFood.getcustomArtId();
-            //mBoardListAdapter.changeStringKey(mBoardsRef, key);
-
             TextView loadingImage = (TextView)findViewById(R.id.loadingImage);
             loadingImage.setVisibility(View.INVISIBLE);
 
@@ -214,7 +211,7 @@ public class CustomLatteActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                // No-op
+
             }
         });
 
@@ -355,7 +352,9 @@ public class CustomLatteActivity extends AppCompatActivity {
                 String inputFromDialog = quantity.getText().toString();
 
                 if (inputFromDialog.isEmpty() || Integer.parseInt(inputFromDialog) <= 0) {
+
                     alertEmptyItem();
+
                 } else {
                     // create order item and add to shopping cart
                     OrderItem orderItem = new OrderItem(customFood, Integer.parseInt(inputFromDialog));

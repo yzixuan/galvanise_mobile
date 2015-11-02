@@ -130,6 +130,7 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
         String dateTime = dateOfOrder;
 
         String orderItemsText = title.concat("\n" + dateTime + "\n\n");
+        orderItemsText = orderItemsText.concat("Table: " + receipt.getTableNumber() + "\n\n");
 
         String subtotal = String.format("%.2f", receipt.getSubTotal());
         String discount = String.valueOf(Math.round(receipt.getDiscount() * 100));

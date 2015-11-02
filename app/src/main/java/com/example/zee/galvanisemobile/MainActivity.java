@@ -88,17 +88,13 @@ public class MainActivity extends AppCompatActivity {
         if(extras != null){
             if(extras.containsKey("NotificationMessage")) {
                 if (ShoppingCart.getDiscount() >= 0.2) {
-                    toastDiscount(ShoppingCart.getDiscount());
+                    cafeBeacon.toastDiscount(ShoppingCart.getDiscount());
                 }
                 else {
                     cafeBeacon.handleBeaconDialog();
                 }
             }
         }
-    }
-
-    private void toastDiscount(double discount) {
-        Toast.makeText(this, "A " + Math.round(discount * 100) + "% discount has been included", Toast.LENGTH_SHORT).show();
     }
 
     @Override

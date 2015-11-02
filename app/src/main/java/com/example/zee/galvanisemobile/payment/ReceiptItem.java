@@ -17,6 +17,7 @@ public class ReceiptItem {
     private double subTotal;
     private double totalPaid;
     private double discount;
+    private String tableNumber;
 
     public ReceiptItem(Date dateOfPurchase) {
 
@@ -28,6 +29,7 @@ public class ReceiptItem {
         this.subTotal = ShoppingCart.getTotalPrice();
         this.totalPaid = ShoppingCart.getDiscountedPrice();
         this.discount = ShoppingCart.getDiscount();
+        this.tableNumber = ShoppingCart.getTableNumber();
     }
 
     public List<OrderItem> getOrderItems() {
@@ -68,5 +70,13 @@ public class ReceiptItem {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public String getTableNumber() {
+        return tableNumber;
+    }
+
+    public void setTableNumber(String tableNumber) {
+        this.tableNumber = tableNumber;
     }
 }

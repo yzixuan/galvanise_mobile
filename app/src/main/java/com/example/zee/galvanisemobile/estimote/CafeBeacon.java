@@ -63,7 +63,7 @@ public class CafeBeacon {
 
         Intent notifyIntent = new Intent(context, MainActivity.class);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        notifyIntent.putExtra("NotificationMessage", "world");
+        notifyIntent.putExtra("NotificationMessage", "CheckInDiscount");
 
         PendingIntent pendingIntent = PendingIntent.getActivities(context, 0,
                 new Intent[] { notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -103,7 +103,7 @@ public class CafeBeacon {
         }
     }
 
-    private void toastDiscount(double discount) {
+    public void toastDiscount(double discount) {
         Toast.makeText(context, "A " + Math.round(discount * 100) + "% discount has been included", Toast.LENGTH_SHORT).show();
     }
 
