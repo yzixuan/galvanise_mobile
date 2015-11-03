@@ -25,6 +25,7 @@ public class CafeBeacon {
 
     private Context context;
     private BeaconManager beaconManager;
+    private static boolean promoDiscountClicked = false;
 
     public CafeBeacon(Context context) {
         this.context = context;
@@ -46,10 +47,13 @@ public class CafeBeacon {
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
-                showNotification(
-                        "Welcome to Galvanise Cafe",
-                        "Check-in to get 20% off your bill");
-                handleBeaconDialog();
+
+                if (!isPromoDiscountClicked()) {
+                    showNotification(
+                            "Welcome to Galvanise Cafe",
+                            "Check-in to get 20% off your bill");
+                    handleBeaconDialog();
+                }
             }
 
             @Override
@@ -57,6 +61,14 @@ public class CafeBeacon {
 
             }
         });
+    }
+
+    public static boolean isPromoDiscountClicked() {
+        return promoDiscountClicked;
+    }
+
+    public static void setPromoDiscountClicked(boolean promoDiscountClicked) {
+        CafeBeacon.promoDiscountClicked = promoDiscountClicked;
     }
 
     public void showNotification(String title, String message) {
@@ -95,6 +107,7 @@ public class CafeBeacon {
                 @Override
                 public void onClick(View v) {
                     ShoppingCart.setDiscount(0.2);
+                    setPromoDiscountClicked(true);
                     toastDiscount(0.2);
                     dialog.dismiss();
                 }

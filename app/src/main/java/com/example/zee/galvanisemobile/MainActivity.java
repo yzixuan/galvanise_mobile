@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (notification.equals("CheckInDiscount") && hasMinRequiredSDK()) {
 
-            if (ShoppingCart.getDiscount() >= 0.2) {
+            if (CafeBeacon.isPromoDiscountClicked()) {
 
                 cafeBeacon.toastDiscount(ShoppingCart.getDiscount());
 
