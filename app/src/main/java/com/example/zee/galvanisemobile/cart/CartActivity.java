@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.zee.galvanisemobile.MainActivity;
 import com.example.zee.galvanisemobile.payment.PrePayPalActivity;
 import com.example.zee.galvanisemobile.scanner.QrInstructionsActivity;
 import com.example.zee.galvanisemobile.R;
@@ -23,6 +24,7 @@ public class CartActivity extends AppCompatActivity {
     private TextView discountedPayable;
     private Button checkoutButton;
     private LinearLayout tableNumberLayout;
+    private LinearLayout emptyCart;
     private TextView tableNumberTextView;
 
     @Override
@@ -34,6 +36,7 @@ public class CartActivity extends AppCompatActivity {
         totalPayable = (TextView)findViewById(R.id.total_payable);
         discountedPayable = (TextView)findViewById(R.id.discounted_payable);
         checkoutButton = (Button)findViewById(R.id.checkout);
+        emptyCart = (LinearLayout)findViewById(R.id.emptyCart);
 
         setToolbar();
         handleTableNumber();
@@ -92,9 +95,11 @@ public class CartActivity extends AppCompatActivity {
         if (ShoppingCart.getTotalPrice() <= 0) {
             discountedPayable.setVisibility(View.GONE);
             checkoutButton.setVisibility(View.GONE);
+            emptyCart.setVisibility(View.VISIBLE);
         }
         else {
             // cart is not empty
+            emptyCart.setVisibility(View.GONE);
             // check if discount is applicable
             if (ShoppingCart.getDiscount() > 0) {
                 discountedPayable.setVisibility(View.VISIBLE);
@@ -124,6 +129,12 @@ public class CartActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+    }
+
+    public void onClick_goFoodMenu(View view) {
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
     public void onClick_rescanQRCode(View view) {
