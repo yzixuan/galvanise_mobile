@@ -13,6 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.zee.galvanisemobile.cart.CartActivity;
@@ -41,12 +44,17 @@ public class MainActivity extends AppCompatActivity {
     private CafeBeacon cafeBeacon;
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
+    private ProgressBar progressBar;
+    private LinearLayout feedNotAvailable;
     private List<FoodItem> feedsList = new ArrayList<FoodItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        feedNotAvailable = (LinearLayout)findViewById(R.id.feedNotAvailable);
 
         setToolbar();
         setNavigationDrawer();
@@ -187,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
             HttpURLConnection urlConnection;
 
             try {
-
+                Thread.sleep(300);
                 URL url = new URL(params[0]);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 int statusCode = urlConnection.getResponseCode();
@@ -225,12 +233,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
 
-            setTabs();
+            progressBar.setVisibility(View.GONE);
 
-            if (result != 1) {
+            if (result == 1) {
 
-                Toast.makeText(MainActivity.this, "Couldn't fetch data. Please check your Internet connectivity.", Toast.LENGTH_SHORT).show();
+                setTabs();
 
+            } else {
+
+                feedNotAvailable.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -260,5 +271,12 @@ public class MainActivity extends AppCompatActivity {
 
             e.printStackTrace();
         }
+    }
+
+    public void onClick_reconnect(View view) {
+
+        progressBar.setVisibility(View.VISIBLE);
+        feedNotAvailable.setVisibility(View.GONE);
+        getJSONFeed();
     }
 }

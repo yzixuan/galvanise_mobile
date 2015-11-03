@@ -9,9 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.zee.galvanisemobile.MainActivity;
 import com.example.zee.galvanisemobile.R;
@@ -28,12 +25,9 @@ public class FoodMenuFragment extends Fragment {
     private RecyclerView mRecyclerView; //  private MenuRecyclerAdapter adapter;
     private FoodMenuItemAdapter mAdapter; //  private MenuRecyclerAdapter adapter;
 
-    private static final String TAG = "RecyclerViewExample";
     private List<FoodItem> overallFeedsList;
     private List<FoodItem> filteredFeedsList = new ArrayList<FoodItem>();
     private int tabPosition = 0;
-
-    private LinearLayout feedNotAvailable;
 
     public static FoodMenuFragment getInstance(int position) {
 
@@ -49,14 +43,12 @@ public class FoodMenuFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_menu, container, false);
         mRecyclerView = (RecyclerView) layout.findViewById(R.id.menu_list);
-        feedNotAvailable = (LinearLayout)layout.findViewById(R.id.feedNotAvailable);
         mRecyclerView.setHasFixedSize(true);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -70,23 +62,7 @@ public class FoodMenuFragment extends Fragment {
 
         overallFeedsList = ((MainActivity)getActivity()).getFeedsList();
 
-        if (overallFeedsList.isEmpty()) {
-
-            feedNotAvailable.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.GONE);
-
-            Button reconnectButton = (Button)layout.findViewById(R.id.try_reconnect);
-            reconnectButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((MainActivity)getActivity()).getJSONFeed();
-                }
-            });
-
-        } else {
-
-            feedNotAvailable.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.VISIBLE);
+        if (!overallFeedsList.isEmpty()) {
 
             filterList();
         }

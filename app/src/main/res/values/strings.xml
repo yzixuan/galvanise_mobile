@@ -41,6 +41,9 @@
     <string name="your_latte_art">Your Latte Art</string>
     <string name="customizable">Customizable</string>
     <string name="sample_price_label">Sample Price Label</string>
+    <string name="problem_fetch_data">Couldn\'t Fetch Menu Data</string>
+    <string name="check_internet">Please check your Internet connection.</string>
+    <string name="try_again">Try Again</string>
 
 
     <string-array name="tabs">
