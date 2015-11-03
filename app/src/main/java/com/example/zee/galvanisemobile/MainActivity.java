@@ -66,8 +66,34 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public List<FoodItem> getFeedsList() {
-        return feedsList;
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+
+        if (extras != null && extras.containsKey("NotificationMessage")) {
+
+            handleIntentFromNotification(intent.getStringExtra("NotificationMessage"));
+        }
+
+    }
+
+    private void handleIntentFromNotification(String notification) {
+
+        if (notification.equals("CheckInDiscount") && hasMinRequiredSDK()) {
+
+            if (ShoppingCart.getDiscount() >= 0.2) {
+
+                cafeBeacon.toastDiscount(ShoppingCart.getDiscount());
+
+            } else {
+
+                cafeBeacon.handleBeaconDialog();
+            }
+
+        }
     }
 
     private boolean hasMinRequiredSDK() {
@@ -99,16 +125,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onNewIntent(Intent intent){
+
         Bundle extras = intent.getExtras();
-        if(extras != null){
-            if(extras.containsKey("NotificationMessage") && hasMinRequiredSDK()) {
-                if (ShoppingCart.getDiscount() >= 0.2) {
-                    cafeBeacon.toastDiscount(ShoppingCart.getDiscount());
-                }
-                else {
-                    cafeBeacon.handleBeaconDialog();
-                }
-            }
+
+        if (extras != null && extras.containsKey("NotificationMessage")) {
+
+            handleIntentFromNotification(intent.getStringExtra("NotificationMessage"));
         }
     }
 
@@ -178,6 +200,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public List<FoodItem> getFeedsList() {
+        return feedsList;
+    }
 
     public void getJSONFeed() {
 
