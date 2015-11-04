@@ -90,29 +90,13 @@ public class ShoppingCart implements Serializable {
         Iterator<OrderItem> orderIterator = orderItems.iterator();
         while (orderIterator.hasNext()) {
             OrderItem currOrder = orderIterator.next();
-            if (currOrder.getFoodItem().getId() == toBeAdded.getFoodItem().getId()) {
 
-                // if it's non-customizable, or custom art id matches, add to existing order
-                if (!toBeAdded.getFoodItem().isCustomizable()) {
+            if (currOrder.getFoodItem().getId() == toBeAdded.getFoodItem().getId() &&
+                    currOrder.getFoodItem().getcustomArtId().equals(toBeAdded.getFoodItem().getcustomArtId())) {
 
-                    currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
-                    added = true;
+                currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
+                added = true;
 
-                } else {
-
-                    if (toBeAdded.getFoodItem().getcustomArtId() == null && currOrder.getFoodItem().getcustomArtId() == null) {
-
-                        currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
-                        added = true;
-
-                    } else if (currOrder.getFoodItem().getcustomArtId() != null &&
-                    currOrder.getFoodItem().getcustomArtId().equals(toBeAdded.getFoodItem().getcustomArtId()) ) {
-
-                        currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
-                        added = true;
-
-                    }
-                }
             }
         }
 

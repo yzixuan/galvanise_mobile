@@ -227,10 +227,9 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         try {
             // create a custom food object
-            // to distinguish it from its non-custom counterparts, set a different id & name
+            // to distinguish it from its non-custom counterparts, set a different name
             FoodItem customFood;
             customFood = (FoodItem) food.clone();
-            customFood.setId(food.getId() * 1000);
             customFood.setItemName("Custom " + customFood.getItemName());
             goToFirebase(customFood);
         }
