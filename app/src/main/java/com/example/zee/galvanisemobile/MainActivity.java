@@ -1,5 +1,6 @@
 package com.example.zee.galvanisemobile;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -305,4 +306,24 @@ public class MainActivity extends AppCompatActivity {
         feedNotAvailable.setVisibility(View.GONE);
         getJSONFeed();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == CafeBeacon.getRequestEnableBt()) {
+
+            switch (resultCode) {
+
+                case Activity.RESULT_OK: {
+
+                    Toast.makeText(this, "Go near our cafe's Estimote beacon. Check-in for discounts!", Toast.LENGTH_LONG).show();
+                    break;
+                }
+
+                default:
+                    break;
+            }
+        }
+    }
+
 }
