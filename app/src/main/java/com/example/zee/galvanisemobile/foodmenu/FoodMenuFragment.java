@@ -76,8 +76,7 @@ public class FoodMenuFragment extends Fragment {
 
     private void filterList() {
 
-        if (!filteredFeedsList.isEmpty())
-            return;
+        filteredFeedsList = new ArrayList<FoodItem>();
 
         for (int i = 0; i < overallFeedsList.size(); i++) {
 
