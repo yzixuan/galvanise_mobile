@@ -93,11 +93,25 @@ public class ShoppingCart implements Serializable {
             if (currOrder.getFoodItem().getId() == toBeAdded.getFoodItem().getId()) {
 
                 // if it's non-customizable, or custom art id matches, add to existing order
-                if (currOrder.getFoodItem().getcustomArtId() == null ||
-                    currOrder.getFoodItem().getcustomArtId().equals(toBeAdded.getFoodItem().getcustomArtId()) ) {
+                if (!toBeAdded.getFoodItem().isCustomizable()) {
 
                     currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
                     added = true;
+
+                } else {
+
+                    if (toBeAdded.getFoodItem().getcustomArtId() == null && currOrder.getFoodItem().getcustomArtId() == null) {
+
+                        currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
+                        added = true;
+
+                    } else if (currOrder.getFoodItem().getcustomArtId() != null &&
+                    currOrder.getFoodItem().getcustomArtId().equals(toBeAdded.getFoodItem().getcustomArtId()) ) {
+
+                        currOrder.setQuantity(currOrder.getQuantity() + toBeAdded.getQuantity());
+                        added = true;
+
+                    }
                 }
             }
         }
