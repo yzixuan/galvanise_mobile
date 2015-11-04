@@ -25,7 +25,7 @@ public class ShoppingCart implements Serializable {
     public ShoppingCart(Context ctx) {
         context = ctx;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        loadFromPreferences();
+        //loadFromPreferences();
     }
 
     public static int getNumOfItems() {
@@ -51,7 +51,7 @@ public class ShoppingCart implements Serializable {
     public static void setDiscount(double discount) {
         ShoppingCart.discount = discount;
         setDiscountedPrice();
-        saveToPreferences();
+        //saveToPreferences();
     }
 
     public static double getDiscountedPrice() {
@@ -168,7 +168,7 @@ public class ShoppingCart implements Serializable {
         numOfItems = tempQuantity;
         totalPrice = tempPrice;
         setDiscountedPrice();
-        saveToPreferences();
+        //saveToPreferences();
     }
 
     public static void removeItem(OrderItem orderItem) {
