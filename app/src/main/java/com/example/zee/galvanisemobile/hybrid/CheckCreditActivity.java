@@ -19,7 +19,7 @@ public class CheckCreditActivity extends AppCompatActivity {
 
     // instantiate webview and defining our url
     WebView webView;
-    public final String GlobalUrl = "http://galvanize.space/";
+    public final String GlobalUrl = "http://galvanize.space/track_credits";
 
 
     @Override
