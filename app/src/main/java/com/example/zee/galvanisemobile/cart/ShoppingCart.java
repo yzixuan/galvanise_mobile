@@ -128,8 +128,11 @@ public class ShoppingCart implements Serializable {
         Iterator<OrderItem> orderIterator = orderItems.iterator();
 
         while (orderIterator.hasNext()) {
+
             OrderItem currOrder = orderIterator.next();
-            if (currOrder.getFoodItem().getId() == orderItem.getFoodItem().getId()) {
+            if (currOrder.getFoodItem().getId() == orderItem.getFoodItem().getId() &&
+                    currOrder.getFoodItem().getcustomArtId().equals(orderItem.getFoodItem().getcustomArtId())) {
+
                 currOrder.setQuantity(quantity);
             }
         }
@@ -148,18 +151,10 @@ public class ShoppingCart implements Serializable {
         int tempQuantity = 0;
         double tempPrice = 0;
 
-        /*Iterator<OrderItem> orderIterator = orderItems.iterator();
+        Iterator<OrderItem> orderIterator = orderItems.iterator();
         while (orderIterator.hasNext()) {
 
             OrderItem currOrder = orderIterator.next();
-
-            tempQuantity += currOrder.getQuantity();
-            tempPrice += currOrder.getFoodItem().getPromoPrice() * currOrder.getQuantity();
-        }*/
-
-        for (int i=0; i<orderItems.size(); i++) {
-
-            OrderItem currOrder = orderItems.get(i);
 
             tempQuantity += currOrder.getQuantity();
             tempPrice += currOrder.getFoodItem().getPromoPrice() * currOrder.getQuantity();

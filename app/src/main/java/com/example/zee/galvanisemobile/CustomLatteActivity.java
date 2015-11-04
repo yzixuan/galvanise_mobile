@@ -86,7 +86,7 @@ public class CustomLatteActivity extends AppCompatActivity {
             setUpBoardDetails();
         }
 
-        if (customFood != null && customFood.getcustomArtId() == null) {
+        if (customFood != null && customFood.getcustomArtId().isEmpty()) {
             createBoard();
         }
     }
@@ -95,7 +95,7 @@ public class CustomLatteActivity extends AppCompatActivity {
 
         returnToNormal = (Button)findViewById(R.id.return_to_normal);
 
-        if (customFood.getcustomArtId() != null) {
+        if (customFood.getcustomArtId() != null && !customFood.getcustomArtId().isEmpty()) {
 
             TextView loadingImage = (TextView)findViewById(R.id.loadingImage);
             loadingImage.setVisibility(View.INVISIBLE);
