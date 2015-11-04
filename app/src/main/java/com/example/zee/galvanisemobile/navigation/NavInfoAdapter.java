@@ -9,13 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.zee.galvanisemobile.hybrid.AboutActivity;
-import com.example.zee.galvanisemobile.hybrid.BookingActivity;
-import com.example.zee.galvanisemobile.cart.CartActivity;
 import com.example.zee.galvanisemobile.MainActivity;
 import com.example.zee.galvanisemobile.R;
 import com.example.zee.galvanisemobile.SettingsActivity;
+import com.example.zee.galvanisemobile.cart.CartActivity;
 import com.example.zee.galvanisemobile.chat.ChatActivity;
+import com.example.zee.galvanisemobile.hybrid.AboutActivity;
+import com.example.zee.galvanisemobile.hybrid.BookingActivity;
+import com.example.zee.galvanisemobile.hybrid.CheckCreditActivity;
 
 import java.util.Collections;
 import java.util.List;
@@ -78,16 +79,19 @@ public class NavInfoAdapter extends RecyclerView.Adapter<NavInfoAdapter.MyViewHo
                 case 1: // your order
                     v.getContext().startActivity(new Intent(v.getContext(), CartActivity.class));
                     break;
-                case 3: // advance booking
+                case 3: // do booking
                     v.getContext().startActivity(new Intent(v.getContext(), BookingActivity.class));
                     break;
-                case 4: // about us
+                case 4: // check credits
+                    v.getContext().startActivity(new Intent(v.getContext(), CheckCreditActivity.class));
+                    break;
+                case 5: // about us
                     v.getContext().startActivity(new Intent(v.getContext(), AboutActivity.class));
                     break;
-                case 5: // chat with a staff
+                case 6: // chat with a staff
                     v.getContext().startActivity(new Intent(v.getContext(), ChatActivity.class));
                     break;
-                case 6: // settings
+                case 7: // settings
                     v.getContext().startActivity(new Intent(v.getContext(), SettingsActivity.class));
                     break;
                 default:
