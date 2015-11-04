@@ -3,6 +3,7 @@ package com.example.zee.galvanisemobile.chat;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +16,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.zee.galvanisemobile.R;
 import com.firebase.client.DataSnapshot;
@@ -24,6 +24,9 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+import android.os.Handler;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -39,6 +42,7 @@ public class ChatActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private LinearLayout feedNotAvailable;
     private RelativeLayout chatSectionLayout;
+    private boolean connected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +75,6 @@ public class ChatActivity extends AppCompatActivity {
                 sendMessage();
             }
         });
-
     }
 
     public void setToolbar() {
@@ -149,27 +152,35 @@ public class ChatActivity extends AppCompatActivity {
                 }
             });
 
-            Thread.sleep(300);
             mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    boolean connected = (Boolean) dataSnapshot.getValue();
+                    connected = (Boolean) dataSnapshot.getValue();
 
                     if (connected) {
                         progressBar.setVisibility(View.GONE);
                         chatSectionLayout.setVisibility(View.VISIBLE);
-                    } else {
-                        //progressBar.setVisibility(View.GONE);
-                        //chatSectionLayout.setVisibility(View.GONE);
                     }
+
+                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (!connected) {
+                                progressBar.setVisibility(View.GONE);
+                                feedNotAvailable.setVisibility(View.VISIBLE);
+                                chatSectionLayout.setVisibility(View.GONE);
+                            }
+                        }
+                    }, 6000);
                 }
 
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
-                    //progressBar.setVisibility(View.GONE);
-                    //feedNotAvailable.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    feedNotAvailable.setVisibility(View.VISIBLE);
                 }
+
             });
 
         } catch (Exception e) {
