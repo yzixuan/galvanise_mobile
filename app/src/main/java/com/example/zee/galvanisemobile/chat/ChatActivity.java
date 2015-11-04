@@ -10,7 +10,10 @@ import android.view.*;
 import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +36,19 @@ public class ChatActivity extends AppCompatActivity {
     private Firebase mFirebaseRef;
     private ValueEventListener mConnectedListener;
     private ChatListAdapter mChatListAdapter;
+    private ProgressBar progressBar;
+    private LinearLayout feedNotAvailable;
+    private RelativeLayout chatSectionLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.activity_chat);
+
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        feedNotAvailable = (LinearLayout)findViewById(R.id.feedNotAvailable);
+        chatSectionLayout = (RelativeLayout)findViewById(R.id.chat_section_layout);
 
         setToolbar();
         setupUsername();
@@ -76,38 +86,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
-        final ListView listView = (ListView)findViewById(R.id.list);
-        // Tell our list adapter that we only want 50 messages at a time
-        mChatListAdapter = new ChatListAdapter(this, mFirebaseRef.limit(50), this, R.layout.chat_message, mUsername);
-        listView.setAdapter(mChatListAdapter);
-        mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                listView.setSelection(mChatListAdapter.getCount() - 1);
-            }
-        });
-
-        // Finally, a little indication of connection status
-        mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                boolean connected = (Boolean) dataSnapshot.getValue();
-
-                if (connected) {
-                    Toast.makeText(ChatActivity.this, "Connected to Cafe Chat", Toast.LENGTH_SHORT).show();
-                } else {
-
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                // No-op
-            }
-        });
+        setupFirebaseAdapter();
     }
 
     @Override
@@ -149,7 +128,53 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         mFirebaseRef = new Firebase(FIREBASE_URL).child(mUsername);
-        Toast.makeText(ChatActivity.this, "Loading Chat...", Toast.LENGTH_LONG).show();
+
+    }
+
+    private void setupFirebaseAdapter() {
+
+        // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
+        final ListView listView = (ListView)findViewById(R.id.list);
+        // Tell our list adapter that we only want 50 messages at a time
+
+        try {
+
+            mChatListAdapter = new ChatListAdapter(this, mFirebaseRef.limit(50), this, R.layout.chat_message, mUsername);
+            listView.setAdapter(mChatListAdapter);
+            mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
+                @Override
+                public void onChanged() {
+                    super.onChanged();
+                    listView.setSelection(mChatListAdapter.getCount() - 1);
+                }
+            });
+
+            Thread.sleep(300);
+            mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    boolean connected = (Boolean) dataSnapshot.getValue();
+
+                    if (connected) {
+                        progressBar.setVisibility(View.GONE);
+                        chatSectionLayout.setVisibility(View.VISIBLE);
+                    } else {
+                        //progressBar.setVisibility(View.GONE);
+                        //chatSectionLayout.setVisibility(View.GONE);
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    //progressBar.setVisibility(View.GONE);
+                    //feedNotAvailable.setVisibility(View.VISIBLE);
+                }
+            });
+
+        } catch (Exception e) {
+
+        }
     }
 
     private void sendMessage() {
@@ -163,5 +188,12 @@ public class ChatActivity extends AppCompatActivity {
             mFirebaseRef.push().setValue(chat);
             inputText.setText("");
         }
+    }
+
+    public void onClick_reconnect(View view) {
+
+        progressBar.setVisibility(View.VISIBLE);
+        feedNotAvailable.setVisibility(View.GONE);
+        setupFirebaseAdapter();
     }
 }

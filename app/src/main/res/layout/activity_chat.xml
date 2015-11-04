@@ -9,11 +9,73 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    tools:context=".ChatActivity">
+    <!-- Progress Bar For Showing The Loading Of Chat Data !-->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_horizontal"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateOnly="true" />
+
+    <!-- Display Placeholder Image And A "TRY AGAIN" Button When Chat Data Cannot Be Loaded !-->
+    <LinearLayout
+        android:id="@+id/feedNotAvailable"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:text="Couldn't Load Chat Data"
+            android:gravity="center"
+            android:textSize="24dp"
+            android:paddingTop="50dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:text="@string/check_internet"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:paddingTop="10dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/try_again"
+            android:background="@color/primaryColor"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:id="@+id/try_reconnect"
+            android:onClick="onClick_reconnect"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/ic_anxious_cup" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/chat_section_layout"
+        android:visibility="gone"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        tools:context=".ChatActivity">
 
         <ListView
             android:id="@+id/list"
