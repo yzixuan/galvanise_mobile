@@ -63,10 +63,11 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
 
         if (foodItem.getcustomArtId() == null) {
 
-            viewHolder.customArtLabel.setVisibility(View.INVISIBLE);
+            viewHolder.customArtLabel.setVisibility(View.GONE);
 
         } else {
 
+            viewHolder.customArtLabel.setVisibility(View.VISIBLE);
             // allow thumnail and label to be clicked: to go edit custom latte art
 
             viewHolder.imgThumbnail.setOnClickListener(new View.OnClickListener() {

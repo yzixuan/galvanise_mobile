@@ -1,5 +1,10 @@
 package com.example.zee.galvanisemobile.cart;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.estimote.sdk.repackaged.gson_v2_3_1.com.google.gson.Gson;
 import com.example.zee.galvanisemobile.orderitem.OrderItem;
 
 import java.io.Serializable;
@@ -14,6 +19,14 @@ public class ShoppingCart implements Serializable {
     private static double discount = 0;
     private static double discountedPrice = totalPrice;
     private static String tableNumber = null;
+    private static Context context;
+    private static SharedPreferences sharedPreferences;
+
+    public ShoppingCart(Context ctx) {
+        context = ctx;
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        loadFromPreferences();
+    }
 
     public static int getNumOfItems() {
         return numOfItems;
@@ -38,6 +51,7 @@ public class ShoppingCart implements Serializable {
     public static void setDiscount(double discount) {
         ShoppingCart.discount = discount;
         setDiscountedPrice();
+        saveToPreferences();
     }
 
     public static double getDiscountedPrice() {
@@ -120,10 +134,18 @@ public class ShoppingCart implements Serializable {
         int tempQuantity = 0;
         double tempPrice = 0;
 
-        Iterator<OrderItem> orderIterator = orderItems.iterator();
+        /*Iterator<OrderItem> orderIterator = orderItems.iterator();
         while (orderIterator.hasNext()) {
 
             OrderItem currOrder = orderIterator.next();
+
+            tempQuantity += currOrder.getQuantity();
+            tempPrice += currOrder.getFoodItem().getPromoPrice() * currOrder.getQuantity();
+        }*/
+
+        for (int i=0; i<orderItems.size(); i++) {
+
+            OrderItem currOrder = orderItems.get(i);
 
             tempQuantity += currOrder.getQuantity();
             tempPrice += currOrder.getFoodItem().getPromoPrice() * currOrder.getQuantity();
@@ -132,10 +154,46 @@ public class ShoppingCart implements Serializable {
         numOfItems = tempQuantity;
         totalPrice = tempPrice;
         setDiscountedPrice();
+        saveToPreferences();
     }
 
     public static void removeItem(OrderItem orderItem) {
         orderItems.remove(orderItem);
         updateCartTotal();
+    }
+
+    public static void saveToPreferences() {
+
+        SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
+
+        prefsEditor.putString("CartTableNumber", tableNumber);
+        prefsEditor.putFloat("CartDiscount", (float) discount);
+        prefsEditor.putFloat("CartTotalPrice", (float) totalPrice);
+        prefsEditor.putFloat("CartDiscountedPrice", (float)discountedPrice);
+        prefsEditor.putInt("CartNumOfItems", numOfItems);
+
+        Gson gson = new Gson();
+        for(int i = 0; i < orderItems.size(); i++) {
+            String json = gson.toJson(orderItems.get(i));
+            prefsEditor.putString("CartOrderItems_" + i, json);
+        }
+
+        prefsEditor.apply();
+    }
+
+    public void loadFromPreferences() {
+
+        tableNumber = sharedPreferences.getString("CartTableNumber", null);
+        discount = sharedPreferences.getFloat("CartDiscount", 0);
+        totalPrice = sharedPreferences.getFloat("CartTotalPrice", 0);
+        discountedPrice =  sharedPreferences.getFloat("CartDiscountedPrice", 0);
+        numOfItems = sharedPreferences.getInt("CartNumOfItems", 0);
+
+        for(int i = 0; i < numOfItems; i++) {
+            String json = sharedPreferences.getString("CartOrderItems_" + i, "");
+            Gson gson = new Gson();
+            OrderItem orderItem = gson.fromJson(json, OrderItem.class);
+            orderItems.add(orderItem);
+        }
     }
 }

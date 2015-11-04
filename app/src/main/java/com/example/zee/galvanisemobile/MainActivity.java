@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         setNavigationDrawer();
         getJSONFeed();
 
+        ShoppingCart shoppingCart = new ShoppingCart(this);
+
         if (hasMinRequiredSDK()) {
             cafeBeacon = new CafeBeacon(this);
             cafeBeacon.setUpBeaconManager();

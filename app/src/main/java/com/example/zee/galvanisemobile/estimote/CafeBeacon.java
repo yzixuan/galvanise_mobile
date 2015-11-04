@@ -36,6 +36,10 @@ public class CafeBeacon {
         this.context = context;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
+        if (ShoppingCart.getDiscount() >= 0.2) {
+            promoDiscountClicked = true;
+        }
+
         if(!bluetoothAdapter.isEnabled() && !(isPromoDiscountClicked())) {
             enableBlueTooth();
         }
