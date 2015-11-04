@@ -1,6 +1,7 @@
 package com.example.zee.galvanisemobile.estimote;
 
 
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -49,9 +50,11 @@ public class CafeBeacon {
             public void onEnteredRegion(Region region, List<Beacon> list) {
 
                 if (!isPromoDiscountClicked()) {
+
                     showNotification(
                             "Welcome to Galvanise Cafe",
                             "Check-in to get 20% off your bill");
+
                     handleBeaconDialog();
                 }
             }

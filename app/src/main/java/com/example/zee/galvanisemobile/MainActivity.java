@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null && extras.containsKey("NotificationMessage")) {
 
             handleIntentFromNotification(intent.getStringExtra("NotificationMessage"));
+            intent.removeExtra("NotificationMessage");
         }
 
     }
