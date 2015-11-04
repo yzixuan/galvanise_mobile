@@ -15,7 +15,7 @@ public class FoodItem implements Parcelable, Cloneable {
     private String thumbnail;
     private String itemDesc;
     private boolean customizable = false;
-    private String customArtId;
+    private String customArtId = "";
 
     public FoodItem() {
 

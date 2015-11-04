@@ -226,6 +226,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     public void onClickCustomize(View view) {
 
         try {
+            // create a custom food object
+            // to distinguish it from its non-custom counterparts, set a different name
             FoodItem customFood;
             customFood = (FoodItem) food.clone();
             customFood.setItemName("Custom " + customFood.getItemName());

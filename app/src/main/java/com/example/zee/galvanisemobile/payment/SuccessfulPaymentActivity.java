@@ -17,6 +17,7 @@ import com.example.zee.galvanisemobile.MainActivity;
 import com.example.zee.galvanisemobile.R;
 import com.example.zee.galvanisemobile.cart.FinalisedCartFragment;
 import com.example.zee.galvanisemobile.cart.ShoppingCart;
+import com.example.zee.galvanisemobile.estimote.CafeBeacon;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -144,6 +145,7 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
     }
 
     private void clearCart() {
+        CafeBeacon.setPromoDiscountClicked(false);
         ShoppingCart.clear();
     }
 

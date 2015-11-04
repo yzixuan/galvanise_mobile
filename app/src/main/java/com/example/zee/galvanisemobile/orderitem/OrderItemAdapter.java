@@ -61,12 +61,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         viewHolder.orderSubtotal.setText("Item Subtotal: $" + String.format("%.2f", orderItems.get(i).getQuantity()* foodItem.getPromoPrice()));
         viewHolder.itemView.setTag(orderItems.get(i));
 
-        if (foodItem.getcustomArtId() == null) {
+        if (foodItem.getcustomArtId() == null || foodItem.getcustomArtId().isEmpty()) {
 
-            viewHolder.customArtLabel.setVisibility(View.INVISIBLE);
+            viewHolder.customArtLabel.setVisibility(View.GONE);
 
         } else {
 
+            viewHolder.customArtLabel.setVisibility(View.VISIBLE);
             // allow thumnail and label to be clicked: to go edit custom latte art
 
             viewHolder.imgThumbnail.setOnClickListener(new View.OnClickListener() {

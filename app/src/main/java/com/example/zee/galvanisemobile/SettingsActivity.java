@@ -95,9 +95,10 @@ public class SettingsActivity extends AppCompatActivity {
         if (aSwitch.isChecked()) {
 
             getPhoneNumberInput();
-        }
 
-        Toast.makeText(this, "SMS settings have been saved.", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "SMS settings have been saved.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void getPhoneNumberInput() {
@@ -110,6 +111,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         } else {
             savePhoneNumber(phoneNumber);
+            Toast.makeText(this, "SMS settings have been saved.", Toast.LENGTH_LONG).show();
         }
     }
 

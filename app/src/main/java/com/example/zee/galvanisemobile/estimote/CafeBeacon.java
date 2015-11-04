@@ -1,10 +1,12 @@
 package com.example.zee.galvanisemobile.estimote;
 
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -25,9 +27,22 @@ public class CafeBeacon {
 
     private Context context;
     private BeaconManager beaconManager;
+    private BluetoothAdapter bluetoothAdapter;
+    private static boolean promoDiscountClicked = false;
+
+    private static final int REQUEST_ENABLE_BT = 0;
 
     public CafeBeacon(Context context) {
         this.context = context;
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        if (ShoppingCart.getDiscount() >= 0.2) {
+            promoDiscountClicked = true;
+        }
+
+        if(!bluetoothAdapter.isEnabled() && !(isPromoDiscountClicked())) {
+            enableBlueTooth();
+        }
     }
 
     public void setUpBeaconManager() {
@@ -46,10 +61,15 @@ public class CafeBeacon {
         beaconManager.setMonitoringListener(new BeaconManager.MonitoringListener() {
             @Override
             public void onEnteredRegion(Region region, List<Beacon> list) {
-                showNotification(
-                        "Welcome to Galvanise Cafe",
-                        "Check-in to get 20% off your bill");
-                handleBeaconDialog();
+
+                if (!isPromoDiscountClicked()) {
+
+                    showNotification(
+                            "Welcome to Galvanise Cafe",
+                            "Check-in to get 20% off your bill");
+
+                    handleBeaconDialog();
+                }
             }
 
             @Override
@@ -57,6 +77,27 @@ public class CafeBeacon {
 
             }
         });
+    }
+
+    public static int getRequestEnableBt() {
+        return REQUEST_ENABLE_BT;
+    }
+
+    private void enableBlueTooth() {
+
+        Activity activity = (Activity) context;
+
+        Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        activity.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+    }
+
+    public static boolean isPromoDiscountClicked() {
+        return promoDiscountClicked;
+    }
+
+    public static void setPromoDiscountClicked(boolean promoDiscountClicked) {
+
+        CafeBeacon.promoDiscountClicked = promoDiscountClicked;
     }
 
     public void showNotification(String title, String message) {
@@ -86,6 +127,7 @@ public class CafeBeacon {
     public void handleBeaconDialog() {
 
         if (ShoppingCart.getDiscount() <= 0) {
+
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.dialog_beacon_promo);
             dialog.setTitle("Welcome to Galvanise!");
@@ -95,6 +137,7 @@ public class CafeBeacon {
                 @Override
                 public void onClick(View v) {
                     ShoppingCart.setDiscount(0.2);
+                    setPromoDiscountClicked(true);
                     toastDiscount(0.2);
                     dialog.dismiss();
                 }
@@ -104,6 +147,7 @@ public class CafeBeacon {
     }
 
     public void toastDiscount(double discount) {
+
         Toast.makeText(context, "A " + Math.round(discount * 100) + "% discount has been included", Toast.LENGTH_SHORT).show();
     }
 

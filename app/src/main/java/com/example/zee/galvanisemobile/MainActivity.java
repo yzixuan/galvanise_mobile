@@ -1,5 +1,6 @@
 package com.example.zee.galvanisemobile;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -60,14 +61,43 @@ public class MainActivity extends AppCompatActivity {
         setNavigationDrawer();
         getJSONFeed();
 
+        ShoppingCart shoppingCart = new ShoppingCart(this);
+
         if (hasMinRequiredSDK()) {
             cafeBeacon = new CafeBeacon(this);
             cafeBeacon.setUpBeaconManager();
         }
     }
 
-    public List<FoodItem> getFeedsList() {
-        return feedsList;
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+
+        if (extras != null && extras.containsKey("NotificationMessage")) {
+
+            handleIntentFromNotification(intent.getStringExtra("NotificationMessage"));
+            intent.removeExtra("NotificationMessage");
+        }
+
+    }
+
+    private void handleIntentFromNotification(String notification) {
+
+        if (notification.equals("CheckInDiscount") && hasMinRequiredSDK()) {
+
+            if (CafeBeacon.isPromoDiscountClicked()) {
+
+                cafeBeacon.toastDiscount(ShoppingCart.getDiscount());
+
+            } else {
+
+                cafeBeacon.handleBeaconDialog();
+            }
+
+        }
     }
 
     private boolean hasMinRequiredSDK() {
@@ -99,16 +129,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onNewIntent(Intent intent){
+
         Bundle extras = intent.getExtras();
-        if(extras != null){
-            if(extras.containsKey("NotificationMessage") && hasMinRequiredSDK()) {
-                if (ShoppingCart.getDiscount() >= 0.2) {
-                    cafeBeacon.toastDiscount(ShoppingCart.getDiscount());
-                }
-                else {
-                    cafeBeacon.handleBeaconDialog();
-                }
-            }
+
+        if (extras != null && extras.containsKey("NotificationMessage")) {
+
+            handleIntentFromNotification(intent.getStringExtra("NotificationMessage"));
         }
     }
 
@@ -178,6 +204,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public List<FoodItem> getFeedsList() {
+        return feedsList;
+    }
 
     public void getJSONFeed() {
 
@@ -279,4 +308,24 @@ public class MainActivity extends AppCompatActivity {
         feedNotAvailable.setVisibility(View.GONE);
         getJSONFeed();
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == CafeBeacon.getRequestEnableBt()) {
+
+            switch (resultCode) {
+
+                case Activity.RESULT_OK: {
+
+                    Toast.makeText(this, "Go near our cafe's Estimote beacon. Check-in for discounts!", Toast.LENGTH_LONG).show();
+                    break;
+                }
+
+                default:
+                    break;
+            }
+        }
+    }
+
 }

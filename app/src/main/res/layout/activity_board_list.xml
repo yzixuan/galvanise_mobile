@@ -48,15 +48,36 @@
         android:background="@color/primaryColor"
         android:id="@+id/return_to_normal" />
 
-    <TextView
+
+    <!-- Display Loading View When Board Is Being Created And Synced To Firebase !-->
+    <LinearLayout
         android:id="@+id/loadingImage"
-        android:text="@string/loading_drawing_board"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="@color/white"
         android:background="@color/primaryColor"
-        android:textStyle="bold" />
+        android:orientation="vertical" >
+
+        <!-- Progress Bar For Showing The Loading Of Drawing Board !-->
+
+        <TextView
+            android:text="@string/loading_drawing_board"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="100dp"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textColor="@color/white" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="50dp"
+            android:indeterminate="true"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateOnly="true" />
+
+    </LinearLayout>
 
 </RelativeLayout>
