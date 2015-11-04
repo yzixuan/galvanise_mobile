@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -97,7 +98,7 @@ public class CustomLatteActivity extends AppCompatActivity {
 
         if (customFood.getcustomArtId() != null && !customFood.getcustomArtId().isEmpty()) {
 
-            TextView loadingImage = (TextView)findViewById(R.id.loadingImage);
+            LinearLayout loadingImage = (LinearLayout)findViewById(R.id.loadingImage);
             loadingImage.setVisibility(View.INVISIBLE);
 
             returnToNormal.setVisibility(View.VISIBLE);
@@ -202,9 +203,7 @@ public class CustomLatteActivity extends AppCompatActivity {
 
                 boolean connected = (Boolean) dataSnapshot.getValue();
 
-                if (connected) {
-                    Toast.makeText(CustomLatteActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
-                } else {
+                if (!connected) {
                     Log.e(TAG, "Couldn't connect to firebase.");
                 }
             }

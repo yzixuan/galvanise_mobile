@@ -57,6 +57,7 @@ public class DrawingActivity extends ActionBarActivity {
         final String url = intent.getStringExtra("FIREBASE_URL");
         final String boardId = intent.getStringExtra("BOARD_ID");
         Log.i(TAG, "Adding DrawingView on "+url+" for boardId "+boardId);
+
         mFirebaseRef = new Firebase(url);
         mDrawingView.setFirebaseRef(mFirebaseRef.child("boardsegments").child(boardId));
         mBoardId = boardId;
@@ -97,14 +98,10 @@ public class DrawingActivity extends ActionBarActivity {
         super.onStart();
         // Set up a notification to let us know when we're connected or disconnected from the Firebase servers
         mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                boolean connected = (Boolean) dataSnapshot.getValue();
-
-                if (connected) {
-                    Toast.makeText(DrawingActivity.this, "Connected to Firebase", Toast.LENGTH_SHORT).show();
-                }
             }
 
             @Override
@@ -116,10 +113,12 @@ public class DrawingActivity extends ActionBarActivity {
 
     @Override
     public void onStop() {
-        super.onStop();
 
+        super.onStop();
         mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
+
         if (mDrawingView != null) {
+
             mDrawingView.cleanup();
         }
 
@@ -128,11 +127,13 @@ public class DrawingActivity extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         super.onCreateOptionsMenu(menu);
 
         menu.add(0, CLEAR_MENU_ID, 2, "Clear").setShortcut('5', 'x');
 
         for(int i = 0; i < menu.size(); i++) {
+
             MenuItem item = menu.getItem(i);
             SpannableString spanString = new SpannableString(menu.getItem(i).getTitle().toString());
             spanString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spanString.length(), 0);
@@ -144,6 +145,7 @@ public class DrawingActivity extends ActionBarActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+
         super.onPrepareOptionsMenu(menu);
         return true;
     }
@@ -180,6 +182,7 @@ public class DrawingActivity extends ActionBarActivity {
     }
 
     public static void updateThumbnail(int boardWidth, int boardHeight, Firebase segmentsRef, final Firebase metadataRef) {
+
         final float scale = Math.min(2.0f * THUMBNAIL_SIZE / boardWidth, 2.0f * THUMBNAIL_SIZE / boardHeight);
         final Bitmap b = Bitmap.createBitmap(Math.round(boardWidth * scale), Math.round(boardHeight * scale), Bitmap.Config.ARGB_8888);
         final Canvas buffer = new Canvas(b);
@@ -216,6 +219,7 @@ public class DrawingActivity extends ActionBarActivity {
     }
 
     public static String encodeToBase64(Bitmap image) {
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] b = baos.toByteArray();
@@ -225,6 +229,7 @@ public class DrawingActivity extends ActionBarActivity {
     }
 
     public static Bitmap decodeFromBase64(String input) throws IOException {
+
         byte[] decodedByte = com.firebase.client.utilities.Base64.decode(input);
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
     }

@@ -36,7 +36,7 @@
     <string name="custom_latte">  Add Custom Latte Art</string>
     <string name="done_with_custom_art">Done with Custom Art</string>
     <string name="add_custom_to_cart">Add Custom Latte To Order</string>
-    <string name="loading_drawing_board">Loading\nDrawing Board\n...</string>
+    <string name="loading_drawing_board">Loading\nDrawing Board</string>
     <string name="click_to_edit">Click to edit drawing</string>
     <string name="your_latte_art">Your Latte Art</string>
     <string name="customizable">Customizable</string>
