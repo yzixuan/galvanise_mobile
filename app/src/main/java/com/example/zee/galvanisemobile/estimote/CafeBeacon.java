@@ -2,7 +2,6 @@ package com.example.zee.galvanisemobile.estimote;
 
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -37,7 +36,7 @@ public class CafeBeacon {
         this.context = context;
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        if(!bluetoothAdapter.isEnabled()) {
+        if(!bluetoothAdapter.isEnabled() && !(isPromoDiscountClicked())) {
             enableBlueTooth();
         }
     }
@@ -93,6 +92,7 @@ public class CafeBeacon {
     }
 
     public static void setPromoDiscountClicked(boolean promoDiscountClicked) {
+
         CafeBeacon.promoDiscountClicked = promoDiscountClicked;
     }
 
@@ -123,6 +123,7 @@ public class CafeBeacon {
     public void handleBeaconDialog() {
 
         if (ShoppingCart.getDiscount() <= 0) {
+
             final Dialog dialog = new Dialog(context);
             dialog.setContentView(R.layout.dialog_beacon_promo);
             dialog.setTitle("Welcome to Galvanise!");
@@ -142,6 +143,7 @@ public class CafeBeacon {
     }
 
     public void toastDiscount(double discount) {
+
         Toast.makeText(context, "A " + Math.round(discount * 100) + "% discount has been included", Toast.LENGTH_SHORT).show();
     }
 
