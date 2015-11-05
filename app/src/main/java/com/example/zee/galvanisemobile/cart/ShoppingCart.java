@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.estimote.sdk.repackaged.gson_v2_3_1.com.google.gson.Gson;
+import com.example.zee.galvanisemobile.estimote.CafeBeacon;
 import com.example.zee.galvanisemobile.orderitem.OrderItem;
 
 import java.io.Serializable;
@@ -133,6 +134,8 @@ public class ShoppingCart implements Serializable {
     public static void clear() {
         tableNumber = null;
         orderItems.clear();
+        setDiscount(0);
+        CafeBeacon.setPromoDiscountClicked(false);
         updateCartTotal();
     }
 

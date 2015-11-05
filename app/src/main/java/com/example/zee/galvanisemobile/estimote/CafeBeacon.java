@@ -68,7 +68,6 @@ public class CafeBeacon {
                             "Welcome to Galvanise Cafe",
                             "Check-in to get 20% off your bill");
 
-                    handleBeaconDialog();
                 }
             }
 
