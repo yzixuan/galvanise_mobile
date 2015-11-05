@@ -28,7 +28,7 @@ public class PersistentReceiver extends BroadcastReceiver {
         this.context = context;
         Bundle extras = intent.getExtras();
 
-        if(intent.getAction().equals(Intent.ACTION_BATTERY_LOW)) {
+        if(intent.getAction().equals(Intent.ACTION_BATTERY_LOW) || intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED)) {
             showNotification("Your battery is low", "Get a charger from the counter at Galvanise Cafe!");
         }
 
