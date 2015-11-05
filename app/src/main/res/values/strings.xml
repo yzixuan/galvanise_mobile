@@ -45,6 +45,8 @@
     <string name="problem_fetch_data">Couldn\'t Fetch Menu Data</string>
     <string name="check_internet">Please check your Internet connection.</string>
     <string name="try_again">Try Again</string>
+    <string name="borrow_charger">Your phone needs to be recharged, just like how we need caffeine to recharge ourselves. Head over to our counter and borrow a charger from our staff! :)</string>
+    <string name="ok_got_it">OKAY, GOT IT!</string>
 
 
     <string-array name="tabs">

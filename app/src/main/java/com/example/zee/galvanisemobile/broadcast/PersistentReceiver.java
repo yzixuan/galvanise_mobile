@@ -46,6 +46,7 @@ public class PersistentReceiver extends BroadcastReceiver {
 
         Intent notifyIntent = new Intent(context, MainActivity.class);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        notifyIntent.putExtra("NotificationMessage", "BatteryLowStatus");
 
         PendingIntent pendingIntent = PendingIntent.getActivities(context, 0,
                 new Intent[] { notifyIntent}, PendingIntent.FLAG_UPDATE_CURRENT);

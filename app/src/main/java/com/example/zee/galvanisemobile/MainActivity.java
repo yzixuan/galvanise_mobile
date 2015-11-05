@@ -1,6 +1,7 @@
 package com.example.zee.galvanisemobile;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -97,7 +99,27 @@ public class MainActivity extends AppCompatActivity {
                 cafeBeacon.handleBeaconDialog();
             }
 
+        } else if (notification.equals("BatteryLowStatus")) {
+            handleBatteryDialog();
         }
+    }
+
+    public void handleBatteryDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_battery_low_status);
+        dialog.setTitle("Get A Charger From Us!");
+
+        Button okButton = (Button) dialog.findViewById(R.id.button_ok);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
     private boolean hasMinRequiredSDK() {
