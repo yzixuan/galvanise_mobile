@@ -60,7 +60,7 @@ public class CustomLatteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_board_list);
+        setContentView(R.layout.activity_custom_latte);
         setToolbar();
 
         getCustomizableFood();
