@@ -98,19 +98,22 @@
             android:name=".hybrid.BookingActivity"
             android:label="@string/title_activity_booking" >
         </activity>
-
         <activity
             android:name=".drawing.DrawingActivity"
-            android:screenOrientation="sensorPortrait"
-            android:label="Draw Custom Art" >
+            android:label="Draw Custom Art"
+            android:screenOrientation="sensorPortrait" >
         </activity>
         <activity
             android:name=".CustomLatteActivity"
-            android:screenOrientation="sensorPortrait"
-            android:label="Custom Latte Art" >
+            android:label="Custom Latte Art"
+            android:screenOrientation="sensorPortrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".hybrid.CheckCreditActivity"
+            android:label="@string/title_activity_check_credit" >
         </activity>
     </application>
 
