@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -141,10 +142,14 @@ public class CustomLatteActivity extends AppCompatActivity {
             key = customFood.getcustomArtId();
         }
 
+        final ProgressBar miniProgressBar = (ProgressBar) findViewById(R.id.miniProgressBar);
         final ListView boardList = (ListView) this.findViewById(R.id.BoardList);
+
         mBoardListAdapter = new FirebaseDrawingAdapter<HashMap>(mBoardsRef, HashMap.class, R.layout.board_in_list, this, key) {
             @Override
             protected void populateView(View v, HashMap model) {
+
+                miniProgressBar.setVisibility(View.GONE);
 
                 // display the board's thumbnail if it is available
                 ImageView thumbnailView = (ImageView) v.findViewById(R.id.board_thumbnail);

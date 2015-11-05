@@ -33,6 +33,18 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <!-- Progress Bar For Showing The Loading Of Existing Board !-->
+    <ProgressBar
+        android:id="@+id/miniProgressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="50dp"
+        android:layout_below="@+id/foodNameText"
+        android:indeterminate="true"
+        android:indeterminateBehavior="repeat"
+        android:indeterminateOnly="true" />
+
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -57,8 +69,6 @@
         android:background="@color/primaryColor"
         android:orientation="vertical" >
 
-        <!-- Progress Bar For Showing The Loading Of Drawing Board !-->
-
         <TextView
             android:text="@string/loading_drawing_board"
             android:layout_width="match_parent"
@@ -68,6 +78,7 @@
             android:textSize="30sp"
             android:textColor="@color/white" />
 
+        <!-- Progress Bar For Showing The Loading Of Drawing Board !-->
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"

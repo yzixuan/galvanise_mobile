@@ -21,11 +21,16 @@ public class ShoppingCart implements Serializable {
     private static String tableNumber = null;
     private static Context context;
     private static SharedPreferences sharedPreferences;
+    private static boolean loadedFromPreferences = false;
 
     public ShoppingCart(Context ctx) {
         context = ctx;
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        //loadFromPreferences();
+
+        if (!loadedFromPreferences) {
+            loadFromPreferences();
+            loadedFromPreferences = true;
+        }
     }
 
     public static int getNumOfItems() {
@@ -51,7 +56,7 @@ public class ShoppingCart implements Serializable {
     public static void setDiscount(double discount) {
         ShoppingCart.discount = discount;
         setDiscountedPrice();
-        //saveToPreferences();
+        saveToPreferences();
     }
 
     public static double getDiscountedPrice() {
@@ -73,6 +78,7 @@ public class ShoppingCart implements Serializable {
 
     public static void setTableNumber(String tableNumber) {
         ShoppingCart.tableNumber = tableNumber;
+        saveToPreferences();
     }
 
     public static ArrayList<OrderItem> getOrderItems() {
@@ -140,14 +146,17 @@ public class ShoppingCart implements Serializable {
 
             OrderItem currOrder = orderIterator.next();
 
-            tempQuantity += currOrder.getQuantity();
-            tempPrice += currOrder.getFoodItem().getPromoPrice() * currOrder.getQuantity();
+            if (currOrder != null) {
+                tempQuantity += currOrder.getQuantity();
+                tempPrice += currOrder.getFoodItem().getPromoPrice() * currOrder.getQuantity();
+            }
+
         }
 
         numOfItems = tempQuantity;
         totalPrice = tempPrice;
         setDiscountedPrice();
-        //saveToPreferences();
+        saveToPreferences();
     }
 
     public static void removeItem(OrderItem orderItem) {
@@ -162,8 +171,9 @@ public class ShoppingCart implements Serializable {
         prefsEditor.putString("CartTableNumber", tableNumber);
         prefsEditor.putFloat("CartDiscount", (float) discount);
         prefsEditor.putFloat("CartTotalPrice", (float) totalPrice);
-        prefsEditor.putFloat("CartDiscountedPrice", (float)discountedPrice);
+        prefsEditor.putFloat("CartDiscountedPrice", (float) discountedPrice);
         prefsEditor.putInt("CartNumOfItems", numOfItems);
+        prefsEditor.putInt("CartNumOfTypes", orderItems.size());
 
         Gson gson = new Gson();
         for(int i = 0; i < orderItems.size(); i++) {
@@ -182,7 +192,9 @@ public class ShoppingCart implements Serializable {
         discountedPrice =  sharedPreferences.getFloat("CartDiscountedPrice", 0);
         numOfItems = sharedPreferences.getInt("CartNumOfItems", 0);
 
-        for(int i = 0; i < numOfItems; i++) {
+        int numOfTypes = sharedPreferences.getInt("CartNumOfTypes", 0);
+
+        for(int i = 0; i < numOfTypes; i++) {
             String json = sharedPreferences.getString("CartOrderItems_" + i, "");
             Gson gson = new Gson();
             OrderItem orderItem = gson.fromJson(json, OrderItem.class);
