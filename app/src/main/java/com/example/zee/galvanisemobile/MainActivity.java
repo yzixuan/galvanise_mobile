@@ -152,11 +152,13 @@ public class MainActivity extends AppCompatActivity {
         mTabs.setViewPager(mPager);
     }
 
+    // check if version code is at least 18 (Android 4.3 and above)
     private boolean hasMinRequiredSDK() {
 
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2);
     }
 
+    // check the type of notification received
     private void handleIntentFromNotification(String notification) {
 
         if (notification.equals("CheckInDiscount") && hasMinRequiredSDK()) {
@@ -175,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // when a notification regarding low-battery status is received, show this dialog
     public void handleBatteryDialog() {
 
         final Dialog dialog = new Dialog(this);
@@ -193,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // let the user tell their peers about the cafe on various social media & messaging apps
     private void startShareActivity(String subject, String text) {
         try {
             Intent intent = new Intent(android.content.Intent.ACTION_SEND);
@@ -243,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
         new AsyncHttpTask().execute(url);
     }
 
+    // run asynchronous task to parse JSON results
     public class AsyncHttpTask extends AsyncTask<String, Void, Integer> {
 
         @Override
@@ -290,6 +295,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer result) {
 
+            // hide loading progress bar once it's done
             progressBar.setVisibility(View.GONE);
 
             if (result == 1) {
@@ -303,7 +309,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // create food menu item from json data and store in an array to be passed
+    // to each food menu fragment for filtering later on
     private void parseResult(String result) {
+
         try {
             JSONObject response = new JSONObject(result);
 
@@ -330,6 +339,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // let user attempt to get json feed again when it was unavailable previously
     public void onClick_reconnect(View view) {
 
         progressBar.setVisibility(View.VISIBLE);
