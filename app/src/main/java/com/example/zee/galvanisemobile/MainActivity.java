@@ -63,8 +63,11 @@ public class MainActivity extends AppCompatActivity {
         setNavigationDrawer();
         getJSONFeed();
 
+        // initialize shopping cart
         ShoppingCart shoppingCart = new ShoppingCart(this);
 
+        // if device has the minimum-required build version for Estimote to run,
+        // set up Beacon Manager
         if (hasMinRequiredSDK()) {
             cafeBeacon = new CafeBeacon(this);
             cafeBeacon.setUpBeaconManager();
@@ -84,69 +87,6 @@ public class MainActivity extends AppCompatActivity {
             intent.removeExtra("NotificationMessage");
         }
 
-    }
-
-    private void handleIntentFromNotification(String notification) {
-
-        if (notification.equals("CheckInDiscount") && hasMinRequiredSDK()) {
-
-            if (CafeBeacon.isPromoDiscountClicked()) {
-
-                cafeBeacon.toastDiscount(ShoppingCart.getDiscount());
-
-            } else {
-
-                cafeBeacon.handleBeaconDialog();
-            }
-
-        } else if (notification.equals("BatteryLowStatus")) {
-            handleBatteryDialog();
-        }
-    }
-
-    public void handleBatteryDialog() {
-
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_battery_low_status);
-        dialog.setTitle("Get A Charger From Us!");
-
-        Button okButton = (Button) dialog.findViewById(R.id.button_ok);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-
-    }
-
-    private boolean hasMinRequiredSDK() {
-
-        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2);
-    }
-
-    public void setToolbar() {
-
-        toolbar = (Toolbar)findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
-
-    public void setNavigationDrawer() {
-
-        drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
-
-    }
-
-    public void setTabs() {
-
-        mPager = (ViewPager)findViewById(R.id.pager);
-        mPager.setAdapter(new MenuPagerAdapter(getSupportFragmentManager()));
-        mTabs = (SlidingTabLayout)findViewById(R.id.tabs);
-        mTabs.setViewPager(mPager);
     }
 
     @Override
@@ -185,6 +125,72 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // set up custom action bar
+    public void setToolbar() {
+
+        toolbar = (Toolbar)findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    // set up nevigation drawer (a.k.a sidebar menu with hamburger icon)
+    public void setNavigationDrawer() {
+
+        drawerFragment = (NavigationDrawerFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
+
+    }
+
+    // set up tabs for the food menu's various categories
+    public void setTabs() {
+
+        mPager = (ViewPager)findViewById(R.id.pager);
+        mPager.setAdapter(new MenuPagerAdapter(getSupportFragmentManager()));
+        mTabs = (SlidingTabLayout)findViewById(R.id.tabs);
+        mTabs.setViewPager(mPager);
+    }
+
+    private boolean hasMinRequiredSDK() {
+
+        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2);
+    }
+
+    private void handleIntentFromNotification(String notification) {
+
+        if (notification.equals("CheckInDiscount") && hasMinRequiredSDK()) {
+
+            if (CafeBeacon.isPromoDiscountClicked()) {
+
+                cafeBeacon.toastDiscount(ShoppingCart.getDiscount());
+
+            } else {
+
+                cafeBeacon.handleBeaconDialog();
+            }
+
+        } else if (notification.equals("BatteryLowStatus")) {
+            handleBatteryDialog();
+        }
+    }
+
+    public void handleBatteryDialog() {
+
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_battery_low_status);
+        dialog.setTitle("Get A Charger From Us!");
+
+        Button okButton = (Button) dialog.findViewById(R.id.button_ok);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
     private void startShareActivity(String subject, String text) {
@@ -232,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void getJSONFeed() {
 
-        // Downloading data from below url
+        // Download JSON data from this url
         final String url = "http://galvanize.space/catalogs.json";
         new AsyncHttpTask().execute(url);
     }
