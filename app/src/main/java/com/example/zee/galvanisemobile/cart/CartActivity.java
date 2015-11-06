@@ -52,6 +52,8 @@ public class CartActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    // display table number if table number's QR code has been scanned by the user
+    // else, no need to show it
     public void handleTableNumber() {
 
         tableNumberLayout = (LinearLayout)findViewById(R.id.tableNumberLayout);
@@ -90,6 +92,7 @@ public class CartActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // allow user to checkout if the cart has at least 1 item to be paid
     public void setCheckoutVisibility () {
         // empty cart
         if (ShoppingCart.getTotalPrice() <= 0) {
@@ -112,6 +115,7 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
+    // refresh cart info after item quantities are updated or remvoed by the OrderItemAdapter.java
     public void refreshCartInfo() {
 
         cartQuantity.setText("Total No. of Items in Cart: " + ShoppingCart.getNumOfItems());
@@ -119,6 +123,8 @@ public class CartActivity extends AppCompatActivity {
         setCheckoutVisibility();
     }
 
+    // proceed to make payment
+    // scan table number prior to making payment too
     public void onClick_checkout(View view) {
 
         if (ShoppingCart.getTableNumber() == null) {
@@ -131,12 +137,14 @@ public class CartActivity extends AppCompatActivity {
 
     }
 
+    // go back to the food menu to browse food items
     public void onClick_goFoodMenu(View view) {
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    // allow user rescan their table number if the need arises
     public void onClick_rescanQRCode(View view) {
 
         Intent intent = new Intent(this, QrInstructionsActivity.class);
@@ -150,7 +158,7 @@ public class CartActivity extends AppCompatActivity {
         if (requestCode == 1) {
 
             if(resultCode == QrInstructionsActivity.RESULT_OK){
-
+                // display scanned table number in the view
                 ShoppingCart.setTableNumber(data.getStringExtra("tableQRCode"));
                 handleTableNumber();
             }
