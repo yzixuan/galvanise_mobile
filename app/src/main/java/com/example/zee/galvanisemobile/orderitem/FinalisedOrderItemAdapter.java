@@ -34,7 +34,7 @@ public class FinalisedOrderItemAdapter extends RecyclerView.Adapter<FinalisedOrd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = inflater.inflate(R.layout.finalised_cart__card_item, viewGroup, false);
+        View v = inflater.inflate(R.layout.finalised_cart_card_item, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }

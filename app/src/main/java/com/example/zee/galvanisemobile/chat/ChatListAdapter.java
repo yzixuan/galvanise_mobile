@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.zee.galvanisemobile.FirebaseListAdapter;
 import com.example.zee.galvanisemobile.R;
 import com.firebase.client.Query;
 
