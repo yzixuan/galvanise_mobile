@@ -65,8 +65,8 @@ public class NavigationDrawerFragment extends Fragment {
     public static List<NavInfo> getData() {
         List<NavInfo> data = new ArrayList<>();
 
-        int[] icons = {R.drawable.ic_category_food, R.drawable.ic_category_shopping, R.drawable.ic_divider, R.drawable.ic_card_intro, R.drawable.ic_category_atm, R.drawable.ic_category_favorites, R.drawable.ic_card_email, R.drawable.ic_action};
-        String[] titles = {"Cafe Menu", "Your Order", "", "Book Seats", "Check Credits", "About Us","Chat With A Staff", "Settings"};
+        int[] icons = {R.drawable.ic_category_food, R.drawable.ic_category_shopping, R.drawable.ic_divider, R.drawable.ic_card_intro, R.drawable.ic_category_favorites, R.drawable.ic_card_email, R.drawable.ic_action};
+        String[] titles = {"Cafe Menu", "Your Order", "", "Book Seats", "About Us","Chat With A Staff", "Settings"};
 
         for (int i=0; i<titles.length && i < icons.length; i++) {
             NavInfo current = new NavInfo();

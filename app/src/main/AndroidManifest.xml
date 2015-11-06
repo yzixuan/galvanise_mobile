@@ -112,10 +112,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".hybrid.CheckCreditActivity"
-            android:label="@string/title_activity_check_credit" >
-        </activity>
     </application>
 
 </manifest>
