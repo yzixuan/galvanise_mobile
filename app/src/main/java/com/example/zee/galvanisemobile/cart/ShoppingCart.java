@@ -64,7 +64,6 @@ public class ShoppingCart implements Serializable {
         return discountedPrice;
     }
 
-    // this is a private method
     private static void setDiscountedPrice() {
         discountedPrice = totalPrice * (1 - discount);
     }
@@ -167,6 +166,8 @@ public class ShoppingCart implements Serializable {
         updateCartTotal();
     }
 
+    // save shopping cart data to shared preferences to persist it
+    // so users can still access their cart items even after quiting the app or rebooting device
     public static void saveToPreferences() {
 
         SharedPreferences.Editor prefsEditor = sharedPreferences.edit();
@@ -187,6 +188,7 @@ public class ShoppingCart implements Serializable {
         prefsEditor.apply();
     }
 
+    // load any saved shopping cart data from shared preferences
     public void loadFromPreferences() {
 
         tableNumber = sharedPreferences.getString("CartTableNumber", null);

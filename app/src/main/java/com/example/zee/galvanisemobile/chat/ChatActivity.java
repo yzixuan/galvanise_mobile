@@ -57,7 +57,7 @@ public class ChatActivity extends AppCompatActivity {
         setToolbar();
         setupUsername();
 
-        // Setup our input methods. Enter key on the keyboard or pushing the send button
+        // Setup input methods. User can press enter key on the keyboard or push the send button
         EditText inputText = (EditText) findViewById(R.id.messageInput);
         inputText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -114,6 +114,7 @@ public class ChatActivity extends AppCompatActivity {
         mChatListAdapter.cleanup();
     }
 
+    // Get username that has already been saved in the device (if any), or create a new one
     private void setupUsername() {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -134,14 +135,13 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
+    // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
     private void setupFirebaseAdapter() {
 
-        // Setup our view and list adapter. Ensure it scrolls to the bottom as data changes
         final ListView listView = (ListView)findViewById(R.id.list);
-        // Tell our list adapter that we only want 50 messages at a time
 
         try {
-
+            // Tell our list adapter that we only want 50 messages at a time
             mChatListAdapter = new ChatListAdapter(this, mFirebaseRef.limit(50), this, R.layout.chat_message, mUsername);
             listView.setAdapter(mChatListAdapter);
             mChatListAdapter.registerDataSetObserver(new DataSetObserver() {
@@ -188,6 +188,7 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    // Send non-empty text messages
     private void sendMessage() {
 
         EditText inputText = (EditText) findViewById(R.id.messageInput);
@@ -201,6 +202,7 @@ public class ChatActivity extends AppCompatActivity {
         }
     }
 
+    // Provide user an option to reconnect if there was no connection previously
     public void onClick_reconnect(View view) {
 
         progressBar.setVisibility(View.VISIBLE);

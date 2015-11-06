@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setNavigationDrawer();
         getJSONFeed();
 
-        // initialize shopping cart
+        // initialize shopping cart to get it to load data from shared preferences asap
         ShoppingCart shoppingCart = new ShoppingCart(this);
 
         // if device has the minimum-required build version for Estimote to run,
