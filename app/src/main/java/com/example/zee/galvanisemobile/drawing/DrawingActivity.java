@@ -96,7 +96,7 @@ public class DrawingActivity extends ActionBarActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Set up a notification to let us know when we're connected or disconnected from the Firebase servers
+        // connect to the Firebase server
         mConnectedListener = mFirebaseRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -115,10 +115,11 @@ public class DrawingActivity extends ActionBarActivity {
     public void onStop() {
 
         super.onStop();
+        // remove the Firebase listener once the activity stops
         mFirebaseRef.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
 
         if (mDrawingView != null) {
-
+            // clear the drawing board
             mDrawingView.cleanup();
         }
 
@@ -133,7 +134,8 @@ public class DrawingActivity extends ActionBarActivity {
         menu.add(0, CLEAR_MENU_ID, 2, "Clear").setShortcut('5', 'x');
 
         for(int i = 0; i < menu.size(); i++) {
-
+            // make the option text white in color (it was originally black)
+            // need to set it here instead of inside styles.xml, else it would affect other menus
             MenuItem item = menu.getItem(i);
             SpannableString spanString = new SpannableString(menu.getItem(i).getTitle().toString());
             spanString.setSpan(new ForegroundColorSpan(Color.BLACK), 0, spanString.length(), 0);
@@ -162,6 +164,7 @@ public class DrawingActivity extends ActionBarActivity {
 
         }
 
+        // when user clicks on "CLEAR" from the top right option, clear the drawing board
         if (id == CLEAR_MENU_ID) {
             mDrawingView.clear();
             mDrawingView.cleanup();
@@ -193,6 +196,7 @@ public class DrawingActivity extends ActionBarActivity {
         segmentsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot segmentSnapshot : dataSnapshot.getChildren()) {
                     Segment segment = segmentSnapshot.getValue(Segment.class);
                     buffer.drawPath(
@@ -200,6 +204,7 @@ public class DrawingActivity extends ActionBarActivity {
                             DrawingView.paintFromColor(segment.getColor())
                     );
                 }
+
                 String encoded = encodeToBase64(b);
                 metadataRef.child("thumbnail").setValue(encoded, new Firebase.CompletionListener() {
                     @Override
@@ -217,7 +222,8 @@ public class DrawingActivity extends ActionBarActivity {
             }
         });
     }
-
+    
+    // store the latte art image into a string to be saved to the server
     public static String encodeToBase64(Bitmap image) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -228,6 +234,7 @@ public class DrawingActivity extends ActionBarActivity {
         return imageEncoded;
     }
 
+    // get the latte art image from the string stored in Firebase server earlier
     public static Bitmap decodeFromBase64(String input) throws IOException {
 
         byte[] decodedByte = com.firebase.client.utilities.Base64.decode(input);

@@ -149,6 +149,7 @@ public class CustomLatteActivity extends AppCompatActivity {
             @Override
             protected void populateView(View v, HashMap model) {
 
+                // remove the rotating progress circle
                 miniProgressBar.setVisibility(View.GONE);
 
                 // display the board's thumbnail if it is available
@@ -180,6 +181,7 @@ public class CustomLatteActivity extends AppCompatActivity {
 
             }
         };
+
         boardList.setAdapter(mBoardListAdapter);
         boardList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -187,6 +189,7 @@ public class CustomLatteActivity extends AppCompatActivity {
                 openBoard(mBoardListAdapter.getModelKey(position));
             }
         });
+
         mBoardListAdapter.registerDataSetObserver(new DataSetObserver() {
             @Override
             public void onChanged() {
@@ -201,7 +204,7 @@ public class CustomLatteActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // Set up a notification to let us know when we're connected or disconnected from the Firebase servers
+        // Set up a listener to connect to the Firebase servers
         mConnectedListener = mRef.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -232,7 +235,8 @@ public class CustomLatteActivity extends AppCompatActivity {
     }
 
     private void createBoard() {
-        // create a new board
+
+        // create a new drawing board
         final Firebase newBoardRef = mBoardsRef.push();
         Map<String, Object> newBoardValues = new HashMap<>();
         newBoardValues.put("createdAt", ServerValue.TIMESTAMP);
@@ -249,7 +253,7 @@ public class CustomLatteActivity extends AppCompatActivity {
                     throw firebaseError.toException();
 
                 } else {
-                    // once the board is created, start a DrawingActivity on it
+                    // once the board is created, save the key and start a DrawingActivity on it
                     key = newBoardRef.getKey();
                     customFood.setcustomArtId(key);
                     mBoardListAdapter.changeStringKey(ref, key);
