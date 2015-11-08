@@ -30,6 +30,8 @@ public class PrePayPalActivity extends AppCompatActivity {
 
     private static final String TAG = "paymentExample";
     private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK;
+
+    // PayPal client ID
     private static final String CONFIG_CLIENT_ID = "AT2SexMbi7MsC4b2Ibcy7fDbfjhd_GFmhCu8QGq8VhAFO6MNfyKFT9-XPAjFeywfU9J1akayou-BXP-i";
 
     private static final int REQUEST_CODE_PAYMENT = 1;
@@ -137,6 +139,7 @@ public class PrePayPalActivity extends AppCompatActivity {
                         Log.i(TAG, confirm.toJSONObject().toString(4));
                         Log.i(TAG, confirm.getPayment().toJSONObject().toString(4));
 
+                        // go the successful payment activity once order is successful
                         Intent intent = new Intent(this, SuccessfulPaymentActivity.class);
                         startActivity(intent);
 
