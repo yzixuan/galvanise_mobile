@@ -33,6 +33,7 @@ public class BookingActivity extends AppCompatActivity {
         loadWebViewLoad(webView);
     }
 
+    // set webview to load external url
     private void loadWebViewLoad(WebView webview) {
         webview.getSettings().setJavaScriptEnabled(true);
         webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);

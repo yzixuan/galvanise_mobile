@@ -3,12 +3,14 @@ package com.example.zee.galvanisemobile.chat;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.*;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,9 +26,6 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import android.os.Handler;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -204,7 +203,6 @@ public class ChatActivity extends AppCompatActivity {
 
     // Provide user an option to reconnect if there was no connection previously
     public void onClick_reconnect(View view) {
-
         progressBar.setVisibility(View.VISIBLE);
         feedNotAvailable.setVisibility(View.GONE);
         setupFirebaseAdapter();

@@ -20,8 +20,10 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
+        // set toolbar on our view
         setToolbar();
 
+        // create a web view to load our hybrid view
         WebView wv = (WebView)findViewById(R.id.webView1);
         wv.getSettings().setJavaScriptEnabled(true);
         wv.setWebChromeClient(new WebChromeClient());

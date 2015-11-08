@@ -47,6 +47,7 @@ public class ChatListAdapter extends FirebaseListAdapter<Chat> {
 
             if (author.equals(mUsername)) {
 
+                // If the message was sent by user, set name as "you" for easy diffentiation of roles
                 authorText.setText("You:");
                 authorText.setTextColor(context.getResources().getColor(R.color.primaryColor));
                 authorAvatar.setImageResource(R.drawable.ic_chat_user);

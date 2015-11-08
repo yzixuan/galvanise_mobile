@@ -53,6 +53,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
         mInflater = activity.getLayoutInflater();
         mModels = new ArrayList<T>();
         mKeys = new ArrayList<String>();
+
         // Look for all child events. We will then map them to our own internal ArrayList, which backs ListView
         mListener = this.mRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -80,6 +81,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
                 notifyDataSetChanged();
             }
 
+            // polls for change on updated chat posts and bind them to view
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 // One of the mModels changed. Replace it in our list and name mapping
@@ -92,6 +94,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
                 notifyDataSetChanged();
             }
 
+            // polls for change on deleted chat posts and bind them to view
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
 
@@ -108,7 +111,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
 
-                // A model changed position in the list. Update our list accordingly
+                // polls for changes in our chat backend and binds them to view
                 String key = dataSnapshot.getKey();
                 T newModel = dataSnapshot.getValue(FirebaseListAdapter.this.mModelClass);
                 int index = mKeys.indexOf(key);

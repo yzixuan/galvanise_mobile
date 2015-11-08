@@ -46,6 +46,7 @@ public class DrawingView extends View {
         mOutstandingSegments = new HashSet<String>();
         mPath = new Path();
 
+        // controls the paint and strokeWidth of drawing
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setDither(true);
