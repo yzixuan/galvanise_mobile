@@ -111,6 +111,7 @@ public class FoodItem implements Parcelable, Cloneable {
 
     public void setCustomizableBasedOnId(int id) {
 
+        // Green Tea Latte or Mocha Latte
         if (id == 10 || id == 20 )
             this.customizable = true;
     }

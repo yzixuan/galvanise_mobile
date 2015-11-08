@@ -22,9 +22,6 @@ import com.example.zee.galvanisemobile.foodmenu.FoodItem;
 
 import java.util.List;
 
-/**
- * Created by zee on 10/10/15.
- */
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.ViewHolder> {
 
     List<OrderItem> orderItems;
@@ -61,6 +58,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.View
         viewHolder.orderSubtotal.setText("Item Subtotal: $" + String.format("%.2f", orderItems.get(i).getQuantity()* foodItem.getPromoPrice()));
         viewHolder.itemView.setTag(orderItems.get(i));
 
+        // check if this is a customizable food item
         if (foodItem.getcustomArtId() == null || foodItem.getcustomArtId().isEmpty()) {
 
             viewHolder.customArtLabel.setVisibility(View.GONE);

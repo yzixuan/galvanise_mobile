@@ -57,6 +57,7 @@ public class FoodMenuFragment extends Fragment {
 
         if (bundle != null) {
 
+            // determine the tab category for filtering the food menu
             tabPosition = bundle.getInt("position");
         }
 
@@ -73,7 +74,7 @@ public class FoodMenuFragment extends Fragment {
         return layout;
     }
 
-
+    // get the right category of food from the full menu
     private void filterList() {
 
         filteredFeedsList = new ArrayList<FoodItem>();

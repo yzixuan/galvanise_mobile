@@ -36,7 +36,7 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_successful_payment);
 
-        setPaymentDateTime();
+        setReceiptDateTime();
         generateReceiptObject();
         clearCart();
     }
@@ -63,6 +63,7 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // create a receipt to display payment details and for sending SMS later on
     private void generateReceiptObject() {
         Calendar calendar = Calendar.getInstance();
         receipt = new ReceiptItem(calendar.getTime());
@@ -78,7 +79,7 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
         sendSMSReceipt();
     }
 
-    private void setPaymentDateTime() {
+    private void setReceiptDateTime() {
         paymentDateTime = (TextView)findViewById(R.id.receipt_date_time);
 
         Calendar calendar = Calendar.getInstance();
@@ -96,6 +97,7 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
+        // get sms details that user has set
         boolean smsPermission = preferences.getBoolean("SMSPermission", false);
         String savedNumber = preferences.getString("PhoneNumber", "");
 
@@ -144,11 +146,13 @@ public class SuccessfulPaymentActivity extends AppCompatActivity {
         return orderItemsText.concat(overallPayment);
     }
 
+    // empty the shopping cart
     private void clearCart() {
         CafeBeacon.setPromoDiscountClicked(false);
         ShoppingCart.clear();
     }
 
+    // go back to the food menu in main activity
     public void onClick_goMain(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
